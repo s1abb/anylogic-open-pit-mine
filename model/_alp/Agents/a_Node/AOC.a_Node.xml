@@ -4,7 +4,8 @@
 	<Name><![CDATA[a_Node]]></Name>
 	<AdditionalClassCode xmlns:al="http://anylogic.com"/>
 	<Import><![CDATA[import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;]]></Import>
+import org.apache.logging.log4j.Logger;
+import javax.swing.JOptionPane;]]></Import>
 	<Implements>IDataDriver</Implements>
 	<Generic>false</Generic>
 	<GenericParameter>
@@ -180,7 +181,6 @@ import org.apache.logging.log4j.Logger;]]></Import>
 			<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
 			<Z>0</Z>
 			<LevelVisibility>DIM_NON_CURRENT</LevelVisibility>
-			<Presentation xmlns:al="http://anylogic.com"/>
 		</Level>
 	</Presentation>
 </ActiveObjectClass>

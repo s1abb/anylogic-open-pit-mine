@@ -9,8 +9,11 @@ import com.anylogic.engine.markup.Path;
 import com.anylogic.engine.markup.PointNode;
 import com.anylogic.engine.markup.Network;
 import com.anylogic.engine.markup.Level;
+import com.anylogic.engine.presentation.LineStyle;
+import com.anylogic.engine.presentation.ShapeOval;
 import com.anylogic.engine.presentation.ShapeText;
 import com.anylogic.engine.presentation.ShapeTopLevelPresentationGroup;
+import com.anylogic.engine.presentation.TextAlignment;
 
 // Java
 import java.awt.Color;
@@ -26,6 +29,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import javax.swing.JOptionPane;
 
 // Log4j
 import org.apache.logging.log4j.LogManager;

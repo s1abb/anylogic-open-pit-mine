@@ -77,44 +77,89 @@ public void initializeNetwork() {
     logger.info("Initializing network visualization with {} nodes and {} edges", this.p_Nodes.size(), this.p_Edges.size());
     this.v_Network = new Network(this, "myNetwork");
     this.v_Level = new Level(this, "myNetworkLevel", this.SHAPE_DRAW_2D3D, 0);
-    
+
     validateNodeReferences();
-    
+
     Map<String, a_Node> nodeMap = new HashMap<>();
-    
+
+    // Shared label used to show details of whichever node was last clicked
+    this.v_InfoText = new ShapeText();
+    this.v_InfoText.setDrawMode(this.SHAPE_DRAW_2D3D);
+    this.v_InfoText.setColor(Color.BLACK);
+    this.v_InfoText.setText("");
+    this.v_InfoText.setVisible(false);
+
     for (a_Node node : this.p_Nodes) {
         if (node == null || node.id == null) continue;
-        
+
         node.v_PointNode = new PointNode(node, node.x, node.y, node.z);
         node.v_PointNode.setLineColor(dodgerBlue);
         node.v_PointNode.setRadius(4);
-        
+
         this.v_Network.add(node.v_PointNode);
         nodeMap.put(node.id, node);
+
+        // Clickable marker shape showing this node's details, toggled on repeat click
+        final a_Node n = node; // effectively final for the anonymous class below
+
+        ShapeOval marker = new ShapeOval() {
+            @Override
+            public boolean onClick(double clickx, double clicky) {
+                if (v_SelectedNode == n && v_InfoText.isVisible()) {
+                    // second click on the same node -> hide
+                    v_InfoText.setVisible(false);
+                    v_SelectedNode = null;
+                } else {
+                    // first click, or a different node -> show its details
+                    v_InfoText.setText(
+                        "Name: " + n.name + "\n" +
+                        "X: " + n.x + "\n" +
+                        "Y: " + n.y + "\n" +
+                        "Z: " + n.z
+                    );
+                    v_InfoText.setPos(n.x, n.y + 5);
+                    v_InfoText.setZ(n.z);
+                    v_InfoText.setVisible(true);
+                    v_SelectedNode = n;
+                }
+                return true;
+            }
+        };
+
+        marker.setDrawMode(this.SHAPE_DRAW_2D3D);
+        marker.setPos(n.x, n.y);
+        marker.setZ(n.z);
+        marker.setRadiusX(3);
+        marker.setRadiusY(3);
+        marker.setFillColor(Color.RED);   // distinct from dodgerBlue PointNode so it's not blending in
+        marker.setLineColor(Color.BLACK);
+
+        this.v_Level.add(marker);
     }
-    
+
+    this.v_Level.add(this.v_InfoText);
     this.v_Level.add(this.v_Network);
-    
+
     for (a_Edge edge : this.p_Edges) {
         if (edge == null || edge.startNodeId == null || edge.endNodeId == null) continue;
-        
+
         a_Node startNode = nodeMap.get(edge.startNodeId);
         a_Node endNode = nodeMap.get(edge.endNodeId);
-        
+
         if (startNode == null || endNode == null) continue;
-        
+
         edge.v_Path = new Path(edge);
         edge.v_Path.setBidirectional(edge.bidirectional);
         edge.v_Path.setSource(startNode.v_PointNode);
         edge.v_Path.setTarget(endNode.v_PointNode);
-        
+
         if (edge.vertices != null && !edge.vertices.isEmpty()) {
             a_Edge.VertexPoint firstVertex = edge.vertices.get(0);
             edge.v_Path.addSegment(new MarkupSegmentLine(
                 startNode.x, startNode.y, startNode.z,
                 firstVertex.x, firstVertex.y, firstVertex.z
             ));
-            
+
             for (int i = 0; i < edge.vertices.size() - 1; i++) {
                 a_Edge.VertexPoint v1 = edge.vertices.get(i);
                 a_Edge.VertexPoint v2 = edge.vertices.get(i + 1);
@@ -122,7 +167,7 @@ public void initializeNetwork() {
                     v1.x, v1.y, v1.z, v2.x, v2.y, v2.z
                 ));
             }
-            
+
             a_Edge.VertexPoint lastVertex = edge.vertices.get(edge.vertices.size() - 1);
             edge.v_Path.addSegment(new MarkupSegmentLine(
                 lastVertex.x, lastVertex.y, lastVertex.z,
@@ -134,13 +179,13 @@ public void initializeNetwork() {
                 endNode.x, endNode.y, endNode.z
             ));
         }
-        
+
         edge.v_Path.setLineColor(dodgerBlue);
         edge.v_Path.setLineWidth(2.0);
-        
+
         this.v_Network.add(edge.v_Path);
     }
-    
+
     this.v_Level.initialize();
     logger.info("Network visualization created successfully with {} nodes and {} edges", this.p_Nodes.size(), this.p_Edges.size());
     traceln("INFO: Network initialized with " + this.p_Nodes.size() + " nodes and " + this.p_Edges.size() + " edges");
