@@ -55,9 +55,7 @@ try {
 } catch (InputException e) {
     logger.error("Error loading loading points CSV: {}", e.getMessage(), e);
     traceln("Error loading loading points CSV: " + e.getMessage());
-}
-loadingPointsDriver.callOnParametersSet();
-loadingPointsDriver.callOnRunStarted();]]></StartupCode>
+}]]></StartupCode>
 	<Generic>false</Generic>
 	<GenericParameter>
 		<Id>1769735506123</Id>
