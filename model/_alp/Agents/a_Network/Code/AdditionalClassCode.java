@@ -184,6 +184,40 @@ public void initializeNetwork() {
         edge.v_Path.setLineWidth(2.0);
 
         this.v_Network.add(edge.v_Path);
+
+        // Direction arrow for one-way edges, drawn at the edge's midpoint
+        if (!edge.bidirectional) {
+            double midX = (startNode.x + endNode.x) / 2.0;
+            double midY = (startNode.y + endNode.y) / 2.0;
+            double midZ = (startNode.z + endNode.z) / 2.0;
+
+            double dirX = endNode.x - startNode.x;
+            double dirY = endNode.y - startNode.y;
+            double dirZ = endNode.z - startNode.z;
+            double len = Math.sqrt(dirX * dirX + dirY * dirY + dirZ * dirZ);
+
+            if (len > 0) {
+                double arrowLen = 20; // tune to your network's scale
+                double ux = dirX / len, uy = dirY / len, uz = dirZ / len;
+
+                double startX = midX - ux * arrowLen / 2;
+                double startY = midY - uy * arrowLen / 2;
+                double startZ = midZ - uz * arrowLen / 2;
+
+                ShapeArrowLine directionArrow = new ShapeArrowLine(
+                    this.SHAPE_DRAW_2D3D, true,
+                    startX, startY, startZ,
+                    Color.BLACK,
+                    ux * arrowLen, uy * arrowLen, uz * arrowLen,
+                    2, 0,
+                    LINE_STYLE_SOLID,
+                    ARROW_NONE, 0, 4, 3,
+                    ARROW_FILLED, 0, 4, 3
+                );
+
+                this.v_Level.add(directionArrow);
+            }
+        }
     }
 
     this.v_Level.initialize();

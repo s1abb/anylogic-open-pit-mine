@@ -10,6 +10,7 @@ import com.anylogic.engine.markup.PointNode;
 import com.anylogic.engine.markup.Network;
 import com.anylogic.engine.markup.Level;
 import com.anylogic.engine.presentation.LineStyle;
+import com.anylogic.engine.presentation.ShapeArrowLine;
 import com.anylogic.engine.presentation.ShapeOval;
 import com.anylogic.engine.presentation.ShapeText;
 import com.anylogic.engine.presentation.ShapeTopLevelPresentationGroup;

@@ -20,7 +20,7 @@
 		<LineColor>-16777216</LineColor>
 		<LineMaterial>null</LineMaterial>
 		<LineStyle>SOLID</LineStyle>
-		<RadiusX>40</RadiusX>
+		<RadiusX>10</RadiusX>
 		<RadiusY>40</RadiusY>
 		<Rotation>0.0</Rotation>
 		<FillColor>-1</FillColor>
