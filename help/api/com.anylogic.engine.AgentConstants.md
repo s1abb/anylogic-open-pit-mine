@@ -1,0 +1,258 @@
+# Interface: AgentConstants
+
+## All Known Implementing Classes
+- Agent
+- Experiment
+- ExperimentCompareRuns
+- ExperimentMultipleRuns
+- ExperimentOptimization
+- ExperimentParamVariation
+- ExperimentRunFast
+- ExperimentSimulation
+- FlowchartBlock
+- Utilities
+
+## Field Summary
+
+| Modifier and Type | Field | Description |
+|-------------------|-------|-------------|
+- `static final AgentOrientation` **AGENT_ORIENTATION_FRONT** —
+- `static final AgentOrientation` **AGENT_ORIENTATION_LEFT** —
+- `static final AgentOrientation` **AGENT_ORIENTATION_REAR** —
+- `static final AgentOrientation` **AGENT_ORIENTATION_RIGHT** —
+- `static final MessageDeliveryType` **ALL** —
+- `static final MessageDeliveryType` **ALL_CONNECTED** —
+- `static final MessageDeliveryType` **ALL_NEIGHBORS** This destination type is available only in discrete agents
+- `static final AreaAccessRestrictionType` **AREA_ACCESS_RESTRICTION_BY_CAPACITY** —
+- `static final AreaAccessRestrictionType` **AREA_ACCESS_RESTRICTION_BY_CONDITION** —
+- `static final AreaAccessRestrictionType` **AREA_ACCESS_RESTRICTION_BY_SCHEDULE** —
+- `static final AreaAccessRestrictionType` **AREA_ACCESS_RESTRICTION_BY_THROUGHPUT** —
+- `static final AreaAccessRestrictionType` **AREA_ACCESS_RESTRICTION_MANUAL** —
+- `static final LengthUnits` **CENTIMETER** —
+- `static final ConveyorDirection` **CONVEYOR_BACKWARD** —
+- `static final ConveyorCustomStationAgentLocation` **CONVEYOR_CUSTOM_STATION_AGENT_LOCATION_CENTER** —
+- `static final ConveyorCustomStationAgentLocation` **CONVEYOR_CUSTOM_STATION_AGENT_LOCATION_NEAR_CONVEYOR** —
+- `static final ConveyorCustomStationAgentLocation` **CONVEYOR_CUSTOM_STATION_AGENT_LOCATION_RANDOM** —
+- `static final ConveyorDirection` **CONVEYOR_FORWARD** —
+- `static final ConveyorSimpleStationDelayType` **CONVEYOR_SIMPLE_STATION_DELAY_TYPE_MANUAL** —
+- `static final ConveyorSimpleStationDelayType` **CONVEYOR_SIMPLE_STATION_DELAY_TYPE_TIMEOUT** —
+- `static final ConveyorType` **CONVEYOR_TYPE_BELT** —
+- `static final ConveyorType` **CONVEYOR_TYPE_CELL** —
+- `static final ConveyorType` **CONVEYOR_TYPE_ROLLER** —
+- `static final AmountUnits` **CUBIC_METER** —
+- `static final FlowRateUnits` **CUBIC_METER_PER_SECOND** —
+- `static final DensityMapColorScheme` **CUSTOM_COLOR_SCHEME** —
+- `static final TimeUnits` **DAY** —
+- `static final RotationSpeedUnits` **DEG_PER_SECOND** —
+- `static final AngleUnits` **DEGREE** —
+- `static final DensityMapDisplayedValue` **DENSITY_VALUE_MAX** —
+- `static final DensityMapDisplayedValue` **DENSITY_VALUE_MEAN** —
+- `static final CellDirection` **EAST** —
+- `static final ElevatorDirection` **ELEVATOR_DIRECTION_DOWN** —
+- `static final ElevatorDirection` **ELEVATOR_DIRECTION_NONE** —
+- `static final ElevatorDirection` **ELEVATOR_DIRECTION_UP** —
+- `static final ElevatorDoor` **ELEVATOR_DOOR_FRONT** —
+- `static final ElevatorDoor` **ELEVATOR_DOOR_REAR** —
+- `static final ElevatorDoorsConfiguration` **ELEVATOR_DOORS_FRONT** —
+- `static final ElevatorDoorsConfiguration` **ELEVATOR_DOORS_FRONT_REAR**
+- `static final ElevatorDoorsConfiguration` **ELEVATOR_DOORS_FRONT_REAR_XJAL**
+- `static final ElevatorDoorsConfiguration` **ELEVATOR_DOORS_FRONT_XJAL**
+- `static final ElevatorMovementMode` **ELEVATOR_MOVEMENT_BY_SPEED**
+- `static final ElevatorMovementMode` **ELEVATOR_MOVEMENT_BY_TIME_PER_LEVEL**
+- `static final ElevatorState` **ELEVATOR_STATE_FAILED**
+- `static final ElevatorState` **ELEVATOR_STATE_IDLE**
+- `static final ElevatorState` **ELEVATOR_STATE_LOADING**
+- `static final ElevatorState` **ELEVATOR_STATE_MOVING**
+- `static final EscalatorPedestrianBehavior` **ESCALATOR_STAY_ALL**
+- `static final EscalatorPedestrianBehavior` **ESCALATOR_WALK_ALL**
+- `static final EscalatorPedestrianBehavior` **ESCALATOR_WALK_ON_LEFT_SIDE**
+- `static final EscalatorPedestrianBehavior` **ESCALATOR_WALK_ON_RIGHT_SIDE**
+- `static final EventTimeout.Mode` **EVENT_TIMEOUT_MODE_CYCLIC**
+- `static final EventTimeout.Mode` **EVENT_TIMEOUT_MODE_ONCE**
+- `static final EventTimeout.Mode` **EVENT_TIMEOUT_MODE_USER**
+- `static final ExceededQueuePolicy` **EXCEEDED_QUEUE_CROWD_ROUND_AT_THE_END**
+- `static final ExceededQueuePolicy` **EXCEEDED_QUEUE_EXTEND_TO_THE_FREE_SPACE**
+- `static final Class<ExtAgentContinuous>` **EXT_AGENT_CONTINUOUS**
+- `static final Class<ExtAgentDiscrete>` **EXT_AGENT_DISCRETE**
+- `static final Class<ExtAgentGIS>` **EXT_AGENT_GIS**
+- `static final Class<ExtAgentInteractive>` **EXT_AGENT_INTERACTIVE**
+- `static final Class<ExtAgentWithSpatialMetrics>` **EXT_AGENT_NETWORK**
+- `static final Class<ExtEntity>` **EXT_ENTITY**
+- `static final Class<ExtEnvironmentContinuous>` **EXT_ENVIRONMENT_CONTINUOUS**
+- `static final Class<ExtEnvironmentDiscrete>` **EXT_ENVIRONMENT_DISCRETE**
+- `static final Class<ExtEnvironmentGIS>` **EXT_ENVIRONMENT_GIS**
+- `static final Class<ExtEnvironmentInteractive>` **EXT_ENVIRONMENT_INTERACTIVE**
+- `static final Class<ExtSpace>` **EXT_SPACE**
+- `static final FlowStatisticsDirection` **FLOW_STATISTICS_BOTH**
+- `static final FlowStatisticsDirection` **FLOW_STATISTICS_LEFT**
+- `static final FlowStatisticsDirection` **FLOW_STATISTICS_RIGHT**
+- `static final LengthUnits` **FOOT**
+- `static final SpeedUnits` **FPM**
+- `static final SpeedUnits` **FPS**
+- `static final AccelerationUnits` **FPS_SQ**
+- `static final TimeUnits` **HOUR**
+- `static final LengthUnits` **INCH**
+- `static final JibCraneDrawingType` **JIB_CRANE_CAT_HEAD**
+- `static final JibCraneDrawingType` **JIB_CRANE_FLAT_TOP**
+- `static final JibCraneDrawingType` **JIB_CRANE_INDUSTRIAL**
+- `static final JibCraneMovementMode` **JIB_CRANE_MOVEMENT_CONCURRENT**
+- `static final JibCraneMovementMode` **JIB_CRANE_MOVEMENT_STEP_BY_STEP**
+- `static final AmountUnits` **KILOGRAM**
+- `static final FlowRateUnits` **KILOGRAM_PER_SECOND**
+- `static final LengthUnits` **KILOMETER**
+- `static final SpeedUnits` **KN**
+- `static final SpeedUnits` **KPH**
+- `static final LiftPlatformDrawingType` **LIFT_PLATFORM_FLAT**
+- `static final LiftPlatformDrawingType` **LIFT_PLATFORM_ROLLER**
+- `static final LiftSelectionMode` **LIFT_SELECTION_MODE_COMPARISON**
+- `static final LiftSelectionMode` **LIFT_SELECTION_MODE_FIFO**
+- `static final LiftSelectionMode` **LIFT_SELECTION_MODE_PRIORITY**
+- `static final DensityMapColorScheme` **LINEAR_COLOR_SCHEME**
+- `static final AmountUnits` **LITER**
+- `static final FlowRateUnits` **LITER_PER_SECOND**
+- `static final DensityMapColorScheme` **LOGARITHMIC_COLOR_SCHEME**
+- `static final LengthUnits` **METER**
+- `static final LengthUnits` **MILE**
+- `static final LengthUnits` **MILLIMETER**
+- `static final TimeUnits` **MILLISECOND**
+- `static final TimeUnits` **MINUTE**
+- `static final TimeUnits` **MONTH**
+- `static final SpeedUnits` **MPH**
+- `static final SpeedUnits` **MPS**
+- `static final AccelerationUnits` **MPS_SQ**
+- `static final LengthUnits` **NAUTICAL_MILE**
+- `static final CellDirection` **NORTH**
+- `static final CellDirection` **NORTHEAST**
+- `static final CellDirection` **NORTHWEST**
+- `static final Object3DInternalLighting` **OBJECT_3D_INTERNAL_LIGHTING_GLOBAL**
+- `static final Object3DInternalLighting` **OBJECT_3D_INTERNAL_LIGHTING_INSIDE**
+- `static final Object3DInternalLighting` **OBJECT_3D_INTERNAL_LIGHTING_OFF**
+- `static final Object3DAxisOrder` **OBJECT_3D_XYZ_AXIS_ORDER**
+- `static final Object3DAxisOrder` **OBJECT_3D_YZX_AXIS_ORDER**
+- `static final Object3DAxisOrder` **OBJECT_3D_ZXY_AXIS_ORDER**
+- `static final AmountUnits` **OIL_BARREL**
+- `static final FlowRateUnits` **OIL_BARREL_PER_SECOND**
+- `static final OverheadCraneDrawingType` **OVERHEAD_CRANE_BRIDGE**
+- `static final OverheadCraneDrawingType` **OVERHEAD_CRANE_GANTRY**
+- `static final OverheadCraneGirderDrawingType` **OVERHEAD_CRANE_GIRDER_DOUBLE_TIE**
+- `static final OverheadCraneGirderDrawingType` **OVERHEAD_CRANE_GIRDER_SINGLE_FLAT**
+- `static final OverheadCraneMovementMode` **OVERHEAD_CRANE_MOVEMENT_CONCURRENT**
+- `static final OverheadCraneMovementMode` **OVERHEAD_CRANE_MOVEMENT_INDEPENDENT_HOIST**
+- `static final OverheadCraneMovementMode` **OVERHEAD_CRANE_MOVEMENT_STEP_BY_STEP**
+- `static final PalletRackDirection` **PALLET_RACK_LEFT_TO_RIGHT**
+- `static final PalletRackDirection` **PALLET_RACK_NO_DIRECTION**
+- `static final PalletRackDirection` **PALLET_RACK_RIGHT_TO_LEFT**
+- `static final PalletRackType` **PALLET_RACK_SINGLE_AISLE_LEFT**
+- `static final PalletRackType` **PALLET_RACK_SINGLE_AISLE_RIGHT**
+- `static final PalletRackType` **PALLET_RACK_TWO_AISLES**
+- `static final PalletRackType` **PALLET_RACK_TWO_PALLET_RACKS**
+- `static final ParkingLotType` **PARKING_LOT_DIAGONAL**
+- `static final ParkingLotType` **PARKING_LOT_PARALLEL**
+- `static final ParkingLotType` **PARKING_LOT_PERPENDICULAR**
+- `static final PathDrawingType` **PATH_CONVEYOR**
+- `static final PathDrawingType` **PATH_DASHEDLINE**
+- `static final PathDrawingType` **PATH_LINE**
+- `static final PathDrawingType` **PATH_RAILROAD**
+- `static final PathDrawingType` **PATH_ROAD**
+- `static final DensityMapType` **PEDESTRIAN_MAP_TYPE**
+- `static final RateUnits` **PER_DAY**
+- `static final RateUnits` **PER_HOUR**
+- `static final RateUnits` **PER_MILLISECOND**
+- `static final RateUnits` **PER_MINUTE**
+- `static final RateUnits` **PER_MONTH**
+- `static final RateUnits` **PER_SECOND**
+- `static final RateUnits` **PER_WEEK**
+- `static final RateUnits` **PER_YEAR**
+- `static final PositionChoiceMode` **POSITION_CHOICE_ARRANGED**
+- `static final PositionChoiceMode` **POSITION_CHOICE_BY_ATTRACTORS**
+- `static final PositionChoiceMode` **POSITION_CHOICE_RANDOM**
+- `static final RackOddSingleRackSide` **RACK_ODD_LEFT**
+- `static final RackOddSingleRackSide` **RACK_ODD_RIGHT**
+- `static final RackPlacement` **RACK_PLACEMENT_BACK_TO_BACK**
+- `static final RackPlacement` **RACK_PLACEMENT_STAND_ALONE**
+- `static final RackType` **RACK_TYPE_DRIVE_IN**
+- `static final RackType` **RACK_TYPE_FIFO_FLOW**
+- `static final RackType` **RACK_TYPE_LIFO_FLOW**
+- `static final RackType` **RACK_TYPE_SELECTIVE**
+- `static final RotationSpeedUnits` **RAD_PER_SECOND**
+- `static final RotationSpeedUnits` **RPM**
+- `static final AngleUnits` **RADIAN**
+- `static final RailwaySwitchType` **RAILWAY_SWITCH_ALL_TO_ALL**
+- `static final RailwaySwitchType` **RAILWAY_SWITCH_DOUBLE_SLIP**
+- `static final RailwaySwitchType` **RAILWAY_SWITCH_SINGLE_SLIP**
+- `static final MessageDeliveryType` **RANDOM**
+- `static final MessageDeliveryType` **RANDOM_CONNECTED**
+- `static final MessageDeliveryType` **RANDOM_NEIGHBOR**
+- `static final RoadDrivingDirection` **ROAD_LEFT_HAND**
+- `static final RoadDrivingDirection` **ROAD_RIGHT_HAND**
+- `static final RoadLineStyle` **ROAD_LINE_DOUBLE**
+- `static final RoadLineStyle` **ROAD_LINE_DOUBLE_DASHED**
+- `static final RoadLineStyle` **ROAD_LINE_SINGLE**
+- `static final RoadLineStyle` **ROAD_LINE_SINGLE_DASHED**
+- `static final RobotApproachType` **ROBOT_APPROACH_NEAREST_SIDE**
+- `static final RobotApproachType` **ROBOT_APPROACH_TOP_SIDE**
+- `static final RobotEndEffector` **ROBOT_END_EFFECTOR_GRIPPER**
+- `static final RobotEndEffector` **ROBOT_END_EFFECTOR_NONE**
+- `static final RobotEndEffector` **ROBOT_END_EFFECTOR_VACUUM_GRIPPER**
+- `static final RobotEndEffector` **ROBOT_END_EFFECTOR_WELDING_GUN**
+- `static final TimeUnits` **SECOND**
+- `static final ServiceGroupBehaviorMode` **SERVICE_GROUP_BEHAVIOR_DEPENDS_ON_INCOMING_GROUP**
+- `static final ServiceGroupBehaviorMode` **SERVICE_GROUP_BEHAVIOR_SAME_FOR_ALL_GROUPS**
+- `static final ServiceGroupBehavior` **SERVICE_GROUP_INDIVIDUAL_SERVING**
+- `static final ServiceGroupBehavior` **SERVICE_GROUP_ONE_MEMBER_IS_SERVED_OTHERS_WAIT_IN_AREA**
+- `static final ServiceGroupBehavior` **SERVICE_GROUP_ONE_MEMBER_IS_SERVED_OTHERS_WAIT_IN_QUEUE**
+- `static final ServiceQueueChoicePolicy` **SERVICE_QUEUE_CLOSEST_NON_EMPTY**
+- `static final ServiceQueueChoicePolicy` **SERVICE_QUEUE_CLOSEST_STRICT**
+- `static final ServiceQueueChoicePolicy` **SERVICE_QUEUE_CUSTOM**
+- `static final ServiceQueueChoicePolicy` **SERVICE_QUEUE_LONGEST**
+- `static final ServiceQueueChoicePolicy` **SERVICE_QUEUE_NEXT_ROUND_ROBIN**
+- `static final ServiceQueueChoicePolicy` **SERVICE_QUEUE_PRIORITY**
+- `static final ServiceWLineType` **SERVICE_TYPE_LINEAR**
+- `static final ServiceWLineType` **SERVICE_TYPE_POINT**
+- `static final TrafficLightSignal` **SIGNAL_GREEN**
+- `static final TrafficLightSignal` **SIGNAL_NONE**
+- `static final TrafficLightSignal` **SIGNAL_RED**
+- `static final TrafficLightSignal` **SIGNAL_YELLOW**
+- `static final ConveyorSimpleStationLoadingMode` **SIMPLE_STATION_LOADING_MODE_AFTER_UNLOADING**
+- `static final ConveyorSimpleStationLoadingMode` **SIMPLE_STATION_LOADING_MODE_SIMULTANEOUS_WITH_UNLOADING**
+- `static final ConveyorSimpleStationProcessingMode` **SIMPLE_STATION_PROCESSING_WHEN_AGENT_ENTERS**
+- `static final ConveyorSimpleStationProcessingMode` **SIMPLE_STATION_PROCESSING_WHEN_CAPACITY_FULL**
+- `static final CellDirection` **SOUTH**
+- `static final CellDirection` **SOUTHEAST**
+- `static final CellDirection` **SOUTHWEST**
+- `static final SpaceType` **SPACE_CONTINUOUS**
+- `static final SpaceType` **SPACE_CONTINUOUS_2D**
+- `static final SpaceType` **SPACE_DISCRETE**
+- `static final SpaceType` **SPACE_DISCRETE_2D**
+- `static final SpaceType` **SPACE_GIS**
+- `static final SpaceType` **SPACE_UNDEFINED**
+- `static final AreaUnits` **SQ_CENTIMETER**
+- `static final AreaUnits` **SQ_FOOT**
+- `static final AreaUnits` **SQ_INCH**
+- `static final AreaUnits` **SQ_KILOMETER**
+- `static final AreaUnits` **SQ_METER**
+- `static final AreaUnits` **SQ_MILE**
+- `static final AreaUnits` **SQ_MILLIMETER**
+- `static final AreaUnits` **SQ_NAUTICAL_MILE**
+- `static final AreaUnits` **SQ_YARD**
+- `static final AmountUnits` **TON**
+- `static final FlowRateUnits` **TON_PER_SECOND**
+- `static final ElevatorTransferMode` **TRANSFER_MODE_AUTOMATIC**
+- `static final ElevatorTransferMode` **TRANSFER_MODE_MANUAL**
+- `static final DensityMapType` **TRANSPORTER_MAP_TYPE**
+- `static final AngleUnits` **TURN**
+- `static final ConveyorTurnStationMode` **TURN_STATION_MODE_ANGLE**
+- `static final ConveyorTurnStationMode` **TURN_STATION_MODE_ORIENTATION**
+- `static final WallFillingType` **WALL_FILL_HATCHING**
+- `static final WallFillingType` **WALL_FILL_NONE**
+- `static final WallFillingType` **WALL_FILL_SOLID**
+- `static final TimeUnits` **WEEK**
+- `static final CellDirection` **WEST**
+- `static final Navigation3DType` **WINDOW_3D_NAVIGATION_FULL**
+- `static final Navigation3DType` **WINDOW_3D_NAVIGATION_LIMITED_TO_Z_ABOVE_ZERO**
+- `static final Navigation3DType` **WINDOW_3D_NAVIGATION_NONE**
+- `static final Navigation3DType` **WINDOW_3D_NAVIGATION_ROTATION_ONLY**
+- `static final LengthUnits` **YARD**
+- `static final TimeUnits` **YEAR**
+
+
