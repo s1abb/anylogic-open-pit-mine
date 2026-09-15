@@ -1,0 +1,62 @@
+ConveyorEnter
+
+
+The block places the incoming agents (material items) in a conveyor network but does not start the items transportation by a conveyor (while the item becomes accessible from the conveyor network and starts to interact with other material items).
+
+To start the transportation, use the Convey block of the Material Handling Library after this block. Commonly you place blocks of the Process Modeling Library between these two blocks to make some decisions or perform some operations with the material items prior to starting their transportation by conveyor(s). If you do not require adding any other blocks, you can use only one Convey block instead — it will place material items on the conveyor and then immediately start the transportation to the specified destination point in the conveyor network.
+
+Agents do not spend any time inside this block.
+
+Demo model:
+ 
+ConveyorEnter
+Open the model page in AnyLogic Cloud. There you can run the model or download it (by clicking Model source files).
+Properties
+Entry point defined as
+Here you can choose how you will define the place inside the conveyor network where material items will be placed by this block. There are two alternative options:
+Conveyor — Select the conveyor where you want material items to be placed. If you need to place the items not at the start point of the conveyor, but in some other place, you can specify this place by defining the distance from the start or end point of the conveyor to the leading edge of the material item (in the parameter Offset, see below).
+Position on conveyor — Select the space markup element Position on conveyor that defines the exact point of the conveyor graphically.
+more
+Conveyor
+[Visible and applies only if the Entry point is defined as: Conveyor]
+The conveyor where the material items will be placed. more
+Offset from
+[Visible and applies only if the Entry point is defined as: Conveyor]
+Choose here where to count the offset from The beginning of the conveyor or The end of the conveyor. more
+Offset
+[Visible and applies only if the Entry point is defined as: Conveyor]
+The distance from the start or end point of the conveyor to the leading edge of the material item being placed on the conveyor by this block. more
+Position on conveyor
+[Visible and applies only if the Entry point is defined as: Position on conveyor]
+Select the space markup element Position on conveyor defining the exact place on the conveyor where material items will be placed by this block. more
+Change orientation
+If selected, you will be able to change the orientation of the material item that enters the conveyor by selecting the new leading edge of the item in the Orientation field below. more
+Orientation
+[Visible and applies only if the Change orientation option is set]
+If you need to rotate the material item when it is placed on the conveyor, choose here the side of the item that must be facing the direction of travel:
+Front
+Rear
+Left
+Right
+more
+Physical properties
+Set dimensions
+If selected, you can alter the dimensions (length, width, height) of the agent (material item) being placed on the conveyor by this block. more
+Length
+[Visible and applies only if the Set dimensions option is set] The new length of the material item. more
+Width
+[Visible and applies only if the Set dimensions option is set] The new width of the material item. more
+Height
+[Visible and applies only if the Set dimensions option is set] The new height of the material item. more
+Actions
+On enter
+Here you can type Java code that will be executed when the agent (material item) enters the block. more
+On cancel enter
+Here you can type Java code that will be executed when some agent currently living in preceding block decides not to go through this block. more
+On at enter
+Here you can type Java code that will be executed when the agent decides that it most likely will go through this block. more
+Ports
+in
+The input port.
+out
+The output port.

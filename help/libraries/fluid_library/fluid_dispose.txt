@@ -1,0 +1,38 @@
+FluidDispose
+
+
+The FluidDispose block accepts the incoming flow and disposes it (removes from the system).
+
+It is a typical ending block of a Fluid Library flowchart. Accepts flow at any rate.
+
+You can connect no more than one block to the input port of the FluidDispose block (unlike PedSink and so on).
+Properties
+Animation
+Show batches in flowchart
+If set, the block icon will display the batch color. more
+Actions
+On new batch
+The action executed when a new batch appears at the input. It will not necessarily start flowing into the block. more
+On rate change
+The action executed when the flow rate changes.
+Changing something in the action may result in another immediate rate change and immediately following another call of On rate change, so the user can possibly create a livelock.
+more
+Functions
+Fluid amount
+Function	Description
+double amountPassed()	Returns the total amount passed through the block since the start of the simulation.
+double amountPassed(AmountUnits units)	Returns the total amount of fluid (in given units) passed through the input port of the block since the start of the simulation.
+
+units — the amount units
+Flow rate
+Function	Description
+double currentRate()	Returns the current flow rate of fluid that goes in.
+double currentRate(FlowRateUnits units)	Returns the current flow rate (in given units) of fluid at the block input.
+
+units — the flow rate units
+Resetting statistics
+Function	Description
+void resetStats()	Resets statistics collected for this block, including the statistics collected for its ports.
+Ports
+in
+The input port.

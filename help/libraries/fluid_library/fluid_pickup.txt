@@ -1,0 +1,68 @@
+FluidPickup
+
+
+The FluidPickup block allows the agents passing through to pick up fluid or bulk matter. This block serves as an interface between the Process Modeling Library (or any other library based on it) and the Fluid Library.
+
+Each agent is assumed to need a certain amount of fluid to pick up. Upon the arrival of the agent at the block, the block starts accumulating the fluid. The amount can be specified explicitly and may depend on the agent (pickup by amount mode), or pick up can be executed by batch. In the latter case, the agent is released once the block has accumulated a non-zero amount of fluid of one batch and the new different batch shows up. The block does not modify the agent in any way, so it is up to you to implement how the fluid picked up affects the agent.
+
+Similarly to FluidDispose and FluidToAgent, this block can accept flow at any rate. When there is no agent in the block, the block contains no fluid and the fluid is not allowed to flow in. FluidPickup can contain only one agent at a time, and the next agent will not be let in until the current agent has left the block.
+
+Demo model:
+ 
+FluidPickup
+Open the model page in AnyLogic Cloud. There you can run the model or download it (by clicking Model source files).
+Properties
+Pickup
+Defines the fluid pickup mode:
+Amount of fluid — The agent picks up the specified amount of fluid.
+By batch — The agent picks up any non-empty batch (the agent is released when the new batch shows up at this block).
+more
+Fluid to pickup
+[Visible and applies if the Amount of fluid option is set]
+Determines the amount of fluid to be picked up by the agent. This is a dynamic property re-evaluated upon arrival of each agent. more
+Agent location
+The space markup shape where the agent that currently is in the internal Delay block is animated. more
+Animation
+Storage tank
+The name of the Storage tank space markup shape used to animate FluidPickup (both in 2D and 3D animation). The storage tank animates the fluid the block currently contains. more
+Show batches in flowchart
+If set, the block icon will display the current batch color. more
+Actions
+On enter
+The action executed upon arrival of the agent at the block, before Fluid to pickup is evaluated and the block starts accepting the fluid. more
+On exit
+The action executed when an agent has picked up the fluid and leaves the block. You can access the agent, the amount picked up, and the batch. more
+On rate change
+The action executed when the flow rate changes.
+Changing something in the action may result in another immediate rate change and immediately following another call of On rate change, so the user can possibly create a livelock.
+more
+Functions
+Fluid amount
+Function	Description
+double amountPassed()	Returns the total amount of fluid passed through the inFluid port of the block since the start of the simulation.
+double amountPassed(AmountUnits units)	Returns the total amount of fluid (in given units) passed through the inFluid port of the block since the start of the simulation.
+
+units — the amount units
+double amount()	Returns the amount of fluid currently accumulated in the block. This amount is less than the total amount of fluid required to release an agent.
+double amount(AmountUnits units)	Returns the amount of fluid (in given units) currently accumulated in the block. This amount is less than the total amount of fluid required to release an agent.
+
+units — the amount units
+Flow rate
+Function	Description
+double currentRate()	Returns the current flow rate of fluid that comes in.
+double currentRate(FlowRateUnits units)	Returns the current flow rate (in given units) of fluid that comes in.
+
+units — the flow rate units
+Batch
+Function	Description
+Object getBatch()	Returns the batch currently flowing into the block.
+Resetting statistics
+Function	Description
+void resetStats()	Resets statistics collected for this block, including the statistics collected for its ports.
+Ports
+inFluid
+The fluid input port.
+in
+The agent input port.
+out
+The agent output port.

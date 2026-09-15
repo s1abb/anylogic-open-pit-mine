@@ -1,0 +1,163 @@
+Tank
+
+
+The Tank block represents A container for fluid or bulk matter with infinite capacity, an input at the top, and an output at the bottom. Optionally, Tank can contain some initial fluid (infinite amount of initial fluid is also possible). When the tank is not full, its content is always located at the bottom, and is filled from top. A non-full tank can accept input flow at any rate. When the tank is full, its input rate is restricted by the output rate (but not vice versa). When the tank is empty, its output rate is limited to the input rate.
+
+The specified rate cannot be lower than the value of Utils.RATE_TOLERANCE constant, that is, 1.0e-9. If rate value falls below this value after recalculation, it will be snapped to 0.
+
+The Fluid Library will try to maximize the out flow of all fluid sources; therefore, the priority of Tank out flow is set to 1 by default. Sometimes, to resolve flow priority conflicts, you may need to customize the out flow priority by further increasing it.
+
+Tank can also serve as a source of fluid or as a disposal container with infinite capacity.
+
+Although in the real tank different fluids can get mixed, the Tank block preserves the order of the incoming batches and transfers them to the output in the FIFO order (first in, first out). The output batch can be chosen to be the same as the original input batch, set to the default batch, or to a custom batch. You can also customize the batch initially contained in the tank, if there is any.
+
+The Tank block allows you to define actions executed in the event of tank becoming full, empty, or the amount falling below or raising above the specified level. In addition, you can react to a new batch appearing the input or at the output.
+
+Demo model:
+ 
+Tank
+Open the model page in AnyLogic Cloud. There you can run the model or download it (by clicking Model source files).
+Properties
+Capacity
+The maximum amount the tank can contain. This value cannot be less than the value of Utils.TOLERANCE. Infinite capacity can be set by typing infinity in the edit box of the property. more
+Initial amount
+The amount initially contained in the tank. This value cannot be less than the value of Utils.TOLERANCE. Infinite initial amount can be set by typing infinity in the edit box of the property. more
+Limited output rate
+If the option is selected (the value is equal to true), you can specify a custom upper limit of the rate the tank outflow rate. more
+Maximum output rate
+[Visible and applies if the Limited output rate option is set]
+Custom upper limit of the tank outflow rate. The default value is 10 cubic meters per second. more
+Custom priority
+If the option is set (the value equals true), the priority of the tank outflow will be set to Output flow priority, otherwise it equals 1. The priority affects the LP solver when it tries to maximize the flow through the system. more
+Output flow priority
+[Visible and applies if the Custom priority option is set]
+The custom priority of the tank outflow in the overall flowchart. Must be a positive integer. more
+Custom initial batch
+If set, the fluid initially contained in the tank will be of the Initial batch type. If not, it will be BatchTypes.DEFAULT_BATCH. more
+Initial batch
+[Visible and applies if the Custom initial batch option is set]
+Defines the batch initially contained in the tank. more
+Custom batch color
+If set, the initial batch color is defined by the Batch color property below, otherwise the standard color mapping applies. more
+Batch color
+[Visible and applies if the Custom batch color option is set]
+Defines the color of the initial batch. more
+Output batch is
+Defines the output batch of the tank. One of the following:
+Same as the original batch — same is the original batch that has flown into the tank
+Default — set to the default batch BatchTypes.DEFAULT_BATCH
+Custom — defined by the Output batch property below
+more
+Output batch
+[Visible and applies if Output batch is: Custom]
+Defines the batch to be created at the tank output. more
+Custom batch color
+[Visible and applies if Output batch is: Custom]
+If set, the output batch color is defined by the Batch color property below, otherwise the standard color mapping applies. more
+Batch color
+[Visible and applies if the Custom batch color option is set]
+Defines the color of the output batch. more
+Animation
+Storage tank
+The name of the Storage tank space markup shape used to animate this tank (both in 2D and 3D animation). more
+Show batches in flowchart
+If set, the block icon will display the current batch color. more
+Actions
+On full
+The action executed when the tank gets full. If the tank is initially full, the action is not executed at the start of simulation.
+On empty
+The action executed when the tank becomes empty. If the tank is initially empty, the action is not executed at the start of simulation.
+Action on above
+If the option is set (the value equals true), you can specify the action executed when the amount of fluid in the tank goes up and reaches a particular threshold. more
+Amount
+[Visible and applies if the Action on above option is set]
+The threshold for the On above action. This value cannot be less than the value of Utils.TOLERANCE. If the difference between the threshold value and the value of the Capacity property is less than Utils.TOLERANCE, an error will occur. more
+On above
+[Visible and applies if the Action on above option is set]
+The action executed when the amount of fluid in the tank increases and reaches the threshold specified in the Amount property right above. The action is not executed when the amount is initially above or at the threshold, or if the threshold is crossed while the amount is decreasing. more
+Action on below
+If the option is set (the value equals true), you can specify the action executed when the amount of fluid in the tank decreases and reaches a particular threshold. more
+Amount
+[Visible and applies if the Action on below option is set]
+The threshold for the On below action. This value cannot be less than the value of Utils.TOLERANCE. If the difference between the threshold value and 0 is less than Utils.TOLERANCE, an error will occur. more
+On below
+[Visible and applies if the Action on below option is set]
+The action executed when the amount of fluid in the tank decreases and reaches the threshold specified in the Amount property right above. The action is not executed when the amount is initially below or at the threshold, or if the threshold is crossed while the amount is increasing. more
+On new batch at input
+The action executed when a new batch appears at the tank input. It will not necessarily start flowing into the block. more
+On new batch at output
+The action executed when a new batch reaches the tank output, even if the output batch is set to default or custom. more
+On rate change
+The action executed when any of the flow rates (input or output) changes.
+Changing something in the action may result in another immediate rate change and immediately following another call of On rate change, so the user can possibly create a livelock.
+more
+Functions
+Fluid amount
+Function	Description
+double amount()	Returns the amount currently contained in the tank (total of all batches). If the value is less than the value of Utils.TOLERANCE, returns 0.
+double amount(AmountUnits units)	Returns the amount of fluid (in given units) currently contained in the tank (total of all batches). If the value is less than the value of Utils.TOLERANCE, returns 0.
+
+units — the amount units
+double amountPassedIn()	Returns the total amount passed through the input port of the tank since the start of the simulation.
+double amountPassedIn(AmountUnits units)	Returns the total amount of fluid (in given units) passed through the input port of the tank since the start of the simulation.
+
+units — the amount units
+double amountPassedOut()	Returns the total amount passed through the output port of the tank since the start of the simulation.
+double amountPassedOut(AmountUnits units)	Returns the total amount of fluid (in given units) passed through the output port of the tank since the start of the simulation.
+
+units — the amount units
+double amountMin()	Returns the historical minimum of the fluid amount in the tank.
+double amountMin(AmountUnits units)	Returns the historical minimum of the fluid amount in the tank in given units.
+
+units — the amount units
+double amountMax()	Returns the historical maximum of the fluid amount in the tank.
+double amountMax(AmountUnits units)	Returns the historical maximum of the fluid amount in the tank in given units.
+
+units — the amount units
+double amountAverage()	Returns the average fluid amount in the tank over the total operating time.
+double amountAverage(AmountUnits units)	Returns the average fluid amount in the tank over the total operating time in given units.
+
+units — the amount units
+boolean isFull()	Tests if the tank is full, that is, if the amount equals the tank capacity. Returns true if the tank is full, and false otherwise.
+boolean isEmpty()	Tests if the tank is empty. Returns true if the tank is empty, and false otherwise.
+There can still be a zero-size batch in an empty tank in case it has appeared at the input, but has not actually started flowing in.
+Utilization
+Function	Description
+double utilization()	Returns the currently utilized fraction of the tank capacity, that is, amount() / capacity. If the tank’s initial amount and capacity are both set as infinite, the function will return 1.
+double utilizationTotal()	Returns the tank average utilization throughout the total operating time, that is, the average amount divided by the tank capacity.
+If the operating time is infinite, returns the instant utilization.
+Flow rate
+Function	Description
+double currentRateIn()	Returns the current flow rate of fluid that goes in.
+double currentRateIn(FlowRateUnits units)	Returns the current flow rate (in given units) of fluid at the tank input.
+
+units — the flow rate units
+double currentRateOut()	Returns the current flow rate of fluid that goes out.
+double currentRateOut(FlowRateUnits units)	Returns the current flow rate (in the given rate units) of fluid that goes out.
+
+units — the flow rate units
+Batches
+Function	Description
+int numberOfBatches()	Returns the number of batches currently present in the tank, including possible zero-length batches.
+Object getBatch(int index)	Returns the batch with the specified index. The batch with index 0 is the closest to the tank output, the batch with the index numberOfBatches() - 1 is the last batch closest to the tank input.
+
+index — the index of the batch
+double getBatchSize(int index)	Returns the size of the batch with the specified index. The batch with index 0 is the closest to the tank output, the batch with the index numberOfBatches() - 1 is the last batch closest to the tank input.
+
+index — the index of the batch
+double getBatchSize(int index, AmountUnits units)	Returns the size of the batch (in given units) with the specified index. The batch with index 0 is the closest to the tank output, the batch with the index numberOfBatches() - 1 is the last batch closest to the tank input.
+
+index — the index of the batch
+units — the amount units
+double updateOutputBatch()	Forces immediate recalculation of the output batch and its color according to the current property settings.
+double getBatchOffset(int index)	Returns the sum of sizes of all batches under (closer to output) than the batch with a given index. Intended use is custom animation.
+
+index — the index of the batch
+Resetting statistics
+Function	Description
+void resetStats()	Resets statistics collected for this block, including the statistics collected for its ports.
+Ports
+in
+The input port.
+out
+The output port.

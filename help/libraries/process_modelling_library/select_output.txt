@@ -1,0 +1,60 @@
+SelectOutput
+The SelectOutput block
+
+The SelectOutput block routes the incoming agents to one of the two output ports depending on a condition — probabilistic or deterministic. The condition may depend on the agent as well as on any external factors. Agents spend zero time in SelectOutput.
+
+The block can be used to sort agents according to some criteria, to split the agent flow randomly, and so on.
+
+For example, consider agents of type Customer, which has a Boolean field vip. If you want VIP customers to exit the block through the top port (true) and all others through the bottom port (false), specify the condition agent.vip and set Customer as a generic parameter of SelectOutput.
+
+In a more sophisticated case, you might want that only 80% of VIP customers to exit through the top port, and the remaining 20% of VIPs and all other customers to exit through the bottom port. To reflect this, the condition will look like this: agent.vip && randomTrue( 0.8 ).
+
+Sometimes it is necessary to have more than two outputs. AnyLogic provides two blocks for routing agents to different flowchart branches: SelectOutput and SelectOutput5. SelectOutput5 has five output ports, so it can route agents to up to five exits. Using SelectOutputIn and SelectOutputOut blocks you can create a large SelectOutput quasi-block with the required number of exits.
+
+Routing in SelectOutput blocks
+The output port that the agent will take in the SelectOutput block is determined when the agent completes its operation in the preceding flowchart block, not when the agent enters the SelectOutput block. This is necessary because agents do not spend any time in SelectOutput and are immediately forwarded to the next one. Therefore, we need to determine in advance whether the next block can accept the agent.
+
+For example, the next block could be a closed Hold block or a full Queue. The availability of the output route and the output selection are calculated before the agent exits the current block.
+
+By default, the expression that defines the routing condition or an exit number of such a block is evaluated at this earlier point, before the On exit action of the preceding block is executed. As a result, any logic you place in that On exit action (such as changing a custom agent attribute used in the routing condition) will not affect the routing outcome.
+
+To ensure your routing logic works correctly:
+
+Move any logic that affects routing from the On exit action to the On at exit action, if the block provides one. This action is executed after the block finishes its operation, but before the routing decision is made.
+If this is not possible, insert a Delay block with zero Delay time before the SelectOutput block to separate the change and the routing decision into two steps.
+Alternatively, if your routing logic relies on stochastic or volatile expressions, such as calls of the randomTrue() function or expressions dependent on the current state of other blocks or changes in the agent properties, enable the Condition is stochastic or volatile option in the properties of SelectOutput. By default, this option is disabled: the routing expressions can be evaluated twice, when the agent finishes the operation in the preceding block and when the agent actually leaves the preceding block. If the value of the expression changes between the two evaluations, AnyLogic raises an error, indicating that the agent can no longer follow the initially selected route.
+Enabling the Condition is stochastic or volatile option disables this check, and the agent will follow the route selected during the first evaluation, even if the result of the expression has changed by the time the agent proceeds.
+In probability-based routing mode, the Condition is stochastic or volatile option is ignored. The routing decision is made once by selecting the route according to the specified probabilities when the agent finishes its operation in the previous block. However, the actual probability values themselves are evaluated twice: first, when the decision is made, and again right before the agent leaves the preceding block. If the probabilities have changed between these two evaluations, AnyLogic raises an error because the agent might follow a route that no longer matches the original decision.
+Properties
+Select True output
+Specifies whether agents are routed according to the specified boolean condition (If condition is true) or randomly (With specified probability [0..1]). more
+Probability
+[Visible if Select True output: With specified probability]
+The expression used to evaluate the probability that the current agent will leave the top port. The probability value should be in the [0..1] range. more
+Condition
+[Visible if Select True output: If condition is true]
+The condition evaluated for an incoming agent. If it evaluates to true, the agent through the top port, otherwise — through the bottom port. more
+Condition is stochastic or volatile
+[Visible if Select True output: If condition is true]
+Specifies that the condition may yield different results when evaluated at different times for the same agent. For example, this may occur if the condition uses random functions or depends on the state of other flowchart blocks.
+The condition is checked twice by default: first, when the agent is ready to exit the preceding block and, if the next block was busy and could not accept the agent immediately, possibly again later. A built-in check compares the two evaluations and raises an error if the result has changed.
+Enable this option to suppress the check and avoid errors in models where such variability is expected. The final routing decision will be based on the single evaluation that occurs when the agent leaves the preceding block. more
+Actions
+On enter
+The code executed when the agent enters the block. more
+On exit (true)
+The code executed when the agent exits the block through the upper outT port. more
+On exit (false)
+The code executed when the agent exits the block through the lower outF port. more
+Functions
+Function	Description
+int count()	Returns the total number of agents passed through this block.
+int countT()	Returns the number of agents passed through the outT port of the block.
+int countF()	Returns the number of agents passed through the outF port of the block.
+Ports
+in
+The input port.
+outT
+The top output port (for the agents, for which the Select condition returned true).
+outF
+The bottom output port (for the agents, for which the Select condition returned false).

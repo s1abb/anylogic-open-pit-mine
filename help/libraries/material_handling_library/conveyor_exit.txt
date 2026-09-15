@@ -1,0 +1,27 @@
+ConveyorExit
+
+
+Removes the incoming material items from a conveyor network and sends them further via the output port as regular agents.
+
+The succeeding process can be simulated using the Process Modeling Library blocks: Delay, Queue, etc. These blocks can define the process on a higher abstraction level and then you can place the agents in (another) conveyor network using the ConveyorEnter or Convey blocks of the Material Handling Library.
+
+Agents do not spend any time inside this block.
+
+Demo model:
+ 
+ConveyorExit
+Open the model page in AnyLogic Cloud. There you can run the model or download it (by clicking Model source files).
+Properties
+Exiting agents
+Here you can choose what happens to the material item's animation when the material item leaves the ConveyorExit block. There are two alternative options:
+stay where they are — When the agent leaves the ConveyorExit block, its animation resides at its current place
+are removed from space — When the agent leaves the ConveyorExit block, its animation is removed from presentation
+more
+Actions
+On exit
+Here you can type Java code that will be executed when the agent leaves the block. more
+Ports
+in
+The input port.
+out
+The output port.

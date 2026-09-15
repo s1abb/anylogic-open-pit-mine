@@ -1,0 +1,51 @@
+Dropoff
+AnyLogic: The Dropoff block
+
+The Dropoff block removes the agents contained in the incoming container agent and outputs them via the outDropoff port. Similar to the Pickup block, which is used to add agents to the container, here agents are removed according to the given mode: all, a given number, or all that satisfy the given condition. The entire operation takes zero time.
+
+The dropoff Condition is evaluated when the agent is still in the container, but the On dropoff action is executed after the agent has been removed from the container.
+
+As an example of the dropoff condition, suppose the container contains agents of type Passenger with the field destination, and you want to drop off those whose destination is here. Then you should specify the type Passenger as the generic parameter Container agent type and write in the dropoff condition: agent.destination == here.
+
+Consider using Unbatch instead of Dropoff if you do not need to keep the container agent.
+
+Demo model:
+ 
+Pickup and Dropoff
+Open the model page in AnyLogic Cloud. There you can run the model or download it (by clicking Model source files).
+Properties
+Container type
+The type of the container agents arriving at the in port. This agent type is referred below as TContainer. more
+Element type
+The type of the agents being dropped off. Referred below as T. more
+Dropoff
+Defines how the agents are selected to be dropped off. You can set this block to remove All available agents from the container, a Given quantity (if available), or remove agents for which the specified boolean condition is true (While condition is true). more
+Condition
+[Visible if Dropoff: While condition is true]
+The condition evaluated for each agent in the container to determine whether it should be dropped off. The condition result may depend on the container agent as well as on the “candidate” to be dropped off. more
+Quantity
+[Visible if Dropoff: Given quantity (if available)]
+The expression that returns the number of agents that should be dropped off. more
+Advanced
+Forced pushing
+If the option is selected (true), then when agents finish processing at the block, they are instantly pushed further regardless the state of the succeeding block.
+If the option is not selected, agents are not pushed, but pulled: only when the succeeding block is ready to accept one more agent, it requests the agent from this block, and only then the agent passes further. more
+Actions
+On enter
+The code executed when the container enters the block. more
+On dropoff
+The code executed for each agent that is removed from the container. more
+On exit
+The code executed when the container exits the block. more
+On dropoff exit
+The code executed for each agent being dropped off when it exits the block. more
+Functions
+Function	Description
+int size()	Returns the number of the dropped agents waiting to be accepted by the subsequent flowchart blocks.
+Ports
+in
+The input port.
+out
+The output port.
+outDropoff
+The output port for the agents being removed from the container agent.

@@ -1,0 +1,82 @@
+FluidSplit
+
+
+The FluidSplit block splits the input stream into two different streams; the sum of output flow rates equals the input rate.
+
+Can work in three modes:
+
+Neutral — Neither of the outputs gets priority and no additional constraints apply. If both outputs together can accept more than the input can produce, the flow is distributed between outputs non-deterministically.
+Proportional — The block applies additional constraint: output 1 rate / Fraction 1 = output 2 rate / Fraction 2, therefore the output rates depend on each other as well as on the input rate.
+Priority — The block tries to maximize the rate of one of the outputs, and the other output gets what is left. Sometimes to avoid flow priority conflicts you may need to customize the priority values (by assigning integer values) to achieve desired global priorities.
+In the Priority mode, the dot indicating the priority output becomes orange in case the flow values are not in accordance with the priorities. This may well be a normal situation, but it also may signal that the flows are distributed not in the desired way and that setting custom priorities is required.
+
+The output batch of FluidSplit at both outputs is the same as the input batch. The On new batch action can be used to change the mode and priorities depending on the incoming batch.
+
+The input rate is not limited, the output rate can optionally be limited. The specified rate cannot be lower than the value of Utils.RATE_TOLERANCE constant, that is, 1.0e-9. If the rate value falls below this value after recalculation, it will be snapped to 0.
+
+FluidSplit is a zero-capacity block, it does not contain any amount of fluid.
+
+Demo model:
+ 
+FluidSplit
+Open the model page in AnyLogic Cloud. There you can run the model or download it (by clicking Model source files).
+Properties
+Mode
+The mode of split. One of the following:
+Neutral — neither of the outputs gets priority
+Proportional — output rates must obey the proportion rules
+Priority — one of the outputs has priority over another
+more
+Fraction 1
+[Visible and applies only if Mode: Proportional]
+Defines the relative fraction of the output 1 rate. more
+Fraction 2
+[Visible and applies only if the Mode: Proportional]
+Defines the relative fraction of the output 2 rate. more
+Custom priorities
+[Visible and applies only if Mode: Priority]
+If the option is selected (the value is equal to true), the priorities of outflows will be set to custom values, otherwise, the priorities are set to 0 and 1. Priorities affects the LP solver when it tries to maximize the flow through the system. more
+Priority of output 1
+[Visible and applies only if Mode: Priority and Custom priorities is selected]
+Defines the priority of the output 1 flow of this block in the overall flowchart. Must be a non-negative integer. more
+Priority of output 2
+[Visible and applies only if Mode: Priority and Custom priorities is selected]
+Defines the priority of the output 2 flow of this block in the overall flowchart. Must be a non-negative integer. more
+Limited output rate
+If the option is selected (the value is equal to true), you are able to specify the custom upper limit of the output rate, per output. more
+Maximum output rate
+[Visible and applies only if the Limited output rate option is set]
+The custom upper limit of the output rate, at each output. more
+Animation
+Show batches in flowchart
+If set, the block icon will display the current batch color. more
+Actions
+On new batch
+The action executed when a new batch appears at the block input. It will not necessarily start flowing into the block. more
+On rate change
+The action executed when any of the flow rates changes.
+Changing something in the action may result in another immediate rate change and immediately following another call of On rate change, so the user can possibly create a livelock.
+more
+Functions
+Fluid amount
+Function	Description
+double amountPassed()	Returns the total amount passed through the input port of the block since the start of the simulation.
+double amountPassed(AmountUnits units)	Returns the total amount of fluid (in given units) which passed through the input port of the block since the start of the simulation.
+
+units — the amount units
+Flow rate
+Function	Description
+double currentRate()	Returns the current flow rate of fluid that goes in.
+double currentRate(FlowRateUnits units)	Returns the current flow rate (in given units) of fluid at the block input.
+
+units — the flow rate units
+Resetting statistics
+Function	Description
+void resetStats()	Resets statistics collected for this block, including the statistics collected for its ports.
+Ports
+in
+The input port.
+out1
+The upper output port, out1.
+out2
+The lower output port, out2.

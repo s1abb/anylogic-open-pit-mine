@@ -1,0 +1,182 @@
+SeizeTransporter
+
+
+Seizes one transporter from the specified fleet defined by the TransporterFleet block. Sends the seized transporter to the specified location.
+
+Use the ReleaseTransporter block to release the seized transporter. All seized transporters must be released before the agent (material item) is disposed.
+
+Demo model:
+ 
+SeizeTransporter and ReleaseTransporter
+Open the model page in AnyLogic Cloud. There you can run the model or download it (by clicking Model source files).
+Properties
+Fleet
+TransporterFleet block defining the fleet of transporters. This block will seize one transporter from this fleet. more
+Destination is
+Defines where the transporter will be sent. The transporter can be sent to:
+Agent — transporter is sent to the current agent location
+Node — transporter is sent to the specified network node
+Attractor — transporter is sent to the specified attractor
+Path — transporter is sent to the specified path
+Conveyor — transporter is sent to the specified conveyor
+Position on conveyor — transporter is sent to the specified position on conveyor
+Conveyor station — transporter is sent to the specified station
+(x, y, z) — transporter is sent to the point with the specified coordinates
+more
+Node
+[Visible and applies only if Destination is: Node]
+The network node the transporter will move to. more
+Attractor
+[Visible and applies only if Destination is: Attractor]
+The attractor the transporter will move to. more
+Path
+[Visible and applies only if Destination is: Path]
+The path the transporter will move to. more
+Conveyor
+[Visible and applies only if Destination is: Conveyor]
+The conveyor the transporter will move to. more
+Offset from
+[Visible and applies only if Destination is: Path or Conveyor]
+Defines how to calculate the offset of the exact point on a path or a conveyor the transporter will move to: from The beginning of the conveyor/path or from The end of the conveyor/path. more
+Offset
+[Visible and applies only if Destination is: Path or Conveyor]
+The distance from the start or end point of the path/conveyor (depends on the Offset from parameter) defining the exact destination point for the transporter. more
+Position on conveyor
+[Visible and applies only if Destination is: Position on conveyor]
+The position on conveyor the transporter will move to. more
+Conveyor station
+[Visible and applies only if Destination is: Conveyor station]
+The station the transporter will move to. more
+X, Y, Z
+[Visible and applies only if Destination is: (x, y, z)]
+X, Y, Z coordinates of the point the seized transporter will move to. more
+... located in
+[Visible and applies only if Destination is: (x, y, z)]
+Specifies where the agent (material item) will be added to upon releasing the transporter: either Level or Network. more
+Level
+[Visible and applies only if ...located in: Level]
+The level the agent will be added to once the transporter is released. more
+Network
+[Visible and applies only if ...located in: Network]
+The network the agent will be added to once the transporter is released. more
+Priorities
+Task priority
+The priority of the task for the incoming agent (the larger the higher). more
+Task may preempt
+If the option is selected, this task may preempt other tasks of the requested transporter. more
+Task preemption policy
+Here you can choose what is done when some other task incomes for the transporter.
+No preemption — the current task continues executing.
+Seize any resource — the task is interrupted and tries to seize any transporter of the specified type.
+more
+Advanced
+Customize transporter choice
+If the option is selected (true), you can choose the specific transporter for the operation (using Transporter choice condition below). more
+Transporter choice condition
+[Visible if Customize transporter choice option is selected]
+Here you can specify a boolean expression that will be checked to find the specific transporter that may perform the operation. If none of the currently available transporters satisfy the specified condition (the condition returns false), the block will wait for the first transporter that matches the condition to become available. Usually you define some field inside the agent type (say, transport), store there the reference to the transporter when it starts working with this agent (agent.transport=transporter), and then specify here the condition agent.transport==transporter enabling only this particular transporter to continue working with this particular agent — material item. more
+Dispatching policy
+Here you specify how the block chooses a transporter to perform the agent operation. If Customize transporter choice option is set, the transporter will be chosen from the subset returned by the algorithm in Transporter choice condition parameter. The possible options are:
+Nearest to agent — A transporter that is the nearest to the current agent. The distance to the agent is calculated in a straight line, not taking into account any possible obstacles (for transporters with free space navigation) or the length of the actual route in the network (for transporters with path-guided navigation).
+Shortest path to destination — A transporter whose route to the destination is the shortest.
+The most preferred — AnyLogic will choose a transporter by comparing transporters to each other. You should place the comparison algorithm in the unit1 is preferred to unit2 field below.
+Transporter with top rating — A transporter with the top rating. You can define the rating (or rating calculation algorithm) in the Transporter rating parameter below.
+Off (chooses some matching transporter) — The dispatching policy is not applied.
+more
+unit1 is preferred to unit2
+[Visible and applies only if Dispatching policy: The most preferred]
+The comparison algorithm (or its call) that is used for choosing a transporter for the given agent. The algorithm compares transporters to each other. It should return true if the transporter unit1 has higher preference than the transporter unit2 (and false otherwise, including the case of choice equality). The algorithm should provide transitiveness. more
+Transporter rating
+[Visible and applies only if Dispatching policy: Transporter with top rating] The rating value of this transporter. The rating is used to choose a transporter for the given agent (the larger the higher, transporter with the top rating value will be chosen). more
+On downtime
+Here you specify how the block handles the current agent operation when the downtime occurs for the transporter. The possible options are:
+agent waits for original transporter — Agent will wait until the current transporter finishes its downtime task and then will complete the transportation task using this particular transporter.
+agent seizes another transporter — Agent will not wait for the original transporter to complete its operation, but will try to seize other transporter.
+transporter finishes its task — First, the transporter completes its current transportation task, and only then the downtime task starts for this transporter.
+task is terminated — The current agent's task is terminated and will not be completed.
+more
+Enter for terminated agents
+[Visible and applies only if On downtime: task is terminated]
+Here you specify the Enter block that takes the current agent (material item) whose transportation task was terminated by the transporter’s downtime task. This block usually acts as a starting point of a flowchart defining the process that handles the terminated agents. more
+Canceled transporter
+Defines the behavior of the transporter that has been seized by the time the agent was already removed from this block either due to timeout/preemption or by the call of the remove() function. Depending on your choice, the transporter:
+Returns to current home location
+Returns to the nearest home location (selected from the list of the locations specified in the properties of the TransporterFleet block). Once the transporter returns to the node that satisfies this condition, this node will become the current home location for this transporter.
+Goes to... — the location specified in the Destination is parameter
+Stays where it is
+more
+Destination is
+[Visible and applies only if Canceled transporter: Goes to...]
+Defines where the transporter will move after being canceled. The possible destinations are:
+Node — transporter moves to the specified network node
+Attractor — transporter moves to the specified attractor
+Path — transporter moves to the specified path
+Conveyor — transporter moves to the specified conveyor
+Position on conveyor — transporter moves to the specified position on conveyor
+Conveyor station — transporter moves to the specified station
+(x, y, z) — transporter moves to the point with the specified coordinates
+more
+Node
+[Visible and applies only if Canceled transporter: Goes to... and Destination is: Node]
+The network node the transporter will move to. more
+Attractor
+[Visible and applies only if Canceled transporter: Goes to... and Destination is: Attractor]
+The attractor the transporter will move to. more
+Path
+[Visible and applies only if Canceled transporter: Goes to... and Destination is: Path]
+The path the transporter will move to. more
+Conveyor
+[Visible and applies only if Canceled transporter: Goes to... and Destination is: Conveyor]
+The conveyor the transporter will move to. more
+Offset from
+[Visible and applies only if Canceled transporter: Goes to... and Destination is: Path or Conveyor]
+Defines how to calculate the offset of the exact point on a path or a conveyor the transporter will move to: from The beginning of the conveyor/path or from The end of the conveyor/path. more
+Offset
+[Visible and applies only if Canceled transporter: Goes to... and Destination is: Path or Conveyor]
+The distance from the start or end point of the path/conveyor (depends on the Offset from parameter) defining the exact destination point for the transporter. more
+Position on conveyor
+[Visible and applies only if Canceled transporter: Goes to... and Destination is: Position on conveyor]
+The position on conveyor the transporter will move to. more
+Conveyor station
+[Visible and applies only if Canceled transporter: Goes to... and Destination is: Conveyor station]
+The station the transporter will move to. more
+X, Y, Z
+[Visible and applies only if Canceled transporter: Goes to... and Destination is: (x, y, z)]
+X, Y, Z coordinates of the point the transporter will move to. more
+... located in
+[Visible and applies only if Canceled transporter: Goes to... and Destination is: (x, y, z)]
+Specifies where the transporter will be added to after cancellation: either Level or Network. more
+Level
+[Visible and applies only if Canceled transporter: Goes to... and ... located in: Level option is selected]
+The level the transporter will be added to once it is canceled. more
+Network
+[Visible and applies only if Canceled transporter: Goes to... and ... located in: Network option is selected]
+The network the transporter will be added to once it is canceled. more
+Actions
+On enter
+Here you can type Java code that will be executed when the agent (material item) enters the block. more
+On seize transporter
+Here you can type Java code that will be executed when the agent (material item) seizes the transporter. more
+On remove
+Here you can type Java code that will be executed when the agent (material item) is removed from the block. more
+On exit
+Here you can type Java code that will be executed when the agent (material item) exits the block. more
+On task suspended
+[Visible and applies only if Task preemption policy: Seize any resource]
+Callback for action executed when agent task is suspended because of Seize any resource preemption policy, when its transporter gets grabbed by another task with a higher priority. more
+On task resumed
+[Visible and applies only if Task preemption policy: Seize any resource]
+Callback for action executed when agent resumes processing after it has been suspended because of Seize any resource preemption policy. more
+Functions
+Function	Description
+T get(int index)	Returns the agent at a given position specified by index (counted from 0). Throws error in case of invalid (or out-of-bounds) index.
+int size()	Returns the number of agents in the embedded queue.
+void recalculateResourceChoiceConditions()	Recalculates the resource choice conditions for all agents currently in the block.
+void recalculateResourceChoiceConditions(Agent agent)	Recalculates the resource choice conditions for the given agent.
+T suspend(Agent agent)	Suspends the operation with the given agent until the resume() function is called.
+T resume(Agent agent)	Resumes the previously suspended operation with the given agent.
+Ports
+in
+The input port.
+out
+The output port.

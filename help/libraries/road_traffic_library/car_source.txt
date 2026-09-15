@@ -1,0 +1,139 @@
+CarSource
+
+
+CarSource is the block that generates cars and tries to put them into the specified location within a road network. This block has no buffer, so if the car is not generated at the appropriate time, it will not be generated later.
+
+The car can appear on the specified road or in the specified parking lot (defined by the Appears parameter).
+
+The car does not immediately appear at the specified location. It appears and starts movement only when there is enough space at the specified position on the road to avoid a collision.
+Car arrivals can be defined by:
+
+interarrival times,
+arrival rate,
+rate schedule,
+arrival schedule that defines the exact number of cars and times of their arrival,
+calling the inject() function of the CarSource block.
+As in the Source block, you can limit the number of arrivals.
+
+If you want cars to appear on a road, you should also specify the direction of the road. The cars will appear at the beginning of the specified road and start moving in the specified direction. By default, the Random lane parameter is selected, so the cars will appear at random lanes (if there is more than 1 lane in the specified direction on the road). You can explicitly specify the index of the lane where cars will appear by clearing the Random lane option and using the Lane index parameter.
+
+If cars are set to appear on a road, they enter the road network only when there is enough distance on the lane ahead of the car. The higher the initial speed of the car, the greater the distance required for a car to safely enter the network. Cars that cannot enter the road network immediately are not created at all, which may cause the CarSource block to generate less cars than specified in the Arrival rate parameter.
+If cars are set to appear in a parking lot, they appear in free spaces of the specified parking lot and wait until they leave the road network or start moving by entering the CarMoveTo block. If all parking spaces are occupied, an error is generated.
+
+Demo model:
+ 
+CarSource
+Open the model page in AnyLogic Cloud. There you can run the model or download it (by clicking Model source files).
+Properties
+Arrivals defined by
+Specifies the mode of cars generation:
+Rate — Cars are generated at the specified Arrival rate (which is equivalent to exponentially distributed interarrival time with mean = 1/Arrival rate).
+Interarrival time — The time between two consecutive cars is defined by the specified expression.
+Arrival table in Database — Cars are generated according to the records in the specified database table. You specify the table below in the Database table parameter, then select the table column containing the arrival moments in the Arrival date drop-down list. The block will generate one car for each data record in the specified table.
+Rate schedule — Cars are generated according to the schedule that defines how the Arrival rate of cars changes over time.
+Arrival schedule — Cars are generated at exact times defined in the arrival schedule.
+Calls of inject() function — Cars are not generated automatically, but only when the inject() function is called.
+more
+Arrival rate
+[Visible and applies only if Arrivals defined by: Rate]
+The arrival rate of cars. If Arrival rate is used and it becomes 0, no next arrival will be scheduled until the Arrival rate changes to a positive value. more
+Interarrival time
+[Visible and applies only if Arrivals defined by: Interarrival time]
+The expression used to evaluate the delay time for each arriving car. more
+Arrival schedule
+[Visible and applies only if Arrivals defined by: Arrival schedule]
+The name of the schedule with integer value type that contains the arrival times of the cars. Typically, the value column would contain 1 as one car is generated at a time. more
+Arrival date
+[Visible if Arrivals defined by: Arrival table in Database]
+Specify the column of the Database table that contains the agent arrival timestamps. To access the field, first, specify the database table in the property above. more
+Rate schedule
+[Visible and applies only if Arrivals defined by: Rate schedule]
+The name of the schedule defining how the Arrival rate of cars changes with time. more
+Database table
+[Visible and applies only if the Arrivals defined by: Arrival table in Database, or the Set agent parameters from DB option is selected]
+Here you can choose the database table containing the data about arriving cars. more
+Modify rate
+[Visible and applies only if Arrivals defined by: Rate schedule]
+Toggles the expression that modifies Arrival rate. The expression is defined in the Rate expression property below. more
+Rate expression
+[Visible and applies only if the Modify rate option is selected]
+The expression that modifies the arrival rate. more
+Set agent parameters from DB
+[Visible and applies if the Arrivals defined by option is not set to Arrival table in Database or Calls of inject() function]
+If the option is selected (true), enables initialization of car parameters from the specified Database table. The similar technique is described here for agents generated by the Source block. more
+Limited number of arrivals
+[Visible and applies if the Arrivals defined by option is not set to Calls of inject() function or Arrival table in Database]
+If selected (true), the number of arrivals will be limited to Maximum number of arrivals. more
+Maximum number of arrivals
+[Visible and applies only if the Limited number of arrivals option is selected]
+The maximum number of cars to be generated by this block. more
+Appears
+Specifies where the cars generated by this block will appear: on a road or in a parking lot.
+on road — The cars will be placed at the beginning of the road specified below in the Road parameter.
+in parking lot — The cars will be placed in a randomly chosen free parking space of the parking lot specified below in the Parking lot parameter.
+more
+Road
+[Visible and applies only if Appears: on road]
+The road on which the car will be placed after the start of the movement. The car enters the Road in the specified lane (forward lane or backward lane). The lane is specified by the Enters parameter below. The lane is picked randomly (if the Random lane option is enabled) or specified explicitly at the Lane index parameter below. more
+Enters
+[Visible and applies only if Appears: on road]
+Specifies the lane (forward lane or backward lane) of the road in which the car will be placed. If the road does not have the specified lane (that is, is one-way), the error is generated. more
+Lane selection policy
+[Visible and applies only if Appears: on road]
+Specifies the policy by which a lane is selected for placing the car. This policy remains in effect as the car passes through subsequent blocks, unless one of those blocks specifies a different policy. The following options are available:
+Random lane — Places the car in a random lane. Selected by default.
+Closest to median — Selects the lane closest to the median. For one-way roads, this is the outermost lane on the left (right-hand traffic) or on the right (left-hand traffic).
+Closest to roadside — Selects the lane closest to the roadside. For one-way roads, this is the outermost lane on the right (right-hand traffic) or on the left (left-hand traffic). When this option is selected, the Number of lanes property determines how many lanes from the roadside are considered. The specific lane for each car is chosen randomly among these lanes.
+Specified explicitly — Places the car on a specified lane, defined by the Lane index property.
+more
+Number of lanes
+[Visible and applies only if Lane selection policy: Closest to roadside]
+Specifies how many lanes from the roadside edge are considered. The roadside lane is the outermost lane on the right (right-hand traffic) or on the left (left-hand traffic). The car is placed on a randomly selected lane among the specified lanes, starting from the roadside. The specified number may exceed the actual number of lanes on the road; in this case, any available lane is used.
+The value must be a positive integer greater than zero. more
+Lane index
+[Visible and applies only if Lane selection policy: Specified explicitly]
+Specifies the index of the lane where the car should be placed. Lane indices start at 0 (the outermost lane) and increase toward the innermost lane. If the specified Road does not have a lane with the given index, an error is generated.
+Prior to AnyLogic 8.9.7, this property affected only the lane in which the car initially appeared. After creation, the car could move to any other lane. Starting with AnyLogic 8.9.7, the Specified explicitly policy also applies to subsequent movement. The car will attempt to stay in or return to the specified lane if it temporarily leaves it (for example, due to a turn or a road segment with fewer lanes).
+To generate a car in a specific lane and allow it to change lanes freely, add a CarMoveTo or CarEnter block with the Lane selection policy set to Random lane.
+The policy is flexible: if the car prefers a certain lane (for example, the second) and enters a one-lane segment, a warning will be displayed, but the car will continue moving. Once multiple lanes become available again, the car will return to the preferred lane. more
+Parking lot
+[Visible and applies only if Appears: in parking lot]
+The parking lot where the car will be placed immediately after entering this block. If the parking lot has no free spaces, an error will be generated. The car will not move from the parking space until it is sent to a destination by the CarMoveTo block. more
+Car
+New car
+The car type created by this CarSource block. Use an agent type with the Use in flowchart as property set to Car. more
+Length
+The length of the generated car. The length must be greater than zero. more
+Initial speed
+The initial speed of the generated car. The initial speed must be greater than or equal to zero. If the initial speed is less than the preferred speed, the car will start accelerating to its preferred speed when it is sent to a destination by the CarMoveTo block. more
+Preferred speed
+The preferred speed of the generated car. The preferred speed must be greater than or equal to zero. If the preferred speed is equal to 0 and the initial speed is equal to 0, the car will not start movement even if it is sent to a destination by the CarMoveTo block. The car will not start accelerating until it is assigned a positive initial speed by the call of the setPreferredSpeed(speed) function.
+The car will always try to move at a speed equal to its preferred speed. The following factors can prevent the car from moving at its preferred speed:
+the inability to accelerate or decelerate immediately to the preferred speed,
+a car ahead that is moving slower than the preferred speed of the car,
+a stop line with a red light ahead,
+the proximity of a parking space or bus stop, where the car should slow down to park or stop,
+the speed limit.
+more
+Max acceleration
+The maximum acceleration of the generated car. The acceleration should be greater than zero. more
+Max deceleration
+The maximum deceleration of the generated car. The maximum deceleration should be greater than zero. The car will use its maximum deceleration only in emergencies. At other times it will use a fraction of the maximum deceleration. more
+Advanced
+Add cars to
+This parameter specifies where the cars created by this block will be stored: in the default population of root agent or in some custom population (specified below in the Car population property). more
+Car population
+[Visible and applies only if the Add cars to: custom population option is selected]
+The name of the agent population where the cars created by this block will be stored. more
+Actions
+On exit
+The code that is executed when car exits this block. more
+Functions
+Function	Description
+void inject()	Generates a single car at the time of call. Can be applied if the Arrivals defined by: calls of inject() function option is selected.
+void inject(int n)	Generates the specified number of cars (n) at the time of the call. Can be applied if the Arrivals defined by: calls of inject() function option is selected.
+
+n — The number of cars to generate on each call.
+Ports
+out
+The output port.

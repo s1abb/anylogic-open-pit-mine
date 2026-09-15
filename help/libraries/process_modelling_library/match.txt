@@ -1,0 +1,134 @@
+Match
+AnyLogic: The Match block
+
+The Match block synchronizes two streams of agents by matching pairs according to specified criteria. The agents that have not yet been matched are stored in two queues (one for each stream). When the new agent arrives at one of the input ports, it is checked for a match against all the agents in the queue for the other stream. If a match is found, the On match action is executed and both agents exit the Match block at the same time. The queues are fully customizable (timeout, priorities, preemption, and so on).
+
+The default match condition is true. This means that any two agents match,, so the Match block works as a pure stream synchronizer: it will output pairs of agents.
+
+For example, we have two streams of agents. One stream provides agents of type Passenger, while the other stream provides agents of type Baggage. Both types have an id field.
+
+In this scenario, the generic parameters of Match are Passenger and Baggage. To match a passenger to their luggage, write the following Match condition:
+
+agent1.id == agent2.id
+Demo model:
+ 
+Match
+Open the model page in AnyLogic Cloud. There you can run the model or download it (by clicking Model source files).
+Properties
+Match condition
+The condition that is evaluated for a pair of agents, one being the agent that just arrived and the other being the agent in the opposite queue, when the new agent arrives. When the new agent arrives at one of the input ports, it is checked for a match against all the agents in the queue from the other stream. If a match is found, the On match action is performed and both agents exit the block at the same time. more
+Capacity (1)
+[Visible unless the Maximum capacity (1) option is selected]
+The capacity of the first queue. more
+Maximum capacity (1)
+If the option is selected (true), the capacity of the first queue is the maximum possible (limited by Integer.MAX_VALUE). more
+Capacity (2)
+[Visible unless the Maximum capacity (2) option is selected]
+The capacity of the second queue. more
+Maximum capacity (2)
+If the option is selected (true), the capacity of the second queue is the maximum possible (limited by Integer.MAX_VALUE). more
+Agent location (queue 1)
+The space markup shape (node or path) where the agents are located while being in queue1. more
+Agent location (queue 2)
+The space markup shape (node or path) where the agents are located while being in queue2. more
+Advanced
+Queuing (queue 1)
+The queuing discipline for the first queue. Possible disciplines are:
+FIFO — First In, First Out. The default policy. The first agent stored is the first agent to be retrieved.
+Priority-based — Agents are queued according to their priority (defined in the Agent priority (1) field).
+Agent comparison — In this mode, the Boolean expression is evaluated for every incoming agent. It compares this agent with the agents that are already in the queue and determines the queue position based on the results.
+LIFO — Last In, First Out. The last agent stored will be the first to be retrieved.
+more
+Agent priority (1)
+[Visible if Queuing (queue 1): Priority-based]
+The priority of the incoming agent in the first stream (the greater the higher). more
+"agent1 is preferred to agent2" (1)
+[Visible if Queuing (queue 1): Entity comparison]
+The Boolean expression to evaluate for each agent entering queue1. The expression compares this agent to the agents already in the queue and determines the queue position based on the results. If the expression returns true, the new agent is put closer to the queue head than the agent from the queue1 being compared with it. more
+Queuing (queue 2)
+The queuing discipline for the second queue. Possible policies are:
+FIFO — First In, First Out. The default policy. The first agent stored is the first agent to be retrieved.
+Priority-based — Agents are queued according to their priority (defined in the Agent priority (1) field).
+Agent comparison — In this mode, the Boolean expression is evaluated for every incoming agent. It compares this agent with the agents that are already in the queue and determines the queue position based on the results.
+LIFO — Last In, First Out. The last agent stored will be the first to be retrieved.
+more
+Agent priority (2)
+[Visible if Queuing (queue 2): Priority-based]
+The priority of the incoming agent in the second stream (the greater the higher). more
+"agent1 is preferred to agent2" (2)
+[Visible if Queuing (queue 2): Agent comparison]
+The Boolean expression to evaluate for each agent entering queue2. The expression compares this agent with the agents that are already in the queue and determines the queue position based on the results. If the expression returns true, the new agent is put closer to the queue head than the agent from the queue2 being compared with it. more
+Enable exit on timeout (1)
+If the option is selected (true), the timeout option for queue1 is on. After spending the specified time in queue1, the agent will leave the block through the outTimeout1 port. more
+Timeout (1)
+[Visible if the Enable exit on timeout (1) option is selected]
+The expression evaluated to obtain the timeout time for the agent in queue1. more
+Enable exit on timeout (2)
+If the option is selected (true), the timeout option for queue2 is on. After spending the specified time in queue2, the agent will leave the block through the outTimeout2 port. more
+Timeout (2)
+[Visible if the Enable exit on timeout (2) option is selected]
+The expression evaluated to obtain the timeout time for the agent in queue2. more
+Enable preemption (1)
+If the option is selected (true), the agents are placed in queue1 according to their priorities and may be preempted by agents with higher priorities. more
+Enable preemption (2)
+If the option is selected (true), the agents are placed in queue2 according to their priorities and may be preempted by agents with higher priorities. more
+Restore agent location on exit
+If the option is selected, after being animated in the Agent location (queue1, queue 2) shapes, the agents will return to their original location (node or path) where they were before entering this block. more
+Force statistics collection
+This block contains two internal queues that collect queue size statistics. If the statistics collection is turned off for all Process Modeling Library blocks in the model by the PMLSettings block, this option enables you to override this setting and collect the statistics for this specific block. Otherwise, statistics are collected regardless of this setting. more
+Actions
+On enter (1)
+The code executed when the agent enters the block through the in1 port (and has been placed in queue1). more
+On enter (2)
+The code executed when the agent enters the block through the in2 port (and has been placed in queue2). more
+On match
+The code executed for the two agents that match each other. more
+On exit (1)
+The code executed when the agent in the first stream that was matched exits the block. more
+On exit (2)
+The code executed when the agent in the second stream that was matched exits the block. more
+On exit (timeout) (1)
+[Visible if the Timeout (1) option is selected]
+The code executed when the agent exits through the outTimeout1 port as a result of waiting too long. more
+On exit (timeout) (2)
+[Visible if the Timeout (2) option is selected]
+The code executed when the agent exits through the outTimeout2 port as a result of waiting too long. more
+On exit (preempted) (1)
+[Visible if the Enable preemption (1) option is selected]
+The code executed when the agent exits through the outPreempted1 port as a result of preemption. more
+On exit (preempted) (2)
+[Visible if the Enable preemption (2) option is selected]
+The code executed when the agent exits through the outPreempted2 port as a result of preemption. more
+Functions
+Function	Description
+int size1()	Returns the number of agents in the queue1 queue.
+int size2()	Returns the number of agents in the queue2 queue.
+T1 remove1(T1 agent)	Removes the specified agent from the queue1 and returns it. If the agent is not contained in the queue, returns null.
+
+agent — the agent to remove
+T2 remove2(T2 agent)	Removes the specified agent from the queue2 and returns it. If the agent is not contained in the queue, returns null.
+
+agent — the agent to remove
+boolean isStatisticsCollected()	Returns true if the block collects statistics.
+Internal blocks
+Queue queue1
+The upper internal queue.
+Queue queue2
+The lower internal queue.
+Ports
+in1
+The first input port.
+in2
+The second input port.
+out1
+The first output port
+out2
+The second output port.
+outTimeout1
+The output port for agents exiting the first queue due to a timeout.
+outTimeout2
+The output port for agents exiting the second queue due to a timeout.
+outPreempted1
+The output port for agents exiting the first queue due to preemption.
+outPreempted2
+The output port for agents exiting the second queue due to preemption.

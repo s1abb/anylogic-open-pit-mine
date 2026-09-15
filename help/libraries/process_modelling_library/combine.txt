@@ -1,0 +1,68 @@
+Combine
+AnyLogic: The Combine block
+
+The Combine block waits for the two agents to arrive (in any order) at ports in1 and in2, creates a new agent, and outputs it. The new agent may be a “completely new” agent, that is, a newly constructed agent whose properties may depend on the original agents, or it may be one of the original agents, again, possibly modified. Once the two agents are ready, the combine operation takes zero time.
+
+Combine may be used for a number of purposes. First, it can be used as a synchronization point to let one of the agents proceed only after another arrives. Second, you can use Combine to rejoin the agent with its copy created with the Split block. Third, Combine may be a simple alternative to Pickup when only one agent is picked up: for this to work, enter agent.addEntityToContents( agent2 ) in the On exit code.
+
+In this block, agents can be disposed of. However, the block does not know which of them are being disposed of and does not check if the disposal is OK (that is, no resources, and so on). It is your responsibility to make sure that the discarded agents are “clean”.
+If you select the resulting agent to be completely new, you can specify the type of this agent in the New agent (combined) property that will propagate to other library blocks in the flowchart. If you select the resulting agent as agent1 or agent2, and this agent is of your custom type, go to the Advanced section and specify this particular type as the Agent type (out) to propagate it in the process flowchart.
+
+The original agent that arrives first may be animated at the specified position.
+
+Demo model:
+ 
+Split and Combine
+Open the model page in AnyLogic Cloud. There you can run the model or download it (by clicking Model source files).
+Properties
+The resulting agent is
+Defines how the exiting agent is produced:
+Completely new — creates a new agent of the type specified in the field New agent (combined) below.
+agent1 — equals the first original (the other agent is destroyed).
+agent2 — equals the second original (the other agent is destroyed).
+more
+New agent (combined)
+[Visible if The resulting agent is: Completely new]
+The type of the new agent (it can be an expression evaluated to obtain the new agent). Referred to below as T. more
+Change dimensions
+If the option is selected (true), you will be able to change the dimensions of the agent combined by this block specifying the new Length, Width and Height values below. more
+Length
+[Visible if the Change dimensions option is selected]
+The new length of the combined agent. more
+Width
+[Visible if the Change dimensions option is selected]
+The new width of the combined agent. more
+Height
+[Visible if the Change dimensions option is selected]
+The new height of the combined agent. more
+Agent location (1)
+The node or path where the original agent arrived at in1 and waiting for the other one is located. more
+Agent location (2)
+The node or path where the original agent arrived at in2 and waiting for the other one is located. more
+Agent location (combined)
+The node or path where the combined agent is located while it has not yet been consumed by the subsequent block. more
+Advanced
+Add combined agents to
+Defines where the combined agents created by this block will be stored: in the default population of the top-level agent of the model or in a custom population (specified below in the Population property). The default population (Java collection of type AgentList) contained in the top-level agent can be accessed with the function getDefaultPopulation(). more
+Population
+[Visible if Add combined agents to: custom population]
+The name of the agent population where the combined agents created by this block will be stored. more
+Forced pushing
+If the option is selected (true), when agent finishes processing at the block, it is instantly pushed further regardless the state of the succeeding block.
+If the option is not selected, agent is not pushed, but pulled: only when the succeeding block is ready to accept one more agent, it requests the agent from this block, and only then this agent passes further. more
+Restore agent location on exit
+If the option is selected, after being animated in the Agent location (1, 2) shapes, the agents will return to their original location (node or path) where they were before entering this Combine block. more
+Actions
+On enter 1
+The code executed when an original agent enters the block at in1. more
+On enter 2
+The code executed when an original agent enters the block at in2. more
+On exit
+The code executed when the resulting agent exits the block. more
+Ports
+in1
+The input port.
+in2
+The input port.
+out
+The output port.

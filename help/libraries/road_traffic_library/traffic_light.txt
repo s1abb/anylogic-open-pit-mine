@@ -1,0 +1,86 @@
+Traffic Light
+
+
+The Traffic Light block simulates one or more traffic lights. Traffic lights, also known as traffic signals, traffic semaphores, signal lights, or stop lights, are signaling devices placed at road intersections, pedestrian crossings, and other locations to control conflicting traffic flows.
+
+In AnyLogic, you can use the Traffic Light block to control car traffic at specified intersections or stop lines.
+
+Demo model:
+ 
+Traffic Light
+Open the model page in AnyLogic Cloud. There you can run the model or download it (by clicking Model source files).
+To learn how to create a controlled intersection, see Controlled intersection.
+
+Demo model:
+ 
+Traffic Light Phases Optimization
+Open the model page in AnyLogic Cloud. There you can run the model or download it (by clicking Model source files).
+Properties
+Defines the mode for
+Specifies where this Traffic Light defines the working mode:
+
+Intersection's stop lines — The traffic light will control the traffic at the stop lines of the specified intersection. You specify the intersection in the Intersection control below and then configure the traffic light schedule in the Phases table by specifying red, yellow, and green phases and their durations for the required stop lines of the selected intersection. This mode is used when the traffic light stops and allows traffic on all lanes of each road connected to the intersection at the same time. If you need to adjust the traffic on some lanes only, you should use the Intersection's lane connectors option.
+Intersection's lane connectors — Use this option to control the traffic at the intersection where different lanes of the same road can be in the different (red or green) phases. Specify the intersection to be controlled by this block in the Intersection property then configure the traffic light schedule in the Phases table by specifying red, yellow, and green phases and their durations for specific lane connectors of the selected intersection.
+Specified stop lines — The traffic light will control traffic at specified stop lines. This mode is typically used when simulating pedestrian crossings. In this case, you draw a stop line and then define red, yellow, and green phases and their durations for this stop line in the Phases property of the Traffic Light block.
+Intersection
+[Visible and applies if Defines the mode for: Intersection's stop lines or Intersection's lane connectors]
+The intersection controlled by this traffic light.
+Phases
+Specifies the behavior at the stop line. Configure the traffic light phase durations for roads that make up the selected intersection. You can find the short tutorial describing how to make your intersection controlled by the traffic light in the Controlled intersection article.
+Actions
+On phase change
+The code that is executed when the traffic light phase changes or when the traffic light is turned on or off (with the turnOn() or turnOff() function calls). more
+Functions
+Control
+Function	Description
+boolean isOn()	Returns true if the traffic light is on, false otherwise.
+turnOn()	Turns on the traffic light.
+turnOff()	Turns off the traffic light.
+turnOn(double offset)	Turns on the traffic light with offset in model time units.
+
+offset — The offset, in model time units.
+turnOn(double offset, TimeUnits units)	Turns on the traffic light with the offset in specified time units. For example, the turnOn(1, MINUTE) function call will turn the traffic light on in 1 minute from the current time.
+
+offset — The offset, in specified time units.
+units — a time unit constant.
+switchToNextPhase()	Switches the traffic light to the next phase. For example, you can use it when the current phase has the infinite duration and should be switched.
+Current status
+Function	Description
+double getCurrentPhaseDuration()	Returns the duration of the current phase in model time units. If the traffic light is off, the function returns -1.
+double getCurrentPhaseDuration(TimeUnits units)	Returns the duration of the current phase in specified time units. For example, if the duration of the current phase is 30 seconds, the getCurrentPhaseDuration(MINUTE) function call will return 0.5. If the traffic light is off, the function returns -1.
+
+units — a time unit constant.
+double getCurrentPhaseElapsedTime()	Returns the time elapsed from the beginning of the current phase in model time units, or -1 if the traffic light is off.
+double getCurrentPhaseElapsedTime(TimeUnits units)	Returns the time elapsed from the beginning of the current phase, in specified time units. For example, if 15 seconds have elapsed, the getCurrentPhaseElapsedTime(MINUTE) function call will return 0.25. If the traffic light is off, the function returns -1.
+
+units — a time unit constant.
+double getCurrentPhaseRemainingTime()	Returns the remaining time to the end of the current phase, in model time units. If the traffic light is off, the function returns -1.
+double getCurrentPhaseRemainingTime(TimeUnits units)	Returns the remaining time to the end of the current phase in specified time units. For example, if the remaining time is 15 seconds, the getCurrentPhaseRemainingTime(MINUTE) function call will return 0.25. If the traffic light is off, the function returns -1.
+
+units — a time unit constant.
+TrafficLightSignal getCurrentSignal(RoadLanesConnector roadLaneConnector)	Returns the current signal for the specified road lane connector. Returns null, if the traffic light is off or if it does not control the road lane connector.
+
+roadLaneConnector — The specified road lane connector.
+TrafficLightSignal getCurrentSignal(StopLine stopLine)	Returns the current signal for the specified stop line. Returns null, if the traffic light is off, or if it does not control the stop line.
+
+stopLine — The specified stop line.
+Phases
+Function	Description
+int getPhasesNumber()	Returns the number of phases.
+int getCurrentPhaseIndex()	Returns the 0-based index of the current phase, or -1 if the traffic light is off.
+double getPhaseDuration(int index)	Returns the duration of the phase in model time units. You specify the phase by its index. For example, to get the duration of the first phase, you should call getPhaseDuration(0).
+
+index — The phase index (0, 1, 2, ...).
+double getPhaseDuration(int index, TimeUnits units)	Returns the duration of the phase in given time units. You specify the phase by its index. For example, to get the duration of the second phase in seconds, you should call getPhaseDuration(1, SECOND).
+
+index — The phase index (0, 1, 2, ...).
+units — a time unit constant.
+List<List<ListTrafficLightSignal>> getPhaseSignals()	Returns a list of lists where each list contains the phases for one stop-line in the specified order, for example:
+[[SIGNAL_RED, SIGNAL_GREEN, SIGNAL_YELLOW], [SIGNAL_GREEN, SIGNAL_RED, SIGNAL_YELLOW]].
+List<T> getSignalElements()	Returns the list of controlled stop lines or lane connectors.
+Road network
+Function	Description
+setRoadNetwork(RoadNetwork roadNetwork)	Sets a road network.
+
+roadNetwork — The road network that the created traffic light belongs to.
+RoadNetwork getRoadNetwork()	Returns the road network containing the markup element the specified traffic light is controlling.

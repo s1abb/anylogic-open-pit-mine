@@ -1,0 +1,90 @@
+RailSettings
+
+
+RailSettings is a detached block that offers the lower-level interface for the rail yard management based on Java functions and callback technique. You can use those callbacks, for example, to collect statistics on the rail car movement throughout the whole rail yard.
+
+RailSettings does not automatically detect crossings (that is, the places where two tracks cross without a switch), and it is the user’s responsibility to make sure that there are no train collisions at such places, while collisions at switches are automatically detected and errors are reported.
+In the descriptions below, RC refers to the class specified by the user in the advanced Car type property. If the user does not change the default value, RC means RailCar.
+Properties
+New rail car
+Obsolete since AnyLogic version 6.5.1. Use TrainSource to create trains.
+The expression that is used by RailSettings to create a rail car when the function addTrain() is called. Should evaluate to an object of type RailCar or its subclass. more
+Actions
+On enter yard
+The code that is executed each time a new car is added to the rail yard. more
+On exit yard
+The code that is executed each time a car exits the rail yard. more
+Call onAtSwitch for 1st car only
+If selected (true), the On at switch code is called only for a first car/locomotive in a train (or for a car moving alone), otherwise it is called for every car approaching a switch (this is the default behavior). more
+On at switch
+The code that is executed each time a car approaches a switch. The switch state can still be changed in this code. more
+On enter track
+The code that is executed each time a car enters a new track (and has already registered there). more
+On exit track
+The code that is executed each time a car fully exits a track. more
+On car hit car
+The code that is executed each time a car hits another car. Is NOT called for the car that is being hit. more
+On at callback
+The code that is executed each time a car reaches a specific point where it was requested to "call back" by the function callbackAt of the RailCar. more
+On car clicked
+The code that is executed each time a car is clicked by the user. more
+Advanced
+Car type
+The type of the rail cars created by this block. Is optional, but if you use a custom type for rail cars, specifying it here enables you to directly access its custom fields in dynamic parameters like On enter yard.
+
+more
+Functions
+Statistics
+Function	Description
+int getNCars()	Returns the number of railcars in this rail yard.
+List<Agent> getCars()	Returns the railcars in this rail yard.
+Accessing cars and switches
+Function	Description
+Agent getCar(int index)	Returns the railcar in this rail yard with the given index, or null if there is no such car.
+
+index — The index of the railcar to return.
+Switch[] getRouteSwitches(Track[] route)	Returns all switches for the specified route.
+
+route — The route (the list of tracks) whose switches you need to return.
+Route
+Function	Description
+RailwayTrack[] getShortestPath(RailwayTrack sourceTrack, RailwayTrack targetTrack, boolean forwardOnTrack,double targetOffset, RailwayTrack[] avoidTracks)	Returns the shortest path from sourceTrack to targetTrack, or null if the path was not found.
+
+sourceTrack — source track
+targetTrack — target track
+forwardOnTrack — if true, the train will go in forward on track
+targetOffset — offset on the target track
+avoidTracks — list of tracks the route should not contain
+RailwayTrack[] getShortestUnblockedPath(RailwayTrack sourceTrack, RailwayTrack targetTrack,boolean forwardOnTrack, double targetOffset, RailwayTrack[] avoidTracks)	Returns the shortest path from sourceTrack to targetTrack, taking into account the blocked tracks. If the path was not found, returns null.
+
+sourceTrack — source track
+targetTrack — target track
+forwardOnTrack — if true, the train will go in forward on track
+targetOffset — offset on the target track
+avoidTracks — list of tracks the route should not contain
+RailwayTrack[] getShortestAvailablePath( Agent train,RailwayTrack sourceTrack, RailwayTrack targetTrack, boolean forwardOnTrack,double targetOffset, RailwayTrack[] avoidTracks)	Returns the shortest path from sourceTrack to targetTrack, taking into account the blocked and reserved tracks. If the path was not found, returns null.
+
+train — train that requires the shortest available path
+sourceTrack — source track
+targetTrack — target track
+forwardOnTrack — if true, the train will go in forward on track
+targetOffset — offset on the target track
+avoidTracks — list of tracks the route should not contain
+Adding cars and trains
+Function	Description
+void addCar(RC car, RailwayTrack track, double frontoffset, boolean orientation)	
+[Obsolete since AnyLogic version 6.5.1. Use TrainSource to create cars and trains]
+Adds an (already constructed) rail car to the rail yard model, and puts it on the specified track at a given position with a given orientation. If the car intersects with another car that is already on the track, the error is signaled.
+
+car — the car to add
+track — the track where the car is initially put
+frontoffset — the offset of the front side of the car from the start of the track
+orientation — if true, the car orientation (rear to front) is the same as the track orientation (start to end)
+void addTrain(int n, RailwayTrack track, double frontoffset, boolean orientation)	
+[Obsolete since AnyLogic version 6.5.1. Use TrainSource to create cars and trains]
+Creates a train with a given number of cars and puts it on the specified track at a given position with a given orientation. A customizable function newCar is used to create cars. If the train intersects with other cars that are already on the track, the error is signaled.
+
+n — the number of cars in the train
+track — the track where the train is put
+frontoffset — the offset of the front side of the first car from the start of the track
+orientation — if true, the train orientation (rear to front) is the same as the track orientation (start to end)

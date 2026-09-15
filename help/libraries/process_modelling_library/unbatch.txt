@@ -1,0 +1,64 @@
+Unbatch
+AnyLogic: The Unbatch block
+
+The Unbatch block extracts all agents contained in the incoming agent (batch) and outputs them through the output port. The original agent (batch) is discarded. The operation takes zero time.
+
+All contents of the incoming agent are extracted regardless of how it was created: using Batch, Pickup, or programmatically by calling addEntityToContents().
+A permanent batch created by the Batch block does not contain any agents, so it is simply consumed by that block without any output.
+
+Properties
+Batch type
+The type of the batch agents entering this block. Referred below as TBatch. more
+Element type
+The type of the agents that are extracted from the incoming agent and exit this block. Referred below as T. more
+Elements appear in batch location
+If selected, the unbatched agents will appear in the same location as the batch. more
+New location
+[Visible unless the Elements appear in batch location option is selected]
+The new location of the unbatched agents. There are several available options:
+Network/GIS node — Agents are placed in the given node, GIS point, or GIS region.
+Attractor — Agents are placed in the specified attractor.
+(x, y, z) — Agents are placed in the point with the specified coordinates X, Y, Z.
+(latitude, longitude) — Agents are placed in the given point on the GIS map with the specified Latitude and Longitude.
+Geographic place — Agents are placed in the particular location on the GIS map. You define this place using the Name of place property below.
+more
+Node
+[Visible if New location: Network / GIS node]
+The network node, GIS point, or GIS region where the unbatched agents are placed. more
+Attractor
+[Visible if New location: Attractor]
+The attractor where the unbatched agents are placed. more
+X, Y, Z
+[Visible if New location: (x, y, z)]
+The X, Y, and Z coordinates of the point where the unbatched agents will be placed. more
+… located in
+[Visible if New location: (x, y, z)]
+Specifies where the unbatched agents will be added: either Level or Network. more
+Level
+[Visible if … located in: Level]
+The level where the unbatched agent will be placed. more
+Network
+[Visible if … located in: Network]
+The network where the unbatched agent will be placed. more
+Latitude, Longitude
+[Visible if New location: (latitude, longitude)]
+The latitude and longitude of the point on the GIS map where the unbatched agents will be placed. more
+Name of place
+[Visible if New location: Geographic place]
+The name of the particular location on the GIS map, where the agents will be placed. You specify the name as text put in quotes, for example: "London". The GIS map will perform a GIS search for a location with the specified name. The first location from the list of GIS search results will be used. more
+Advanced
+Forced pushing
+If the option is selected (true), then when agents finish processing at the block, they are instantly pushed further regardless the state of the succeeding block. If the option is not selected, agents are not pushed, but pulled: only when the succeeding block is ready to accept one more agent, it requests the agent from this block, and only then this agent passes further. more
+Actions
+On enter
+The code executed when the batch agent enters the block. more
+On exit
+The code executed for each agent that is extracted from the batch and exits the block. The batch is still accessible here as batch. more
+Functions
+Function	Description
+int size()	Returns the number of agents that were the contents of the last batch and are currently waiting to be accepted by the subsequent flowchart blocks.
+Ports
+in
+The input port.
+out
+The output port.

@@ -1,0 +1,69 @@
+FluidSelectOutput
+
+The FluidSelectOutput block routes the flow from the input to one of the outputs.
+
+During design time, you can select the initially selected output. It can be changed at runtime by calling the functions toggle() and select(). For example, the block is named selectOutput. To select output 1 at runtime, execute selectOutput.select(1). To select output 2, execute selectOutput.select(2).
+
+In addition, you can select the output based on the incoming batch.
+
+FluidSelectOutput is a zero-capacity block, so it does not contain any amount of fluid. The output batch at the selected output of the FluidSelectOutput block is the same as the one at the input. The On new batch action can be used to switch the output depending on the incoming batches.
+
+If needed, you can set the Limited output rate option and define the upper limit for the rate in the Maximum output rate property. The specified rate cannot be lower than the value of Utils.RATE_TOLERANCE constant, that is, 1.0e-9. If the rate value falls below this value after recalculation, it will be snapped to 0.
+
+Demo model:
+ 
+FluidSelectOutput
+Open the model page in AnyLogic Cloud. There you can run the model or download it (by clicking Model source files).
+Properties
+Select output
+Define how the output will be selected. There are two options:
+By calling select() function — The output can be changed at runtime by calling the block functions toggle() and select().
+Conditionally, on each batch — The output will be selected by evaluating the boolean condition specified in the Condition (true is Output 1) edit box below. The condition is evaluated for each new batch and the output is selected based on the result.
+more
+Condition (true is Output 1)
+[Visible and applies if Select output: Conditionally, on each batch]
+The boolean condition that will be evaluated for each new batch. If the result is true, the output 1 is selected, otherwise the output 2. more
+Initial selection
+If the option is selected (the value is equal to true), the flow from the input will be initially routed to the output 1, if false — to output 2. The initially selected output can be changed at runtime by calling the select() function, or by evaluating the boolean condition for each new batch, depending on the Select output property value. more
+Limited output rate
+If the option is selected (the value is equal to true), you can specify a custom upper limit of the output rate, per output. more
+Maximum output rate
+[Visible and applies if the Limited output rate option is set]
+The custom upper limit of the output rate, at each output. more
+Animation
+Show batches in flowchart
+If set, the block icon will display the current batch color. more
+Actions
+On new batch
+The action executed when a new batch appears at the input. It will not necessarily start flowing into the block. You can, for example, change the selected output in this action. more
+On rate change
+The action executed when any of the flow rates changes.
+Changing something in the action may result in another immediate rate change and immediately following another call of On rate change, so the user can possibly create a livelock.
+more
+Functions
+Selecting output
+Function	Description
+int toggle()	Selects the output different to the one currently selected. Returns 1 if the output 1 becomes selected or 2 if the output 2 becomes selected.
+void select(int output)	Selects the specified output (output argument must be 1 or 2).
+Fluid amount
+Function	Description
+double amountPassed()	Returns the total amount passed through the input port since the start of the simulation.
+double amountPassed(AmountUnits units)	Returns the total amount of fluid (in given units), which passed through the input port of the block since the start of the simulation.
+
+units — the amount units
+Flow rate
+Function	Description
+double currentRate()	Returns the current flow rate of fluid that goes in.
+double currentRate(FlowRateUnits units)	Returns the current flow rate (in given units) of fluid at the block input.
+
+units — the flow rate units
+Resetting statistics
+Function	Description
+void resetStats()	Resets statistics collected for this block, including the statistics collected for its ports.
+Ports
+in
+The input port.
+out1
+The upper output port, output 1.
+out2
+The lower output port, output 2.

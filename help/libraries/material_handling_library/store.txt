@@ -1,0 +1,363 @@
+Store
+
+
+The Store block places an agent inside a cell of a given Storage or a Storage System. Upon agent entering, the Store block looks for an available storage cell to place the agent and reserves this cell. After reservation, the agent moves to occupy the cell. The agent can move independently or wait for a specified resource or transporter.
+
+There are several slotting policies that describe how the cell is reserved for storage:
+
+According to storage — the block reserves the next available cell according to the rack type
+Random available — the block reserves an available cell at the deepest position in a randomly selected rack and slot
+Specific slot — user specifies the slot where the block reserves an available cell at the deepest position. You can use API of the Storage space markup element to obtain the slot.
+If you are using this policy with a drive-in storage, you should know that the Store block will always place the agent on the next available shelf in the bay, no matter which shelf you specify explicitly in the getSlot() function.
+To disrupt this placement order for drive-in storages, use setReservation() to reserve the slot you need and then use store() to place the agent in the reserved slot.
+In FIFO flow and LIFO flow storages, items can be stored only from the designated “loading” side.
+If resources or transporters are used to move the agent, Store seizes them, brings to the agent location, attaches to the agent, moves the agent to the cell, and then releases the resources. Alternatively, you can skip using resources or transporters altogether and use Delay block to specify a timeout instead of detailed storage process.
+
+You can model the placement of the agent (material item) inside the rack at different levels of abstraction. One option is to bring the agent (material item) to the reserved cell. In this case the agent reaches the cell taking into account the Rack type and the Speed inside slot properties of the Storage element. If the cell is located on upper shelves, you can even specify Elevation speed for vertical movement in the aisle.
+
+The other option is less detailed. The agent reaches the place in the aisle in front of the reserved slot at ground level. The movement inside the slot itself is not modeled, instead the agent “jumps” to the reserved cell after the specified Storing time timeout. The rack type doesn’t affect the movement.
+
+Demo model:
+ 
+Slotting Policies in Drive-in Storage
+Open the model page in AnyLogic Cloud. There you can run the model or download it (by clicking Model source files).
+Properties
+Use already seized unit
+[Visible unless Agents move: By SRM] If checked, the agents will be placed in the storage using the previously seized units (resources or transporters). When exiting the block, the agent automatically releases all seized units. more
+Agents move
+[Visible and applies only if Use already seized unit is not selected]
+Here you can define how the agent reaches the storage:
+by transporters — the agent is carried by a transporter
+by SRM — the agent is moved by an automated storage and retrieval machine (for example, a stacker crane system)
+by resources — the agent is carried by a resource
+independently — the agent moves on its own
+more
+Fleet
+[Visible and applies only if Agents move: by transporters]
+Here you can specify a fleet that provides transporters to carry the agents to the storage. more
+Resource pool
+[Visible and applies only if Agents move: by resources]
+Here you define a set of the required resources. more
+Loading time
+[Visible and applies if Agents move: by transporters or
+Agents move: by SRM; Load/unload mode: Time]
+The time required to load the agent (material item) onto the transporter or the SRM system. more
+Pickup location is
+[Visible and applies only if Agents move: by transporters]
+Defines the location where the transporter picks up the agent (material agent). The location can be represented by:
+Agent — transporter is sent to the current agent location
+Node — transporter is sent to the specified network node
+Attractor — transporter is sent to the specified attractor
+Path — transporter is sent to the specified path
+Conveyor — transporter is sent to the specified conveyor
+Position on conveyor — transporter is sent to the specified position on conveyor
+Conveyor station — transporter is sent to the specified station
+(x, y, z) — transporter is sent to the point with the specified coordinates
+more
+Node
+[Visible and applies only if Pickup location is: Node]
+The network node the transporter moves to. more
+Attractor
+[Visible and applies only if Pickup location is: Attractor]
+The attractor the transporter moves to. more
+Path
+[Visible and applies only if Pickup location is: Path]
+The path the transporter moves to. more
+Conveyor
+[Visible and applies only if Pickup location is: Conveyor]
+The conveyor the transporter move to. more
+Offset from
+[Visible and applies only if Pickup location is: Path or Conveyor]
+Defines how to calculate the offset of the exact point on a path or a conveyor the transporter move to: from The beginning of the conveyor/path, or from The end of the conveyor/path. more
+Offset
+[Visible and applies only if Pickup location is: Path or Conveyor]
+The distance from the start or end point of the path/conveyor (depends on the Offset from parameter) defining the exact destination point for the transporter. more
+Position on conveyor
+[Visible and applies only if Pickup location is: Position on conveyor]
+The position on conveyor the transporter move to. more
+Conveyor station
+[Visible and applies only if Pickup location is: Conveyor station]
+The station the transporter move to. more
+X, Y, Z
+[Visible and applies only if Pickup location is: (x, y, z)]
+X, Y, Z coordinates of the point the transporter move to. more
+... located in
+[Visible and applies only if Pickup location is: (x, y, z)]
+Specifies where the coordinates the transporter will move to are located: either in the Level or in the Network. more
+Level
+[Visible and applies only if Pickup location is: (x, y, z) and ...located in: Level]
+The level where the transporter's destination is located. more
+Network
+[Visible and applies only if Pickup location is: (x, y, z) and ...located in: Network]
+The network, where the transporter's destination is located. more
+Load/unload mode
+Defines how the operation time of the telescopic forks is calculated. The forks retrieve an agent from a loading station and place it into a storage cell. One of the following:
+time — the operation time is defined by the specified time interval
+transfer speed — the operation time is calculated using the transfer speed of the stacker crane and the position of the cell within the slot
+When the time option is selected, the operation time is configured using the properties below.
+When the transfer speed option is selected, the operation time is calculated using the transfer speed of the SRM system. more
+Slotting policy
+Defines how the block selects a slot where the agent should be stored. The following options are available:
+According to storage — the block reserves the next available cell according to the rack type.
+Random available — the block reserves the deepest available cell in a randomly selected rack and slot.
+Specific slot — you can specify the slot where the block reserves the deepest available cell.
+Depending on the storage and rack type, different rules are apply to the slot/cell selection. more
+Storage
+[Visible and applies only if Slotting policy: According to storage or Random available]
+Storage or Storage System where the agent should be stored. more
+Slot
+[Visible and applies only if Slotting policy: Specific slot]
+Here you can specify the slot where the agent should be stored (it can be obtained by the getSlot() function of the storage). more
+Move agent to
+Here you can define the place where the agent reaches the storage. The following options are available:
+cell — the agent reaches the cell inside the rack, taking into account the Rack type and the Speed inside slot properties of Storage.
+aisle — the agent reaches the place in the aisle in front of the reserved slot at ground level. The movement inside the slot itself is not modeled, instead the agent "jumps" to the reserved cell. The rack type doesn't affect the movement.
+more
+Elevation speed
+[Visible and applies only if Move agent to: cell]
+Here you can specify the speed of the agent’s vertical movement. more
+Storing time
+[Visible and applies only if Move agent to: aisle or
+[Agents move: by SRM; Load/unload mode: time]
+Defines the time it takes for the agent to reach the reserved cell from the aisle. more
+Transporters, resources, and SRM
+Task priority
+[Visible and applies only if Agents move: by transporters or by resources]
+The priority of the task for the incoming agent (the larger the higher). more
+Task may preempt
+[Visible and applies only if Agents move: by transporters or by resources]
+If selected, the task defined by this block may preempt the currently performed task of the requested transporter or resource (if allowed in the task properties and the current task's priority is lower). more
+Task preemption policy
+[Visible and applies only if Agents move: by transporters]
+Here you can choose what to do when another task incomes for the transporter.
+No preemption — the transporter will continue to execute the current task.
+Seize any resource — the current task is interrupted and tries to seize any transporter of the specified type, taking into account the restrictions applied by the Resource choice condition property.
+more
+Task preemption policy
+[Visible and applies only if Agents move: by resources]
+Defines the task preemption policy:
+No preemption — the resource unit continues to execute the current task.
+Wait for original resource — the current task is interrupted and waits for the same resource unit to finish it.
+Seize any resource — the current task is interrupted and tries to seize any resource of the specified type, taking into account the restrictions applied by the Resource choice condition property.
+more
+At transporter downtime
+Here you specify how the block handles the current agent operation when the downtime occurs for the transporter. The possible options are:
+agent waits for original transporter — Agent will wait until the current transporter finishes its downtime task and then will complete the transportation task using this particular transporter.
+agent seizes another transporter — Agent will not wait for the original transporter to complete its operation, but will try to seize other transporter.
+transporter finishes its task — First, the transporter completes its current transportation task, and only then the downtime task starts for this transporter.
+task is terminated — The current agent's task is terminated and will not be completed.
+more
+Enter for terminated agents
+[Visible and applies only if At transporter downtime: task is terminated]
+Here you specify the Enter block that takes the current agent (material item) whose transportation task was terminated by the transporter’s downtime task. This block usually acts as a starting point of a flowchart defining the process that handles the terminated agents. more
+After release, transporter
+[Visible and applies only if Agents move: by transporters]
+Defines the behavior of the transporter after it was released by the agent. Depending on your choice, the transporter:
+Returns to current home location
+Returns to the nearest home location  —  goes to the nearest location from the list of the locations specified in the properties of TransporterFleet block). Once the transporter returns to the node that satisfies this condition, this node becomes the current home location for this transporter.
+Goes to... — goes to the location specified in the Destination is parameter
+Stays where it is
+more
+After release, SRM
+Defines what the stacker crane does after completing an agent transfer operation. One of the following:
+returns to home location — the stacker crane returns to its home position
+stay where it is — the stacker crane remains at the position where the operation was completed
+more
+Destination is
+[Visible and applies only if After release, transporter: Goes to...]
+Defines where the transporter moves to after being released. The possible destinations are:
+Node — transporter moves to the specified network node.
+Attractor — transporter moves to the specified attractor.
+Path — transporter moves to the specified path.
+Conveyor — transporter moves to the specified conveyor.
+Position on conveyor — transporter moves to the specified position on conveyor.
+Conveyor station — transporter moves to the specified station.
+(x, y, z) — transporter moves to the point with the specified coordinates.
+more
+Node
+[Visible and applies only if After release, transporter: Goes to... and Destination is: Node]
+The network node the transporter move to. more
+Attractor
+[Visible and applies only if After release, transporter: Goes to... and Destination is: Attractor]
+The attractor the transporter move to. more
+Path
+[Visible and applies only if After release, transporter: Goes to... and Destination is: Path]
+The path the transporter move to. more
+Conveyor
+[Visible and applies only if After release, transporter: Goes to... and Destination is: Conveyor]
+The conveyor the transporter move to. more
+Offset from
+[Visible and applies only if After release, transporter: Goes to... and Destination is: Path or Conveyor]
+Defines how to calculate the offset of the exact point on a path or a conveyor the transporter move to: from The beginning of the conveyor/path or from The end of the conveyor/path. more
+Offset
+[Visible and applies only if After release, transporter: Goes to... and Destination is: Path or Conveyor]
+The distance from the start or end point of the path/conveyor (depends on the Offset from parameter) defining the exact destination point for the transporter. more
+Position on conveyor
+[Visible and applies only if After release, transporter: Goes to... and Destination is: Position on conveyor]
+The position on conveyor the transporter move to. more
+Conveyor station
+[Visible and applies only if After release, transporter: Goes to... and Destination is: Conveyor station]
+The station the transporter move to. more
+X, Y, Z
+[Visible and applies only if After release, transporter: Goes to... and Destination is: (x, y, z)]
+X, Y, Z coordinates of the point the transporter move to. more
+... located in
+[Visible and applies only if After release, transporter: Goes to... and Destination is: (x, y, z)]
+Specifies where the transporter is added to after the release: either Level or Network. more
+Level
+[Visible and applies only if After release, transporter: Goes to... and ...located in: Level]
+The level the transporter is added to once it is released.
+more
+Network
+[Visible and applies only if After release, transporter: Goes to... and ...located in: Network]
+The network the transporter is added to once it is released. more
+Returns
+[Visible and applies only if After release, transporter is not set to Stays where it is]
+Defines the condition of the transporter's return after the release. It can either return only if there are no other tasks waiting for it or first return to the specified location and only then move to perform the next task. more
+Customize transporter choice
+[Visible and applies only if Agents move: by transporters]
+If the option is selected, you can choose the specific transporter to carry the agent to the storage (using the Transporter choice condition below). more
+Transporter choice condition
+[Visible and applies only if Customize transporter choice option is selected]
+Here you can specify a boolean expression that is checked to find the specific transporter that may perform the operation. If none of the currently available transporters satisfy the specified condition (the condition returns false), the block waits for the first transporter that matches the condition to become available.
+Usually you define some field inside the agent type (say, transport), store there the reference to the transporter when it starts working with this agent (agent.transport=transporter), and then specify here the condition agent.transport==transporter enabling only this particular transporter to continue working with this particular material item. more
+Dispatching policy
+[Visible and applies only if Agents move: by transporters]
+Here you specify how the block chooses a transporter to perform the agent transportation. If the Customize transporter choice option is set, the transporter is chosen from the subset returned by the algorithm in the Transporter choice condition parameter. The possible options are:
+Nearest to agent — A transporter that is the nearest to the current agent. The distance to the agent is calculated in a straight line, not taking into account any possible obstacles (for transporters with free space navigation) or the length of the actual route in the network (for transporters with path-guided navigation).
+Shortest path to pickup location — A transporter whose route to the pickup location is the shortest.
+The most preferred — AnyLogic chooses a transporter by comparing transporters to each other. You should place the comparison algorithm in the unit1 is preferred to unit2 parameter below.
+Transporter with top rating — A transporter with the top rating. You can define the rating (or rating calculation algorithm) in the Transporter rating parameter below.
+Off (chooses some matching transporter) — The dispatching policy is not applied.
+more
+unit1 is preferred to unit2
+[Visible and applies only if Dispatching policy: The most preferred]
+The comparison algorithm (or its call) that is used to select a transporter that carries the given agent to the storage. The algorithm compares transporters to each other. It should return true if the transporter unit1 has higher preference than the transporter unit2 (and false otherwise, including the case of choice equality). The algorithm should provide transitiveness. more
+Transporter rating
+[Visible and applies only if Dispatching policy: Transporter with top rating]
+The rating value of this transporter. The rating is used to choose a transporter for the given agent (the larger the higher, transporter with the top rating value is chosen). more
+After release resources
+[Visible and applies only if Agents move: by resources]
+Defines whether resources Return to home location (if they are not immediately seized by another agent) or Stay where they are after being released. more
+Return home
+[Visible and applies only if After release resources: Return to home location]
+Here you define when the resource units return home after carrying the agent to the storage. There are several options:
+each time — the unit returns to its home location every time after it finishes the task and is released by the agent.
+if no other tasks — the unit returns to its home location only if there are no other tasks in its queue.
+custom — you can define the priority and preemption policy for the "return home" task using the parameters below. In this case the priority of the "return home" task is compared to the priorities of other incoming tasks, and the specified preemption policy is used to select the next task for this particular resource unit.
+more
+'Wrap-up' priority
+[Visible and applies only if Return home: custom]
+Here you can set up the priority of the "return home" task for the resource unit.
+more
+'Wrap-up' preemption policy
+[Visible and applies only if Return home: custom]
+Specifies the policy of the "return home" task for the resource unit:
+No preemption — "return home" task cannot be preempted
+Terminate — "return home" task may be preempted and terminated
+more
+'Return home' usage is
+[Visible and applies only if After release resources: Return to home location]
+Here you can choose how to count the return home task of the resource in statistics. The options are:
+counted as 'busy' — this task is counted as 'busy' time in resource statistics
+counted as 'idle' — this task is counted as 'idle' time in resource statistics
+not collected — this task isn't taken into account for resource statistics
+more
+Customize resource choice
+[Visible and applies only if Agents move: by resources]
+If the option is selected, you can choose a specific resource unit to carry the agent to the storage, using the Resource choice condition below. more
+Resource choice condition
+[Visible and applies only if Customize resource choice option is selected]
+The Boolean expression that is checked to find the specific resource unit(s) that can perform the operation. If no currently available resource units matches the specified condition (the condition returns false), Store will wait for the first resource unit that matches the condition.
+For example, an agent can be assigned a helper resource unit that is stored in the myAssistant field within that agent. We need a particular resource unit, worker, to always be assigned to this specific agent. So in this case, the Resource choice condition is agent.myAssistant == worker. more
+Resource selection
+[Visible and applies only if Agents move: by resources]
+Specifies which resource units can be selected for the given agent.
+Off (chooses some matching unit) — No specific preference for the selection.
+Nearest to the agent — The resource unit that is closest to the current agent.
+The most preferred — The resource unit is selected by comparing resources against each other. The comparison algorithm (or its call) is placed in the field unit1 is preferred to unit2.
+Unit with top rating — The resource unit with the highest rating is selected. The rating (or the algorithm that calculates it) is specified by the user in the Unit rating field.
+If Off is selected, the first unit that satisfies the Resource choice condition is selected; AnyLogic checks the idle units against the condition first, then the busy units.
+In all other cases, all units are scanned, including the busy ones, which means that this block’s task may displace theirs. If this does not suit you, consider using a more specific Resource choice condition. more
+unit1 is preferred to unit2
+[Visible and applies only if Resource selection: The most preferred]
+The comparison algorithm (or its call) that is used to choose a resource unit that carries the agent to the storage. The algorithm compares resources to each other. It should return true if the resource unit1 has higher preference than the resource unit2 (and false otherwise, including the case of choice equality). The algorithm should provide transitiveness. more
+Unit rating
+[Visible and applies only if Resource selection: Unit with top rating]
+The rating value of this unit. It is used to choose a unit for the given agent (the larger the higher, unit with the top rating value is chosen). Usually an algorithm or a function call is placed here to calculate the rating with the help of the available local variables. more
+Actions
+On enter
+The Java code to execute when the agent enters the block. more
+On seize transporter
+[Visible and applies only if Agents move: by transporters]
+The Java code to execute when the agent (material item) seizes the transporter. more
+On seize SRM
+[Visible if Agents move: by SRM]
+The Java code to execute when the agent (material item) seizes the SRM unit (for example, a stacker crane). more
+On loading start
+[Visible if Agents move: by transporters or by SRM]
+The Java code to execute when loading of the agent (material item) starts. more
+On loading finished
+[Visible if Agents move: by transporters or by SRM]
+The Java code to execute when loading of the agent (material item) ends. more
+On seize resource
+[Visible and applies only if Agents move: by resources]
+The Java code to execute when the agent (material item) seizes the resource. more
+On resource arrived
+[Visible and applies only if Agents move: by resources]
+The Java code to execute when the resource has arrived to pick up the agent (material item). more
+On storage start
+[Visible and applies only if Move agent to: aisle]
+The Java code to execute when the delay that models the process of loading the material item into the storage, begins. more
+On storage finished
+[Visible and applies only if Move agent to: aisle]
+The Java code to execute when the delay that models the process of loading the material item into the storage, ends. more
+On release resource
+The Java code to execute when the agent (material item) releases the resource. more
+On release transporter
+The Java code to execute when the agent (material item) releases the transporter. more
+On release SRM
+[Visible if Agents move: by SRM] The Java code to execute when the agent (material item) releases the SRM unit (for example, a stacker crane). more
+On exit
+The Java code to execute when the agent leaves the block. more
+On remove
+The Java code to execute when the agent is removed from the block by the call of remove() function. more
+On task suspended
+[Visible and applies only if Agents move: by resources or by transporters; Task preemption policy: Seize any resource or Wait for original resource]
+The Java code to execute when agent task is suspended because of the Seize any resource preemption policy, when the resource or transporter is seized by a different task with a higher priority. more
+On task resumed
+[Visible and applies only if Agents move: by resources or by transporters; Task preemption policy: Seize any resource or Wait for original resource]
+The Java code to execute when the agent task resumes after it has been suspended because of Seize any resource preemption policy. more
+Functions
+Function	Description
+int size()	Returns the number of agents currently inside the block.
+int nWaitingForResource()	Returns the number of agents that have reserved a cell in the storage and are currently waiting for resource.
+Agent remove(Agent agent)	Removes the agent from the block.
+
+Agent agent — a given agent (material item) that is currently residing in the block.
+There are some nuances in model behavior when this function is called, depending on how the agent (material item) moves to the storage and the timing of the function call.
+recalculateResourceChoiceConditions(Agent agent)	Recalculates choice conditions for the given agent that is currently waiting for a resource in the queue of this block. You can use this function when resource units, that haven't been available to a particular agent before, become available due to changed conditions.
+
+Agent agent — an agent (material item) that is waiting for a resource in the block's queue
+recalculateResourceChoiceConditions()	Recalculates choice conditions for all agents that are currently waiting for resources in the queue of this block. You can use this function when resource units, that haven't been available before, become available due to changed conditions.
+recalculateAgentPriority(Agent agent)	Recalculates the priority of the given agent that is currently waiting for a resource in the queue of this block.
+
+Agent agent — an agent (material item) that is waiting for a resource in the block's queue
+recalculatePriorities()	Recalculates the priorities of all agents that are currently waiting for resources in the queue of this block.
+Model behavior at the call of remove() function
+Agents move: by transporters
+If at the moment of the function call the agent is waiting for an available transporter, the agent is removed. The transporter task is cancelled.
+If at the moment of the function call the transporter is moving to the agent, the agent is removed. The transporter is released and goes back to its home location (provided that there are no other tasks).
+The agent cannot be removed if the function is called when the transporter is already carrying the agent (material item).
+Agents move: by resources
+If at the moment of the function call the agent is waiting for an available resource, the agent is removed. The resource task is cancelled and the resource returns to its home location (provided there are no other tasks).
+If at the moment of the function call the resource is carrying the agent to the storage, the agent is removed. The resource task is cancelled and the resource returns to its home location (provided there are no other tasks).
+The agent cannot be removed if the function is called when the resource is still in the storing agent is currently moving in the slot, or during the Storing time period, or when the agent is being elevated to upper shelves.
+Agents move: independently
+If at the moment of the function call the agent is moving to the storage, it is removed.
+The agent cannot be removed in any other case.
+Ports
+in
+The input port.
+out
+The output port.

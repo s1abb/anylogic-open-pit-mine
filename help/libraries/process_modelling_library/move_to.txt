@@ -1,0 +1,121 @@
+MoveTo
+AnyLogic: The MoveTo block
+
+The MoveTo block moves the agent to a new location. If any resources are attached to the agent, they will move with it. The speed is the agent’s speed, regardless of the speed of the attached resources. The time the agent spends in this block is equal to the length of the shortest path from the agent’s current location to the destination divided by the agent’s speed.
+
+To change the speed, enable the Set agent's speed option and specify its speed in the corresponding Speed property.
+The agent is animated as it moves along the route.
+
+Demo model:
+ 
+MoveTo
+Open the model page in AnyLogic Cloud. There you can run the model or download it (by clicking Model source files).
+Properties
+Agent
+Select whether the agent instantly jumps to the new location (is placed (jumps) to), or moves there (moves to). more
+Destination
+Defines how the destination is defined:
+Network / GIS node — The agent moves to the specified network node, GIS point, or GIS region.
+Attractor — The agent moves to the specified attractor.
+Seized resource unit — The agent moves to the current location of the seized resource (specified below in the Resource field).
+Home of seized unit — The agent moves to the home location of the seized resource (specified below in the Resource field).
+Agent / unit — The agent moves to the location of the specified agent.
+(x,y,z) — The agent moves to the point with the specified coordinates.
+Node (x,y,z) — The agent moves to the specified node and then moves to the point with the specified X,Y,Z coordinates. Use this mode when you need to move agents to the particular location inside the mode. Note that you define absolute coordinates, see the X, Y, Z property description below.
+(latitude, longitude) — The agent moves to the given point on the GIS map with the specified Latitude and Longitude.
+Geographic place — The agent moves to the particular location on the GIS map. You define this place using the Name of place property below.
+The next three destinations are for resources [res.] used in the preparation and wrap-up flowcharts.
+
+[res.] Agent which possesses me — the resource moves to the agent that possesses it.
+[res.] Other unit seized by my agent — the resource moves to some other resource unit.
+[res.] Other unit's home — the resource moves to another unit’s home location.
+more
+Node
+[Visible if Destination: Network / GIS node]
+The network node, GIS point, or GIS region where the agent will move. more
+Attractor
+[Visible if Destination: Attractor]
+The attractor to which the agent will move. more
+Resource
+[Visible if Destination: Seized resource unit or Home of seized resource]
+The name of the ResourcePool block that defines the set of resource units. The agent will move to the current location (or the home location, depending on the Destination property value) of the seized resource unit of this type. If several units of the same pool are seized, the first in the list will be selected. more
+Agent
+[Visible if Destination: Agent / unit]
+The agent to move to (for example, a particular resource unit of some other agent). more
+X, Y, Z
+[Visible if Destination: (x, y, z) or Node (x,y,z)]
+The X, Y, and Z coordinates of the point where agents will move after reaching the specified node. Note that you define absolute coordinates, so you should make the point coordinates correspond to the node coordinates, otherwise agents will move to the point residing outside the node. more
+Latitude, Longitude
+[Visible if Destination: (latitude, longitude)]
+The latitude and longitude of the point on the GIS map where the agents will move. more
+Name of place
+[Visible if Destination: Geographic place]
+The name of the particular location on the GIS map, where the agents will move. You specify the name as text put in quotes: for example, "London". The GIS map will perform a search for a location with such name. The first location from the list of GIS search results will be used. more
+Set rotation upon arrival
+[Visible if Destination: (x, y, z), Node (x,y,z), (latitude, longitude), or Geographic place]
+Defines the agent rotation when it arrives at destination. more
+Rotation
+[Visible if the Set rotation upon arrival option is selected]
+Defines the agent horizontal rotation when it arrives at destination. more
+Vertical rotation
+[Visible if the Set rotation upon arrival option is selected]
+Defines the agent vertical rotation when it arrives at destination. more
+… with offset
+[Visible if Destination: Network node, Attractor, Seized resource unit, Home of seized unit, Agent/unit, or [res.]]
+Select if you want to define offset from the destination point. more
+X, Y, Z offset
+[Visible if the … with offset option is selected]
+Defines the offset from the destination point as values along the corresponding axis. more
+… in the network
+[Visible if Agent: is placed (jumps) to and Destination: (x,y,z), (latitude, longitude), or geographic place]
+Select this option if you want to use a point with the given coordinates or a place that is in the network. more
+Network
+[Visible if the … in the network option is selected]
+Select the network that contains the defined point or place. more
+Level
+[Visible if Destination: (x, y, z)]
+Select the level that contains the defined point. more
+Straight movement
+Select this option if you do not want the agent to be included in the network and move along a straight line (the shortest route between locations). more
+Movement is defined by
+[Visible if Agent: moves to]
+Select how movement is defined: by Distance / speed or by Trip time. more
+Set agent's speed
+[Visible if Movement is defined by: Distance / speed]
+Select if you want to define the speed of the agent. more
+Speed
+[Visible if the Set agent's speed option is selected]
+The expression that is evaluated to obtain the speed of the agent. more
+Trip time
+[Visible if Movement is defined by: Trip time] more
+Restore speed on arrival
+[Visible if Movement is defined by: Trip time]
+When the agent movement is defined by the trip time, the agent changes its speed. This property allows to restore the original speed. more
+Actions
+On enter
+The code executed when the agent enters the block. more
+On exit
+The code executed when the agent exits the block. more
+On remove
+The code executed when the agent is intentionally removed from this block by calling the agent’s function remove(). This code is automatically executed after the remove() function call. more
+Functions
+Function	Description
+int size()	Returns the number of agents moving in this block.
+T remove(T agent)	Removes the specified agent from the block and returns it. Returns null if the agent doesn’t belong to this block.
+
+agent — the agent to remove
+Iterator<Agent> iterator()	Returns the iterator over agents (order: the first is at the exit, the last has the most time left in block).
+double getDistanceTravelled(T agent)	Returns the distance (in meters) passed by an agent while inside the block. Upon the agent exiting the block, this distance will be reset.
+Unavailable if the block is working in the MODE_PLACE_TO mode (the agent jumps to the destination instantly).
+
+agent — the agent
+double getDistanceTravelled(T agent, LengthUnits units)	Returns the distance (in specified length units) passed by an agent while inside the block. Upon the agent exiting the block, this distance will be reset.
+Unavailable if the block is working in the MODE_PLACE_TO mode (the agent jumps to the destination instantly).
+
+agent — the agent
+units — the length units
+Ports
+in
+The input port.
+out
+The output port.

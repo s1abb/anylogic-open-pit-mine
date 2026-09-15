@@ -1,0 +1,175 @@
+MixTank
+
+
+The MixTank block makes a mix of fluids coming in from up to five different sources, optionally delays (“processes”) the completed mix for a given amount of time, and lets it flow out. The proportion of components in the mix can be defined either by giving the amount of each component, or by providing the total amount and fractions of components.
+
+The input rates are not limited, the output rate can optionally be limited. The specified rate cannot be lower than the value of Utils.RATE_TOLERANCE constant, that is, 1.0e-9. If the rate value falls below this value after recalculation, it will be snapped to 0.
+
+The new mix will start to accumulate only when the previous mix has completely flowed out. Initially, the tank is empty. You can change the amounts of components or the total mix amount by calling the updateAmounts() function while the tank is empty.
+
+The capacity of this tank can be infinite.
+
+The output batch of the mix can be explicitly specified or can be left as default batch. It is calculated automatically immediately after all components of the mix have flowed into the mix tank but before the On mix completed action is executed. You can also recalculate the output batch at any given time by calling the updateOutputBatch() function.
+
+The batch of the mix can be explicitly specified or can be left as default batch.
+
+The MixTank block allows you to specify actions executed when the mix is completed (all components has completely flowed in), when the delay is finished and when the mix has completely flowed out.
+
+Demo model:
+ 
+MixTank
+Open the model page in AnyLogic Cloud. There you can run the model or download it (by clicking Model source files).
+Properties
+Mix by
+Defines how the mix is specified:
+Amounts — the user specifies amounts of each component (each input port)
+Fractions — the user specifies the total amount and fractions of each component (port). Fractions are normalized.
+more
+Capacity (total amount)
+[Visible and applies if Mix by: Fractions]
+The total amount of mix. This value cannot be less than the value of Utils.TOLERANCE. The infinite capacity can be set by typing infinity in the property’s edit box. more
+Amount 1
+[Visible and applies if Mix by: Amounts]
+The amount of component 1 (the fluid that flows in through the in1 port). This value cannot be less than the value of Utils.TOLERANCE. more
+Amount 2
+[Visible and applies if Mix by: Amounts]
+The amount of component 2 (the fluid that flows in through the in2 port). This value cannot be less than the value of Utils.TOLERANCE. more
+Amount 3
+[Visible and applies if Mix by: Amounts]
+The amount of component 3 (the fluid that flows in through the in3 port). This value cannot be less than the value of Utils.TOLERANCE. more
+Amount 4
+[Visible and applies if Mix by: Amounts]
+The amount of component 4 (the fluid that flows in through the in4 port). This value cannot be less than the value of Utils.TOLERANCE. more
+Amount 5
+[Visible and applies only if Mix by: Amounts]
+The amount of component 5 (the fluid that flows in through the in5 port). This value cannot be less than the value of Utils.TOLERANCE. more
+Fraction 1
+[Visible and applies if Mix by: Fractions]
+The relative fraction of component 1 (the fluid that flows in through the in1 port). more
+Fraction 2
+[Visible and applies if Mix by: Fractions]
+The relative fraction of component 2 (the fluid that flows in through the in2 port). more
+Fraction 3
+[Visible and applies if Mix by: Fractions]
+The relative fraction of component 3 (the fluid that flows in through the in3 port). more
+Fraction 4
+[Visible and applies if Mix by: Fractions]
+The relative fraction of component 4 (the fluid that flows in through the in4 port). more
+Fraction 5
+[Visible and applies if Mix by: Fractions]
+The relative fraction of component 5 (the fluid that flows in through the in5 port). more
+Delay time
+The processing time: the time the mix must stay in the tank after it is completed (after all components have completely flowed in) and before it can start flowing out. The delay time is evaluated at the time the mix is ready. more
+Limited output rate
+If the option is selected (true), you can specify a custom upper limit of the tank outflow rate. more
+Maximum output rate
+[Visible and applies only if the Limited output rate option is set]
+The custom upper limit of the tank outflow rate. The default value is 1 cubic meter per second. more
+Output batch is
+Defines the output batch of the tank. One of the following:
+Default — the output batch is set to the default batch BatchTypes.DEFAULT_BATCH.
+Custom — the output batch is defined by the Output batch property below.
+more
+Output batch
+[Visible and applies if Output batch is: Custom]
+Defines the batch of the mix (the output batch). The output batch can be evaluated based on the input batches. more
+Custom batch color
+[Visible and applies if Output batch: Custom]
+If set, the batch color is defined by the Batch color property, otherwise the standard color mapping applies. more
+Batch color
+[Visible and applies if the Custom batch color option is set]
+Defines the color of the output batch. more
+Animation
+Storage tank
+The Storage Tank space markup element that is used to animate this process tank. more
+Show batches in flowchart
+If set, the block icon will display the current batch color. more
+Actions
+On mix completed
+The action executed when all components of the mix have completely flowed in.
+On mix ready
+The action executed when the completed mix has spent the required time in the tank (if any), just before it is allowed to flow out.
+On empty
+The action executed when the mix has completely flowed out of the tank, just before the new mix is about to start.
+On rate change
+The action executed when any of the flow rates changes. The current rates are available as local variables in1rate through in5rate, and outrate.
+Changing something in the action may result in another immediate rate change and immediately following another call of On rate change, so the user can possibly create a livelock.
+Functions
+Fluid amount
+Function	Description
+double amount()	Returns the amount of mix currently contained in the tank (the sum of all components). If the amount is less than Utils.TOLERANCE, this function returns 0.
+double amount(AmountUnits units)	Returns the amount of mix (in the given amount units) currently contained in the tank (the sum of all components). If the amount is less than Utils.TOLERANCE, this function returns 0.
+
+units — the amount units
+double amountPassedIn(int input)	Returns the amount of fluid that has passed through the given input port (1 through 5) from the start of the simulation.
+
+input — the number of the input port
+double amountPassedIn(int input, AmountUnits units)	Returns the amount of fluid (in the given amount units) that has passed through the given input port (1 through 5) from the start of the simulation.
+
+input — the number of the input port
+units — the amount units
+double amountPassedOut()	Returns the amount of fluid that has passed through the output port of the tank from the start of the simulation.
+double amountPassedOut(AmountUnits units)	Returns the amount of fluid (in the given amount units) that has passed through the output port of the tank from the start of the simulation.
+
+units — the amount units
+double amountOf(int input)	Returns the amount of a particular component currently contained in the tank. The component is identified by the number of the input port (1 through 5).
+
+input — the number of the input port
+double amountOf(int input, AmountUnits units)	Returns the amount of a particular component (in the given amount units) currently contained in the tank. The component is identified by the number of the input port (1 through 5).
+
+input — the number of the input port
+units — the amount units
+boolean updateAmounts()	If the mix is specified by amounts of the components, this function updates the component amounts. If the mix is specified by the total amount and fractions of each component, the function updates the total amount of mix, that is, forces the mix tank to restart the mix with the new Amount 1 through Amount 5 properties, or the new Capacity (total amount) property, respectively. The function can be called at any time, however, at the time of the call the tank must be empty.
+Status and capacity
+Function	Description
+double capacity()	Returns the maximum amount of mix that can be contained in the tank. If the amount is less than Utils.TOLERANCE, this function returns 0.
+boolean isEmpty()	Tests if the tank is empty.
+boolean isEmptying()	Tests if the mix has been processed: the output is open, all inputs are closed, and the tank is still not empty.
+boolean isFilling()	Tests if the tank currently being filled: at least one of the inputs is open, the output is closed, and the amount is below the required capacity.
+boolean isProcessing()	Tests if the mix is currently being processed: all the inputs and outputs are closed and the processing delay is being executed.
+Remaining time
+Function	Description
+double remainingTime()	If the mix is currently delayed (being “processed”), returns the remaining delay time in seconds. At other times, returns 0.
+double remainingTime(TimeUnits units)	If the mix is currently delayed (being “processed”), returns the remaining delay time in the given time units. At other times, returns 0. For example, remainingTime(MINUTE) returns the remaining delay time in minutes.
+
+units — the time units
+Flow rate
+Function	Description
+double currentRateIn(int input)	Returns the current flow rate at the given input port (1 through 5).
+
+input — the input port number
+double currentRateIn(FlowRateUnits units, int input)	Returns the current flow rate (in the given rate units) at the given input port (1 through 5).
+
+units — the flow rate units
+input — the input port number
+double currentRateOut()	Returns the current flow rate of fluid that goes out.
+double currentRateOut(FlowRateUnits units)	Returns the current flow rate (in the given rate units) of fluid that goes out.
+
+units — the flow rate units
+Batches
+Function	Description
+int numberOfBatches()	While the tank is emptying, returns 1. Otherwise returns 5 as the number of symbolic input batches in the tank, including null batches.
+Object getBatch(int index)	While the tank is emptying, returns the object that describes the output mix. The index can only be 0 in this case. While the tank is not emptying, returns the object that describes one of the 5 input components (possibly null), where index 0 corresponds to the input 5, and index 4 corresponds to the input 1.
+
+index — the index of the desired batch
+Color getBatchColor(int index)	While the tank is emptying, returns the color of the output mix. The index can only be 0 in this case. While filling or processing, returns the color of one of the input components, where index 0 corresponds to the input 5, and index 4 corresponds to the input 1. If the color of the output mix differs from the one of the input component, the current color is linearly interpolated during processing with respect to the processing progress.
+
+index — the index of the desired batch
+double getBatchSize(int index)	While the tank is emptying, returns the total amount of the output mix remaining in the tank. In this case the index can only be 0. While filling or processing, returns the amount of an input component with the specified index, where index 0 corresponds to the input 5, and index 4 corresponds to the input 1.
+
+index — the index of the desired batch
+double getBatchSize(int index, AmountUnits units)	While the tank is emptying, returns the total amount of the output mix remaining in the tank (in the given amount units). In this case, the index can only be 0. While filling or processing, returns the amount of an input component with the specified index, where index 0 corresponds to the input 5, and index 4 corresponds to the input 1.
+
+index — the index of the desired batch units — the amount units
+double updateOutputBatch()	Forces the immediate recalculation of the output batch and its color according to the current property settings.
+double getBatchOffset(int index)	While the tank is emptying, returns 0. Otherwise, returns the total amount of component filled into the tank “below” the component with the given index, where index 0 corresponds to the input 5, and index 4 corresponds to the input 1. Intended use is custom animation.
+
+index — the batch used to calculate the offset
+Resetting statistics
+Function	Description
+void resetStats()	Resets statistics collected for this block, including the statistics collected for its ports.
+Ports
+in1, in2, in3, in4, in5
+Input ports.
+out
+The output port.

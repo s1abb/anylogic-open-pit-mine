@@ -1,0 +1,54 @@
+FluidEnter
+
+
+The FluidEnter block accepts the flow from the connected FluidExit block. The block is designed to set up flow networks dynamically, for example, when the network configuration is read from a database, or when dynamic re-routing is needed between multiple parts of the network, such as replicated fragments, which may not be well managed by FluidSelectOutput and FluidSelectInput blocks.
+
+The connections are set on the FluidExit block side, FluidEnter blocks passively accept them.
+
+A FluidEnter block can be connected to at most one FluidExit block at a time, and vice versa.
+
+Input rate is unlimited, while the output rate cat be limited to the specified value. The specified rate cannot be lower than the value of Utils.RATE_TOLERANCE constant, that is, 1.0e-9. If the rate value falls below this value after recalculation, it will be snapped to 0.
+
+Demo model:
+ 
+FluidEnter and FluidExit
+Open the model page in AnyLogic Cloud. There you can run the model or download it (by clicking Model source files).
+Properties
+Limited output rate
+If true, you can to specify a custom upper limit of the outflow rate. more
+Maximum output rate
+[Visible if the Limited output rate option is set]
+The custom upper limit of the outflow rate. The default value is 10 cubic meters per second. more
+Animation
+Show batches in flowchart
+If set, the block icon will display the size and color of batches. more
+Actions
+On new batch at output
+The action executed when a new batch appears at the block output. more
+On rate change
+The action executed when the flow rate changes.
+Changing something in the action may result in another immediate rate change and immediately following another call of On rate change, so the user can possibly create a livelock.
+more
+Functions
+Fluid amount
+Function	Description
+double amountPassed()	Returns the total amount passed through the block since the start of the simulation.
+double amountPassed(AmountUnits units)	Returns the total amount (in given units) passed through the block since the start of the simulation.
+
+units — the amount units
+Flow rate
+Function	Description
+double currentRate()	Returns the current flow rate of fluid that goes in.
+double currentRate(FlowRateUnits units)	Returns the current flow rate (in given units) of fluid through the block.
+
+units — the flow rate units
+Connection to FluidExit
+Function	Description
+boolean isConnected()	Tests if the block is currently connected to a FluidExit block. Returns true if the block is connected, and false otherwise.
+FluidExit getConnection()	Returns the connected FluidExit block, or null if there is none.
+Resetting statistics
+Function	Description
+void resetStats()	Resets statistics collected for this block, including the statistics collected for its ports.
+Ports
+out
+The output port.

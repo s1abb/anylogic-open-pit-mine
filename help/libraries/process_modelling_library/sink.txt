@@ -1,0 +1,24 @@
+Sink
+AnyLogic: The Sink block
+
+The Sink block disposes of agents and typically acts as an ending point in a process model.
+
+If you do not use Sink or, for example, an Exit block, the agents are not removed from the model and disposed of. This means that you should not leave an unconnected port at the end of a process flow, but complete the flowchart with such a block.
+
+The following conditions should be met before the agent can be successfully disposed of:
+
+The agent mush have unregistered from a network if it was on a network,
+The agent should not be attached to any resource units or network resource units,
+If the agent contains other agents, they should all meet the same disposal conditions.
+If any of these conditions are violated, Sink throws an error.
+
+Properties
+Actions
+On enter
+The code executed when the agent enters the block. more
+Functions
+Function	Description
+long count()	Returns the number of agents disposed of by this Sink block.
+Ports
+in
+The input port.

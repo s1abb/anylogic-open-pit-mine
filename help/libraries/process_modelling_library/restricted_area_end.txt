@@ -1,0 +1,22 @@
+RestrictedAreaEnd
+AnyLogic: The RestrictedAreaEnd block
+
+The RestrictedAreaEnd block marks an exit from the area of the process where you want to limit the maximum number of agents. The only entry to such an area must be marked with a RestrictedAreaStart block. Each exit must be marked with a RestrictedAreaEnd block. You must pass the appropriate RestrictedAreaStart block as a parameter to the RestrictedAreaEnd.
+
+Agents will not spend time in this block.
+
+Demo model:
+ 
+RestrictedAreaStart and RestrictedAreaEnd
+Open the model page in AnyLogic Cloud. There you can run the model or download it (by clicking Model source files).
+Properties
+RestrictedAreaStart object
+The corresponding RestrictedAreaStart block that is placed at the entry to the area. more
+Actions
+On enter
+The code executed when the agent enters the block. more
+Ports
+in
+The input port.
+out
+The output port.

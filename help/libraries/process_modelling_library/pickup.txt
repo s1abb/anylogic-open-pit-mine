@@ -1,0 +1,53 @@
+Pickup
+AnyLogic: The Pickup block
+
+The Pickup block removes agents from a given Queue block and adds them to the contents of the incoming agent (container). The Queue block may either be connected to the inPickup port of Pickup or specified in the Queue object property; the latter takes precedence over the connected block. When an agent arrives at the in port, Pickup iterates through the contents of the queue and selects the agents according to the given mode, which can be on of the following: all agents, first N agents, an exact number of agents (the block will wait until the given number is reached), or the agents for which the given condition is true. The whole operation takes zero time.
+
+In the mode where an exact number of agents is selected not only the Queue block, but any other block can be connected to the inPickup port of the Pickup block.
+
+The pickup condition is evaluated when the agent is still in the queue, but the On pickup action is called after the agent has been removed from the queue and added to the container.
+
+Some examples of pickup conditions are:
+
+true — All agents in the queue are picked up.
+container.contents().size() < maxSize — Upon reaching maxSize, the first agents are picked up. Here we access the agents currently contained in the agent container using the container’s contents() function. This function returns these agents as a collection. The current number of agents in the container is obtained as container.contents().size().
+agent instanceof Car && ((Car)agent).age < 3 — Only Car agents that are younger than 3 years.
+Later, the added agents can be discarded using the Dropoff block or, if the container agent is discarded, using Unbatch. Consider using Batch instead of Pickup if you only need to group the agents.
+
+Demo model:
+ 
+Pickup and Dropoff
+Open the model page in AnyLogic Cloud. There you can run the model or download it (by clicking Model source files).
+Properties
+Pickup
+Defines how the agents are selected to be picked up from the Queue block. You can set up this block to remove All available agents from the Queue block, a Quantity (if available), wait until the specified number of agents has accumulated (Exact quantity (wait for)) or remove agents for which the specified boolean condition is true (While condition is true). more
+Condition
+[Visible if Pickup: While condition is true]
+The condition evaluated for each agent in the Queue block to determine whether it should be picked up. The condition expression may depend on the container agent as well as on the “candidate” to be picked up. more
+Quantity
+[Visible if Pickup: Quantity (if available)]
+The expression that is evaluated to determine how many agents should be picked up. more
+Pick from
+Select how to specify the Queue block storing the agents to be added into the agent-container.
+You can set the block to pick agents from Queue connected to the port (namely, to the lower inPickup port), or from Specified Queue object (in this case, you specify the block in the Queue object property below). more
+Queue object
+[Visible if Pick from: Specified Queue object]
+The Queue block from which the agents will be picked up. If specified, has priority over the connected Queue block graphically connected to the inPickup port. more
+Advanced
+Forced pushing
+If the option is selected (true), then when agents finish processing at the block, they are instantly pushed further regardless the state of the succeeding block.
+If the option is not selected, agents are not pushed, but pulled: only when the succeeding block is ready to accept one more agent, it requests the agent from this block, and only then this agent passes further. more
+Actions
+On enter
+The code executed when the container enters this block. more
+On pickup
+The code executed for each agent that is removed from the queue and added to the container. more
+On exit
+The code executed when the container exits this block. more
+Ports
+in
+The input port.
+inPickup
+The input port that should be connected to the out port of a Queue block. The port can be left unconnected if the Queue block is specified in the properties of this Pickup block (the option Pick from is set to Specified Queue object).
+out
+The output port.

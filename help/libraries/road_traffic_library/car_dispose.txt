@@ -1,0 +1,21 @@
+CarDispose
+
+
+The CarDispose block removes cars from the model.
+
+There are several ways to remove a car:
+
+The car can move out via any open road, or when it reaches the specified stop line. In this case, CarDispose should follow the last CarMoveTo block.
+The car can be removed from a model when it is located in a parking lot or at a bus stop. In this case, it is not necessary to immediately remove the car after it reaches a parking lot or a bus stop.
+Use CarDispose (and not Sink or Exit) to remove all cars.
+
+Properties
+Actions
+On enter
+The code that is executed when the car enters the block. more
+Functions
+Function	Description
+long count()	Returns the number of cars removed by this block.
+Ports
+in
+The input port.

@@ -1,0 +1,33 @@
+ResourceAttach
+AnyLogic: The ResourceAttach block
+
+The ResourceAttach block attaches the specified seized resources to the agent. The result is that they will move together with the agent (escort the agent) until they are detached or released. The resources to be attached must already be seized and located in the same node as the agent. Obviously, you cannot attach a static resource.
+
+The attaching process takes zero time.
+
+Attached resources are animated near the agent with a certain offset.
+
+Properties
+Attach
+Specifies which resources should be attached.
+There are the following options:
+All compatible seized resources — all compatible (that is, non-static) resource units are attached to the agent.
+All units seized in given Seize block(s) — You specify the list of Seize blocks, and only the resources previously seized by these blocks will be attached.
+Specified resources (list of pools) — You specify the list of ResourcePool blocks, and only the specified resource units will be detached. One unit will be attached per pool name, so if you wish to attach two or more units of the same pool, you should list that pool twice, for example: doctors, nurses, nurses.
+more
+Seize blocks
+[Visible if Attach: All units seized in given Seize block(s)]
+The list of Seize blocks. Only the resources previously seized by these blocks will be attached. more
+Resource Pool objects
+[Visible if Attach: Specified resources (list of pools)]
+The list of ResourcePool blocks whose units are being attached. One unit will be attached per pool name, so if you wish to release two or more units of the same pool, you should list that pool twice, for exampleÇ doctors, nurses, nurses. more
+Actions
+On enter
+The code executed when the agent enters the block. more
+On exit
+The code executed when the agent exits the block. more
+Ports
+in
+The input port.
+out
+The output port.

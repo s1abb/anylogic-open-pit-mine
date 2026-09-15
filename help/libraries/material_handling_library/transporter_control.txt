@@ -1,0 +1,65 @@
+TransporterControl
+
+
+Defines the rules of navigation in the network and the routing algorithm for transporters with path-guided type of navigation.
+
+If you are using the default navigation rules (the Navigation option is set to Automatic), transporters can resolve possible collisions in the network nodes automatically (this is specified by Resolve collisions option). The transporters will arrive at the node and stop. After waiting out a period of time, specified in the Collision detection timeout parameter, they will move along their respective routes over each other.
+
+Only the collisions caused by transporters moving in opposite directions can be resolved this way. In case of two transporters moving in the same direction the following transporter just stops and waits if required.
+With the help of the Avoid collisions option you can optimize the transporters' route: if more than one transporter has to take a path or move through a node, the route will be made available to only one of them, while the others will yield to avoid collision.
+
+For custom navigation you can specify your own conditions that must be satisfied for transporters to enter any node or path.
+
+In this block you can specify a custom routing algorithm as well as individual paths and nodes that must be excluded from the route.
+
+Demo model:
+ 
+TransporterControl Overtaking
+Open the model page in AnyLogic Cloud. There you can run the model or download it (by clicking Model source files).
+Properties
+Navigation
+Defines the rules of transporters movement in the network.
+Automatic — the AnyLogic engine will resolve transporter collisions
+Custom — you can specify your own conditions for the transporter movement along the paths and in the nodes of the network
+more
+Avoid collisions
+[Visible and applies only if Navigation: Automatic]
+If the option is selected, the AnyLogic engine will optimize movement of transporters to maximally avoid transporter collisions. However, this does not guarantee complete collision avoidance. The algorithm will analyze transporter routes. If there is a path required by several transporters, this path will be enabled only for a certain transporter, while the other transporters will have to wait for the path to become available again. more
+Resolve collisions
+If the option is selected, all the transporter collisions will be automatically resolved by the AnyLogic engine. The model will wait for the default collision timeout, and in case the collision remains unresolved, transporters will continue their movement by driving one over another inside the corresponding point node. If the option is disabled, the model will stop once transporter collision occurs, and an error message will be displayed. more
+Collision detection timeout
+[Visible and applies only if the Resolve collisions option is selected]
+A period of time the transporters must spend waiting at the crossroads if there is a collision to be resolved. more
+Can enter node
+[Visible and applies only if Navigation: Custom]
+Here you specify an expression which will be evaluated when the transporter intends to enter a node. If the expression returns true, the transporter can enter this node. more
+Can enter path
+[Visible and applies only if Navigation: Custom]
+Here you specify an expression which will be evaluated when the transporter intends to enter a path. If the expression returns true, the transporter can enter this path. more
+Find path
+By default the shortest option is selected. In this case the AnyLogic engine will always use the shortest paths for transporter movement. If you need some other routing algorithm, you can define this algorithm as a function returning the route (RouteData object). Having done so, switch this field to dynamic value editor and place this function call there. more
+Avoid paths
+A path (or several paths) that you want to exclude from the automatically calculated route for transporters. more
+Avoid nodes
+A node (or several nodes) that you want to exclude from the automatically calculated route for transporters. more
+Include paths
+A path (or several paths) that must be included in the automatically calculated route for transporters. These paths will be included in the route in the specified order, so you need to ensure that such a route exists. more
+Actions
+On enter path
+Here you can type Java code to be executed when a transporter enters the path. more
+On exit path
+Here you can type Java code to be executed when a transporter exits the path. more
+On enter node
+Here you can type Java code to be executed when a transporter enters the node that is a part of a network. more
+On exit node
+Here you can type Java code to be executed when a transporter exits the node that is a part of a network. more
+Functions
+Shortest route
+Function	Description
+RouteData findShortestPath(ILocation source, ILocation target, Node[] nodesToAvoid, Path[] pathsToAvoid)	Calculates the shortest route from source to target taking into account the paths and nodes set to be excluded.
+RouteData findShortestPath(ILocation source, ILocation target, Node[] nodesToAvoid, Path[] pathsToAvoid, Path[] pathsToInclude)	Calculates the shortest route from source to target taking into account the paths and nodes set to be excluded and paths set to be included.
+RouteData findShortestPath​(T unit, ILocation source, ILocation target, Node[] nodesToAvoid, Path[] pathsToAvoid, Path[] pathsToInclude)	Calculates the shortest route from source to target for the given transporter taking into account the paths and nodes set to be excluded and paths set to be included.
+Collisions
+Function	Description
+int getCollisions()	Returns the total number of collisions occurred in the model.
+void disableCollisionAvoidanceInNodes(Collection<? extends Node> nodes)	By calling this function you can disable collision control in the collection of nodes that you pass as argument. Transporters that move towards these nodes will always be able to enter and, once they have entered, will stop recognizing each other as obstacles.

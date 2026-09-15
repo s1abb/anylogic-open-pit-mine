@@ -1,0 +1,20 @@
+CarExit
+
+
+The CarExit block removes the car from the road network and passes the car agent into the regular Process Modeling Library flowchart where it can go through delays, queues, decisions, and so on.
+
+Together with CarEnter, this block is used to model some of the car’s movement at a higher abstraction level, that is, without detailed physical-level road traffic modeling.
+
+Demo model:
+ 
+CarEnter and CarExit
+Open the model page in AnyLogic Cloud. There you can run the model or download it (by clicking Model source files).
+Properties
+Actions
+On enter
+The code that is executed when the car enters the block. more
+Ports
+in
+The input port.
+out
+The output port.

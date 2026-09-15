@@ -1,0 +1,86 @@
+AgentToFluid
+
+
+The AgentToFluid block converts agents (discrete items) into the flow.
+
+This block serves as an interface between the Process Modeling Library (or any other library based on it) and the Fluid Library. Each agent is assumed to contain a certain amount of fluid or bulk matter and upon the arrival of an agent this block starts the outflow. Similar to FluidSource, this block has the desired output rate, and the actual rate may be less than or equal to the desired rate. The specified rate cannot be lower than the value of Utils.RATE_TOLERANCE constant, that is, 1.0e-9. If the rate value falls below this value after recalculation, it will be snapped to 0.
+
+AgentToFluid may contain only one agent at a time, and the next agent will not be let in until the fluid of the current agent has completely flown out.
+
+The Fluid Library will try to maximize the outflow of all fluid sources; therefore, the priority of AgentToFluid out flow is set to 1 by default. Sometimes to resolve flow priority conflicts you may need to customize the outflow priority by further increasing it.
+
+Optionally, AgentToFluid can generate batches: one batch per agent. The batch type and color can depend on the agent as the agent can be accessed from the Batch dynamic property.
+
+Demo model:
+ 
+FluidToAgent and AgentToFluid
+Open the model page in AnyLogic Cloud. There you can run the model or download it (by clicking Model source files).
+Properties
+Fluid in agent
+Determines the amount of fluid in the current agent that has arrived at this block (in cubic meters). The amount value cannot be less than Utils.TOLERANCE. more
+Rate
+The maximum (desired) output rate. more
+Custom priority
+If the option is set (the value equals true), the priority of outflow will be defined by the Output flow priority property below, otherwise it equals 1. The priority affects the LP solver when it tries to maximize the flow through the system. more
+Output flow priority
+[Visible and applies if the Custom priority option is set]
+The custom priority of the outflow of this block in the overall flowchart. Must be a positive integer. more
+Custom batches
+If the option is selected (the value is true), the block will generate custom batches (which may depend on the agent). The batch corresponding to the agent will be defined by the Batch property below. Otherwise, the batch will be BatchTypes.DEFAULT_BATCH. more
+Batch
+[Visible and applies if the Custom batches option is set]
+Defines the batch to be created for the current agent. more
+Custom batch color
+[Visible and applies if the Custom batch option is set]
+If set, the batch color is defined by the Batch color property below, otherwise the standard color mapping applies. more
+Batch color
+[Visible and applies if the Custom batch color option is set]
+Defines the color of the current batch, which may depend on the agent and the batch. more
+Agent location
+The space markup shape (node or path) where the agents are located while being in this block’s internal queue. more
+Animation
+Storage tank
+The name of the Storage tank space markup shape used to animate AgentToFluid (both in 2D and 3D animation). The storage tank animates the fluid the block currently contains. more
+Show batches in flowchart
+If set, the block icon will display the current batch color. more
+Actions
+On enter
+The action executed upon arrival of an agent at the block. more
+On agent done
+The action executed upon the total amount of fluid corresponding to the current agent has passed out of the block. The agent will be discarded after that, and the next agent will be allowed to enter. more
+On rate change
+The action executed when the flow rate changes.
+Changing something in the action may result in another immediate rate change and immediately following another call of On rate change, so the user can possibly create a livelock.
+more
+Functions
+Fluid amount
+Function	Description
+double amount()	Returns the amount currently contained in the block and waiting to flow out. This amount is less than the total amount in the current agent. If the amount is less than Utils.TOLERANCE, this function returns 0.
+double amount(AmountUnits units)	Returns the amount of fluid (in given units) currently contained in the block and waiting to flow out. This amount is less than the total amount of fluid in the current agent. If the amount is less than Utils.TOLERANCE, this function returns 0.
+
+units — the amount units
+double amountPassed()	Returns the total amount passed through the output port of the block since the start of the simulation.
+double amountPassed(AmountUnits units)	Returns the total amount of fluid (in given units) passed through the output port of the block since the start of the simulation.
+
+units — the amount units
+Flow rate
+Function	Description
+double currentRate()	Returns the current flow rate of the fluid at the block’s output.
+double currentRate(FlowRateUnits units)	Returns the current flow rate (in given units) of the fluid at the block’s output.
+
+units — the flow rate units
+Agent
+Function	Description
+Agent agent()	Returns the current agent being “unfilled”, or null if there is no agent.
+double totalAmountInAgent(AmountUnits units)	Returns the total amount of fluid (in given units) corresponding to the current agent being “unfilled”, or 0 if there is no agent in the block.
+
+units — the amount units
+double totalAmountInAgent()	Returns the total amount of fluid corresponding to the current agent being “unfilled”, or 0 if there is no agent in the block.
+Resetting statistics
+Function	Description
+void resetStats()	Resets the statistics collected for this block, including the statistics collected for its ports.
+Ports
+in
+The input port.
+out
+The output port.

@@ -1,0 +1,73 @@
+ReleaseRobot
+
+
+Releases the robot previously seized by the current agent using the SeizeRobot block or the ProcessByRobot block with the Release robot option disabled.
+
+The release operation takes zero time.
+
+You can define the post-process for the robot that will be accomplished after releasing the robot. You can choose the required type of the post-process (e.g. move the robot's end effector to the specified location) using the After operation, robot option, and specify the time required to complete it, in the Post-process time property.
+
+If an agent not associated with a robot passes through the block, the release operation is ignored (the robot does not move), and a warning is displayed.
+
+Note that all seized robots must be released before the agent is disposed by the Sink block.
+
+Properties
+After operation, robot
+Defines the robot behavior after agent processing is finished and if there are no other agents in the queue. You can choose the robot to do nothing, or return to its initial position, or make it execute a post-process - move its end effector to the specified target after finishing the agent processing. more
+Destination
+[Visible and applies only if After operation, robot: moves end effector to]
+Defines where the robot will move its end effector to after the operation. The possible destinations are:
+Node - the specified network node
+Attractor - the specified attractor
+Conveyor - the specified conveyor
+Position on conveyor - the specified position on conveyor
+(x, y, z) - the point with the specified coordinates
+Agent - the specified agent location
+more
+Node
+[Visible and applies only if the Destination is Node]
+The network node the robot will move its end effector to after the operation. more
+Attractor
+[Visible and applies only if the Destination is Attractor]
+The attractor the robot will move its end effector to after the operation. more
+Conveyor
+[Visible and applies only if the Destination is Conveyor]
+The conveyor the robot will move its end effector to after the operation. more
+Offset from
+[Visible and applies only if the Destination is Conveyor]
+Defines how to calculate the offset of the exact point on a conveyor the robot will move its end effector to after the operation: either from The beginning of the conveyor, or from The end of the conveyor. more
+Offset
+[Visible and applies only if the Destination is Conveyor]
+The distance from the start or end point of the conveyor (depends on the Offset from parameter) defining the exact destination point for the robot. more
+Position on conveyor
+[Visible and applies only if the Destination is Position on conveyor]
+The position on conveyor the robot will move its end effector to after the operation. more
+X, Y, Z
+[Visible and applies only if the Destination is (x, y, z)]
+X, Y, Z coordinate of the point the robot will move its end effector to after the operation. more
+Agent
+[Visible and applies only if the Destination is Agent]
+The agent the robot will move its end effector to after the operation. more
+End effector approaches
+Defines from which point the robot approaches the target for post-process. The possible options are:
+top side - the robot approaches the target from above.
+nearest side - the robot approaches the target from the side, closest to the robot base.
+more
+Post-process time
+[Visible and applies only if the After operation, robot is not set to stays where it is]
+The amount of time provided to the robot to move to the specified location after the agent processing is finished and there are no other agents in the queue. more
+Safe height
+[Visible and applies only if After operation, robot: returns to initial position or moves end effector to]
+The absolute minimum height for the movement of the robot’s end effector to the given position (required e.g., to avoid obstacles). more
+Actions
+On enter
+Here you can type Java code that will be executed when the agent (material item) enters the block. more
+On release
+Here you can type Java code that will be executed when the agent (material item) releases the robot. more
+On exit
+Here you can type Java code that will be executed when the agent (material item) leaves the block. more
+Ports
+in
+The input port.
+out
+The output port.

@@ -1,0 +1,78 @@
+FluidConvert
+
+The FluidConvert block is used to model packaging or unpackaging fluid or items. Typically, this assumes change of flow units.
+
+The output rate of this block always equals the input rate multiplied by a given “conversion factor”. The factor can be both greater than 1, or less than 1, or 1, so FluidConvert can both amplify or diminish the flow. If the rate value falls below the value of Utils.RATE_TOLERANCE constant, that is, 1.0e-9, it will be snapped to 0.
+
+FluidConvert is a zero-capacity block, it does not contain any amount of fluid.
+
+The output batch can be the same as the input batch, or a custom batch (which may depend on the input batch).
+
+As any other block, the FluidConvert block allows you to react to new batches appearing at the input.
+
+Demo model:
+ 
+FluidConvert
+Open the model page in AnyLogic Cloud. There you can run the model or download it (by clicking Model source files).
+Properties
+Factor
+The multiplier that is applied to the input rate. Must be a positive number. more
+Custom output batch
+If the option is selected (the value is true), the output batch will be defined by the Output batch property below. Otherwise, it will be the same as the input batch. more
+Output batch
+[Visible and applies if the Custom output batch option is set]
+Defines the output batch which may depend on the input batch. more
+Custom batch color
+[Visible and applies if the Custom output batch option is set]
+If set, the output batch color is defined by the Batch color property below, otherwise the standard color mapping applies. more
+Batch color
+[Visible and applies if the Custom batch color option is set]
+Defines the color of the output batch. more
+Animation
+Show batches in flowchart
+If set, the block icon will display the current input batch color. more
+Actions
+On new batch
+The action executed when a new batch appears at the block input. It will not necessarily start flowing into the block. You can, for example, change the factor in this action. more
+On rate change
+The action executed when any of the flow rates (input or output) changes.
+Changing something in the action may result in another immediate rate change and immediately following another call of On rate change, so the user can possibly create a livelock.
+more
+Functions
+Fluid amount
+Function	Description
+double amountPassedIn()	Returns the total amount of fluid passed through the input port of the pipeline since the start of the simulation.
+double amountPassedIn(AmountUnits units)	Returns the total amount of fluid (in given units) passed through the input port of the block since the start of the simulation.
+
+units — the amount units
+double amountPassedOut()	Returns the total amount of fluid passed through the output port of the pipeline since the start of the simulation.
+double amountPassedOut(AmountUnits units)	Returns the total amount of fluid (in given units) passed through the output port of the block since the start of the simulation.
+
+units — the amount units
+Flow rate
+Function	Description
+double currentRateIn()	Returns the current flow rate of fluid that goes in.
+double currentRateIn(FlowRateUnits units)	Returns the current flow rate (in given units) of fluid at the block input.
+
+units — the flow rate units
+double currentRateOut()	Returns the current flow rate of fluid that goes out.
+double currentRateOut(FlowRateUnits units)	Returns the current flow rate (in given units) of fluid at the block output.
+
+units — the flow rate units
+Output batch
+Function	Description
+double updateOutputBatch()	Forces immediate recalculation of the output batch and its color according to the current property settings.
+void setBatchOut(Object batch, Color color)	Changes the output batch and color while the input batch stays the same. When the new input batch arrives, the output batch will be recalculated according to the FluidConvert block settings.
+
+batch — the new batch
+void setBatchOut(Object batch)	Same as setBatchOut(batch, color), but does not change the batch color.
+
+batch — the new batch
+Resetting statistics
+Function	Description
+void resetStats()	Resets statistics collected for this block, including the statistics collected for its ports.
+Ports
+in
+The input port.
+out
+The output port.

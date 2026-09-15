@@ -1,0 +1,127 @@
+Convey
+
+
+Transports the incoming agents (material items) to the specified destination point of a conveyor network. The one and only block that controls material items movement within a conveyor network.
+
+Material item’s route can be specified explicitly as a sequence of conveyors or calculated automatically. Automatically calculated route is the shortest sequence of conveyors between the source and target points. You can customize this route by including or avoiding specific conveyors in the route (Avoid conveyors and Include conveyors options).
+
+If you want material items to make decisions about the route while they are moving, you should model continuous movement with a sequence of multiple Convey blocks, possibly with SelectOutput blocks in between.
+
+Demo model:
+ 
+Convey
+Open the model page in AnyLogic Cloud. There you can run the model or download it (by clicking Model source files).
+Properties
+Convey from
+Choose the type of place within the conveyor network where material items start their movement. The options are:
+Conveyor — Material items will start their movement from the specified conveyor (from the conveyor start, or with some offset).
+Position on conveyor — Material items will start their movement from the point marked graphically with the position on conveyor shape.
+Current position — Material items will start their movement from their current location in the conveyor network.
+more
+Source position
+[Visible and applies only if the Convey from: Position on conveyor]
+Select the space markup element Position on conveyor defining the exact place on the conveyor where material items will be placed by this block. more
+Source conveyor
+[Visible and applies only if the Convey from: Conveyor]
+The conveyor where the material items will be placed. more
+Source offset from
+[Visible and applies only if the Convey from: Conveyor]
+Choose here where to count the source offset from: The beginning of the conveyor, or The end of the conveyor. more
+Source offset
+[Visible and applies only if the Convey from: Conveyor]
+The distance from the start or end point of the conveyor (depends on the Source offset from parameter) to the leading edge of the material item being placed on the conveyor by this block. more
+Change orientation
+[Visible and applies only if the Convey from: Current position]
+If selected, you will be able to change the orientation of the material item that enters the conveyor by selecting the new leading edge of the item in the Orientation field below. more
+Orientation
+[Visible and applies only if the Change orientation option is set]
+If you need to rotate the material item when it is placed on the conveyor, choose here the side of the item that must be facing the direction of travel:
+Front
+Rear
+Left
+Right
+more
+Convey to
+Choose the type of model element defining the place within the conveyor network where material items will move to. The options are:
+
+Conveyor — Material items will move to the specified conveyor (to the conveyor end, or to some other point defined via offset).
+Position on conveyor — Material items will move to the point marked graphically with the position on conveyor shape.
+Station — Material items will move to the specified station.
+Custom station — Material items will move to the specified custom station.
+more
+Target position
+[Visible and applies only if the Convey to: Position on conveyor]
+Select the space markup element Position on conveyor defining the exact place on the conveyor the material items will be moved to by this block. more
+Target conveyor
+[Visible and applies only if the Convey to: Conveyor]
+The conveyor that is the destination for material items transported by this block. more
+Target offset from
+[Visible and applies only if the Convey to: Conveyor]
+Choose here where to count the target offset from The beginning of the conveyor or The end of the conveyor. more
+Target offset
+[Visible and applies only if the Convey to: Conveyor]
+The distance from the start or end point of the conveyor (depends on the Target offset from parameter) to the leading edge of the material item. more
+Target station
+[Visible and applies only if the Convey to: Station option is selected]
+The station that is the destination for material items transported by this block. more
+Custom station
+[Visible and applies only if the Custom station option is set]
+The custom station that is the destination for material items transported by this block. more
+Route is
+Defines the routing options:
+Calculated automatically – The shortest route from the source position to the target position within the conveyor network will be automatically used.
+Sequence of conveyors – You explicitly specify all the conveyors composing the route (in the Sequence of conveyors list below).
+more
+Avoid conveyors
+[Visible and applies only if Route is: Calculated automatically]
+The list of conveyors (it may contain one or several conveyors) that are forbidden to include in the automatically calculated route for material items. more
+Include conveyors
+[Visible and applies only if Route is: Calculated automatically]
+The list of conveyors (it may contain one or several conveyors) that must be included in the automatically calculated route for material items. These conveyors will be included in the route in the specified order, so you need to ensure that such a route exists. more
+Sequence of conveyors
+[Visible and applies only if the Route is: Sequence of conveyors]
+The list of conveyors composing the route that should be used for transporting material items by this block. The source and the target conveyors are included in the sequence. You specify conveyors exactly in the same order they should be used.
+The sequence of conveyors cannot include reversible conveyors.
+more
+Leave conveyor on exit
+Here you can select whether you want to leave material items on the conveyor on reaching the target point, or remove them from the conveyor. If you select not to remove the items (and probably do it later by the ConveyorExit block), select what to do with the item animation in the Exiting agents parameter below. more
+Exiting agents
+[Visible and applies only if the Leave conveyor on exit option is set]
+Here you can choose what happens to the material item's animation when the material item leaves the Convey block. There are two alternative options:
+stay where they are — When the agent leaves the Convey block, its animation resides at its current place.
+are removed from space — When the agent leaves the Convey block, its animation is removed from presentation.
+more
+Actions
+On enter
+Here you can type Java code that will be executed when the agent (material item) enters the block. more
+On at exit
+Here you can type Java code that will be executed when the agent (material item) decides that it will most likely leave the block. more
+On exit
+Here you can type Java code that will be executed when the agent (material item) leaves the block. more
+On remove
+Here you can type Java code that will be executed when the agent (material item) is removed from a conveyor. more
+On cancel
+Code executed when the agent (material item) exits the block via outRedirect port. more
+Functions
+Function	Description
+int size()	Returns the number of agents currently being transported by this block.
+Agent remove(Agent agent)	Removes the specified agent from the conveyor in which it is currently located.
+
+agent — The agent to remove.
+void cancel(Agent agent)	Causes the specified agent to immediately exit this block through the outRedirect port. The On cancel code section is executed for the agent.
+
+agent — The agent to remove through the outRedirect port.
+void cancelAll()	Causes all agents to immediately exit this block through the outRedirect port. The On cancel code section is executed for each agent.
+boolean contains(Agent agent)	Checks whether the block currently contains the specified agent.
+
+agent — The agent to check for availability.
+T get(int index)	Returns the agent by its index number. The order of the agents corresponds to the order in which they move along the conveyor.
+
+index — The index number of the agent.
+Ports
+in
+The input port.
+out
+The output port.
+outRedirect
+The output port for agents leaving the block after conveyor changes direction or after calling either cancel() or cancelAll() function.

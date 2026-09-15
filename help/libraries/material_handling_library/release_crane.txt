@@ -1,0 +1,33 @@
+ReleaseCrane
+ReleaseCrane block
+
+Releases the crane or the bridge previously seized by the SeizeCrane or MoveByCrane block. The release operation takes zero time.
+
+You can define the behavior of the crane after release in the After release, hook parameter using one of the two available policies:
+
+Stays where it is. The hoist (the lifting device) of the crane remains in one place after the release until it is seized by an agent (material item). In the case of multibridge cranes, the released bridge remains in one place unless it is moved by a bridge with a higher priority.
+Returns to the initial position if no other tasks. During the return movement, the specified Safe height is maintained. For jib cranes, the initial position is calculated according to the values specified in the Initial jib angle and Trolley position parameters in the crane properties. For overhead cranes, the initial position depends on the values specified in the Bridge parking position and Trolley position properties of the crane bridge.
+All seized cranes must be released before the Sink block disposes of the agent (material item).
+Demo model:
+ 
+SeizeCrane and ReleaseCrane
+Open the model page in AnyLogic Cloud. There you can run the model or download it (by clicking Model source files).
+Properties
+After release, hook
+Defines the behavior of the crane’s lifting device after the crane has released the material item: either the lifting device Stays where it is or Returns to initial position if no other tasks. During the return movement, the specified Safe height is observed.
+For jib cranes, the initial position of the hook will be calculated according to the values specified in the Initial jib angle and Trolley position parameters of the crane’s properties.
+For overhead cranes, it will depend on the value specified in the Bridge parking position and Trolley position properties of the crane’s bridge. more
+Safe height
+Specifies absolute minimum height to raise the agent in order to move it. more
+Actions
+On enter
+Here you can type Java code that will be executed when the agent enters the block. more
+On exit
+Here you can type Java code that will be executed when the agent leaves the block. more
+On release crane
+Here you can type Java code that will be executed when the agent (material item) releases the crane or the bridge. more
+Ports
+in
+The input port.
+out
+The output port.

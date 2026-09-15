@@ -1,0 +1,102 @@
+Valve
+
+
+The Valve block restricts the flow rate or completely blocks the flow.
+
+Valve has a maximum flow rate, which applies when the valve is open. When the valve is closed, the rate is forced to zero. You can open and close the valve at runtime by calling its open(), close(), and toggle() functions. You can also call the dispense() function to have the valve let through a particular amount and then close. In addition, you can define an arbitrary recurring action to be executed each time a portion of fluid has flown through the valve.
+
+The specified rate cannot be lower than the value of Utils.RATE_TOLERANCE constant, that is, 1.0e-9. If the rate value falls below this value after recalculation, it will be snapped to 0.
+
+Valve is a zero-capacity block, it does not contain any amount of fluid.
+
+As any other block, the Valve block allows you to react to new batches appearing at the input.
+
+Demo model:
+ 
+Valve
+Open the model page in AnyLogic Cloud. There you can run the model or download it (by clicking Model source files).
+Properties
+Maximum rate when open
+If selected, the flow rate through the open valve is not limited. The upper limit then must be set by other blocks up or down the flow. more
+Rate when open
+[Visible and applies if the Maximum rate when open option is not set]
+The maximum flow rate when the valve is open. more
+Initially closed
+Defines the initial state of the valve, and later on can be used to change the state. more
+Animation
+Show batches in flowchart
+If set, the block icon will display the current batch color. more
+Actions
+Recurrent action on portion
+If selected, you can specify the recurrent action to be executed each time a particular amount of fluid flows through the valve. more
+Portion size
+[Visible and applies if the Recurrent action on portion option is set]
+The amount of fluid for the Recurrent action on portion. This value cannot be less than the value of Utils.TOLERANCE. more
+On portion passed
+[Visible and applies if the Recurrent action on portion option is set]
+The action executed each time the amount specified in the Portion size property passes through the valve. Do not confuse it with the On dispense completed action.
+Portion counting does not stop when dispense() is called. more
+On dispense completed
+The executed when dispensing a given amount (initiated by a call of the dispense() function) is completed. Do not confuse it with the On portion passed action. more
+On new batch
+The action executed when a new batch appears at the valve input. It will not necessarily start flowing into the valve. You can, for example, close or open the valve output in this action. more
+On rate change
+The action executed when the flow rate changes.
+Changing something in the action may result in another immediate rate change and immediately following another call of On rate change, so the user can possibly create a livelock.
+more
+Functions
+Valve control
+Function	Description
+boolean isClosed()	Tests if the valve is currently closed. Returns true if the valve is closed, and false otherwise.
+void open()	Opens the valve. Sets the maximum rate to the Rate when open property.
+void close()	Closes the valve (sets the maximum rate to zero).
+void toggle()	Toggles the state of the valve between open and closed. If the valve is currently closed, calling this function opens it, and vice versa.
+Fluid dispensing
+Function	Description
+double dispense(double amount)	Opens the valve if it is closed, lets the specified amount to pass through, and then closes the valve and calls On dispense completed action. If Recurrent action on portion is set, On portion passed action is executed at the moment when the specified amount passes through and before the valve is closed again. If the moments when these actions must be executed coincides, the order of their execution is undetermined. The value of the given amount cannot be less than the value of Utils.TOLERANCE.
+
+amount — the amount of liquid to pass through the valve
+double dispense(double amount, AmountUnits units)	Opens the valve if it is closed, lets the specified amount (in given units) to flow through, and then closes the valve and calls On dispense completed action. If Recurrent action on portion is set, On portion passed action is executed at the moment when the specified amount passes through and before the valve is closed again. If the moments when these actions must be executed coincides, the order of their execution is undetermined. The value of the given amount cannot be less than the value of Utils.TOLERANCE.
+
+amount — the amount of liquid to pass through the valve
+units — the amount units
+double amountBeingDispensed()	When dispensing is in progress, returns the amount being dispensed (in cubic meters or kilograms, depending on the amount unit type chosen for the flowchart). At other times, returns 0.
+double amountBeingDispensed(AmountUnits units)	When dispensing is in progress, returns the amount being dispensed in given amount units. At other times, returns 0.
+
+units — the amount units
+double amountDispensedSoFar()	When dispensing is in progress after a call of dispense(), returns the amount dispensed so far. At other times, returns 0.
+double amountDispensedSoFar(AmountUnits units)	When dispensing is in progress after a call of dispense(), returns the amount (in given units) dispensed so far. At other times, returns 0.
+
+units — the amount units
+Fluid amount
+Function	Description
+double amountPassed()	Returns the total amount passed through the valve since the start of the simulation.
+double amountPassed(AmountUnits units)	Returns the total amount (in given units) passed through the valve since the start of the simulation.
+
+units — the amount units
+double amountPassedInPortion()	When Recurrent action on portion is set, returns the amount passed through the valve in the current portion; this amount is less than the Portion size. If the action is not set, returns 0.
+double amountPassedInPortion(AmountUnits units)	When Recurrent action on portion is set, returns the amount (in given units) passed through the valve in the current portion; this amount is less than the Portion size. If the action is not set, returns 0.
+
+units — the amount units
+Utilization
+Function	Description
+double utilization()	Returns the currently utilized fraction of the valve bandwidth, namely the current rate divided by the maximum open rate. If the valve is closed, the current maximum rate equals 0 or is not limited, returns 0.
+double utilizationTotal()	Returns the average utilization of the valve bandwidth throughout the total operating time, that is, the total amount of fluid that actually passed through the valve divided by the maximum total amount that could pass through, given the (possibly changing) open rate and closing times. If time has ran to infinity, the instant utilization is returned. If the open rate has been set to unlimited even once, the function will return 0.
+Flow rate
+Function	Description
+double currentRate()	Returns the current flow rate of fluid through the valve.
+double currentRate(FlowRateUnits units)	Returns the current flow rate of fluid (in given units) through the valve.
+
+units — the flow rate units
+double averageRate()	Returns the average actual flow rate through the valve throughout the total operating time. If time has ran to infinity, the current input rate is returned.
+double averageRate(FlowRateUnits units)	Returns the average actual flow rate (in given units) through valve throughout the total operating time in given units. If time has ran to infinity, the current input rate is returned.
+
+units — the flow rate units
+Resetting statistics
+Function	Description
+void resetStats()	Resets statistics collected for this block, including the statistics collected for its ports.
+Ports
+in
+The input port.
+out
+The output port.

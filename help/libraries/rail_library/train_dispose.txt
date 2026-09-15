@@ -1,0 +1,15 @@
+TrainDispose
+
+
+Removes a train from the model. There are two ways a train can be removed: it can move out of the rail yard via an open-ended track, in which case TrainDispose should follow the last TrainMoveTo block that was controlling the train, or it can “disappear” from any location in the rail yard, provided it is not moving. TrainDispose (and not Sink or Exit) must be used to remove any trains.
+
+Properties
+Actions
+On enter
+The code that is executed when the train enters the block. more
+Functions
+Function	Description
+long count()	Returns the number of trains disposed by this TrainDispose.
+Ports
+in
+The input port.

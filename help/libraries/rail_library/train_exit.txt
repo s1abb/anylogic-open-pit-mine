@@ -1,0 +1,32 @@
+TrainExit
+
+
+Removes the train from the railway network and passes the train agent on to the regular process flowchart where it can go through delays, queues, decisions, etc. Together with TrainEnter, this block is used to model part of the train movement on a higher abstraction level, namely without detailed physical level rail traffic modeling.
+
+Here are just two use cases of the TrainEnter — TrainExit bundle of blocks:
+
+Before entering the track the train should wait for some resources. In this case the flowchart may look as follows: it starts with the block TrainSource (with the option Leave as logical agent (will use TrainEnter later on) selected in its After creation parameter), that creates the train but does not places it on the railway track; then — block Seize, that seizes required resources; and finally — block TrainEnter, that adds the train on the specified track.
+There are several railway networks in the model. Trains can move from one railway network to another, but we do not want to define this part of the railway (for instance a long segment) at the physical level and want to model it simply as a time delay. In this case we can extract the train from one railway network using the block TrainExit, then pass the train through the flowchart composed of Process Modeling Library blocks (in our case — Delay block), and finally place the train in another railway network using the block TrainEnter.
+
+
+Demo model:
+ 
+Train Exits One and Enters Another Rail Yard
+Open the model page in AnyLogic Cloud. There you can run the model or download it (by clicking Model source files).
+Properties
+Exiting trains
+Select what happens to the train’s animation when the train agent leaves the TrainExit block.
+There are two options: Exiting trains
+are removed from the space — This option is selected by default. In this case trains that exit this block as regular agents, forget their coordinates in the space.
+stay where they are — When agent leaves the TrainExit block, its animation resides at the same place where it was before the train entered this block.
+more
+On enter
+The code executed when the train enters the block. more
+Functions
+Function	Description
+long count()	Returns the number of trains removed from the rail network by this TrainExit.
+Ports
+in
+The input port.
+out
+The output port.

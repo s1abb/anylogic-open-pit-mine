@@ -1,0 +1,42 @@
+TrainDecouple
+
+
+Decouples a given number of cars from the incoming train and creates a new train from those cars, which exits the block via the output port outDecoupled. The block can handle the extreme cases when 0 cars are decoupled, in which case the original train just proceeds to the port out. The speed and acceleration properties of the original train are copied to the new train. No rail cars change their position during decoupling.
+
+The operation of decoupling is performed immediately as the train enters the TrainDecouple block and takes zero time, so if you wish to model the time delay associated with decoupling, you should add a Delay block after the TrainDecouple block.
+
+Properties
+Decouple
+Defines which part of the train should be decoupled:
+
+First cars — the specified number of cars will be decoupled starting from the first car of the train.
+Last cars — the specified number of cars will be decoupled starting from the last car of the train.
+more
+Number of cars to decouple
+The number of cars to decouple. Should be in the range from 0 to the number of cars in the train inclusive. If 0, the whole train exits via out port and nothing exits via outDecoupled port. If all cars are decoupled, the whole train exits via outDecoupled port and nothing exits via out port. more
+New train
+The type of the train created by TrainDecouple. It should be agent type with the option that it is used in flowcharts as train being selected. more
+Add train to
+Here you specify where the trains created by this block will be stored: in the default population of root agent, or in some custom population (specified below in the Train population property). more
+Train population
+[Visible if Add train to: Custom population]
+The name of the agent population where the trains created by this block will be stored. more
+Actions
+On enter
+The code executed when the train enters the block. more
+On exit
+The code executed when the original train without the decoupled cars exits the block via port out. more
+On exit (decoupled)
+The code executed when the new train formed from the decoupled cars exits the block via port outDecoupled. more
+Advanced
+Train type (1)
+The type of train leaving this block via out port. In the properties of this agent type you should specify that it is used in flowcharts as train. more
+Train type (2)
+The type of train leaving this block via outDecoupled port. In the properties of this agent type you should specify that it is used in flowcharts as train. more
+Ports
+in
+The input port.
+out
+The output port for the original train.
+outDecoupled
+The output port for the train created from the decoupled cars.

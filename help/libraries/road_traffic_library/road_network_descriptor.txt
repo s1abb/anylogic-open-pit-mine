@@ -1,0 +1,62 @@
+RoadNetworkDescriptor
+
+
+RoadNetworkDescriptor is an optional block that allows to control all vehicles located in a road network. This block allows you to set actions to be executed for each car in different cases: for example, on entering the network, on entering the road, on changing lane, and so on.
+
+This block also enables the road density map, which displays the current state of traffic jams on the roads of the network.
+
+Properties
+Road network
+The road network that this block configures. more
+Road section length
+The length of the road segment. Cannot be less than 1 meter. All roads in the network are split by sections of the same length (the section at the end of the road can be shorter). These sections are used in density maps and average speed reporting. more
+Density map
+Enable density map
+Controls the visibility of the traffic density map. The traffic density map is a semi-transparent coloring of roads depending on the average speed of a car on each section of the road. The traffic density map is displayed in both 2D and 3D animation. more
+Green speed level
+[Visible and applies only if the Enable density map option is set]
+If the average speed on a road section is greater than or equal to the value of this parameter, the road density map for this section is displayed in green. The value of the Green speed level parameter must always be greater than the value of the Red speed level parameter. more
+Red speed level
+[Visible and applies only if the Enable density map option is set]
+If the average speed on a road section is less than or equal to the value of this parameter, the road density map for that segment is displayed in red. more
+Map transparency (0..1)
+[Visible and applies only if the Enable density map option is set]
+Transparency of the density map. The value of this parameter can be in the range [0..1]. 0 — opaque map, 1 — transparent map. more
+Actions
+On enter network
+The code that is executed each time a car enters the road network. more
+On exit network
+The code that is executed each time a car exits the road network. more
+On enter road
+The code that is executed each time a car enters a road. more
+On exit road
+The code that is executed each time a car exits a road. more
+On enter intersection
+The code that is executed each time a car enters an intersection. more
+On exit intersection
+The code that is executed each time a car exits an intersection. more
+On lane change
+The code that is executed each time a car completes a lane change. more
+On stop
+The code that is executed each time a car stops. There can be several reasons for a car to stop:
+there is a car in front of it that is not moving,
+the car’s preferred speed is set to 0,
+the car has stopped before the stop line,
+the car has reached the target bus stop or parking space.
+more
+On resume moving
+The code that is executed each time a car resumes moving after a stop. more
+On car clicked
+The code that is executed each time a car is clicked with the mouse. more
+Additional options
+Automatically resolve deadlocks
+Toggles the resolution of deadlocks. The deadlock is a situation where cars are in each other’s way and cannot continue moving. If this option is selected, AnyLogic will identify the deadlocks and temporarily allow the cars to pass through each other to avoid the complete block of the model. more
+Precision of geometric calculations
+The precision of geometric calculations (in pixels). Can be changed if the model cannot run with the current settings. more
+Precision of temporal calculations
+The precision of temporal calculations (in seconds). Can be changed if the model cannot run with the current settings. more
+Functions
+Function	Description
+int size()	Returns the number of cars in the road network.
+Agent getCar(int index)	Returns the car in this road network with the given index, or null if there is no such car.
+index — The index of the car to return.

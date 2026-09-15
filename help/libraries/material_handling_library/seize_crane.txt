@@ -1,0 +1,90 @@
+SeizeCrane
+SeizeCrane block
+
+Seizes the crane and sends it to the specified location. The agent enters the SeizeCrane block and is placed in the queue of the crane specified in the block’s properties where it waits until the crane arrives at the destination. When the crane reaches the specified destination, the agent leaves the block.
+
+You can use this block to model complex crane logic, where you need to separate the crane’s movement to the agent from the transportation of the agent by the crane: for example, if you want to insert some processing of the agent (material item) between these two processes. The additional handling of the agent can be modeled using blocks from the Process Modeling library.
+
+Use the ReleaseCrane block or the MoveByCrane block to release the seized crane.
+
+Demo model:
+ 
+SeizeCrane and ReleaseCrane
+Open the model page in AnyLogic Cloud. There you can run the model or download it (by clicking Model source files).
+Crane seize rules
+You can select either an entire crane or a specific bridge.
+
+If the selected bridge is seized by another agent, the new agent will be placed in the queue of that bridge.
+If you select a multibridge crane, the agent will seize the closest available bridge that is physically able to pick up that agent and deliver it to the destination point.
+If all bridges are seized, the agent will wait in the crane’s queue until one of the bridges is released and then will check if that bridge can deliver it to the destination point.
+If more than one bridge is released at the same time, the agent will choose the closest bridge that can deliver it to the destination point.
+All seized cranes must be released before the agent (material item) is disposed of in the Sink block.
+Properties
+Crane
+The crane or bridge that moves the agent (material item). more
+Destination is
+Defines where the crane will be sent. Possible destinations are:
+Agent — the current agent location
+Node — the specified network node
+Attractor — the specified attractor
+Conveyor — the specified conveyor
+Position on conveyor — the specified position on conveyor
+(x, y, z) — the point with the specified coordinates
+more
+Node
+[Visible and applies only if Destination is: Node]
+The network node where the crane or bridge will be sent. more
+Attractor
+[Visible and applies only if Destination is: Attractor]
+The attractor where the crane or bridge will be sent. more
+Conveyor
+[Visible and applies only if Destination is: Conveyor]
+The conveyor where the crane or bridge will be sent. more
+Offset from
+[Visible and applies only if Destination is: Conveyor]
+Defines how to calculate the offset of the exact point on a conveyor where the crane or bridge will be sent: from the beginning of the conveyor, or from the end of the conveyor. more
+Offset
+[Visible and applies only if Destination is: Conveyor]
+The distance from the starting or ending point of the conveyor (depends on the Offset from parameter) that defines the exact destination point for the crane. more
+Position on conveyor
+[Visible and applies only if Destination is: Position on conveyor]
+The position on conveyor where the crane or bridge will be sent. more
+X, Y, Z
+[Visible and applies only if Destination is: (x, y, z)]
+X, Y, Z coordinate of the point where the crane or bridge will move to. more
+Use operation time
+If this option is selected (true), you can directly specify the time it takes the crane to reach the agent (material item). Speed values will be recalculated for every agent to satisfy operation time. more
+Operation time
+[Visible and applies only if Use operation time option is selected]
+The amount of time provided to the crane to transport the agent. The value is evaluated for every agent after On at enter action is executed. more
+Priority
+Defines the expression that the crane or bridge evaluates to select an agent to serve. The expression must return an integer. The crane or bridge will serve the agents for which the expression returns the larger value first.
+The simplest way to use this is to create an integer parameter for the agent type that the crane or bridge should serve, and then specify it as Priority. For example, if your agent type has the priority parameter, which represents the priority of the individual material item, the value of this property can be set to agent.priority.
+If set to the default value of 0, or if multiple agents have the same priority, the agents are served according to the FIFO (first in, first out) policy. more
+Safe height
+Specifies the minimum height the crane should raise the agent to in order to transport it (e.g., to avoid obstacles). It is calculated as distance between the hook and the crane's Z coordinate. more
+Actions
+On enter
+Here you can type Java code that will be executed when the agent (material item) enters the block. more
+On exit
+Here you can type Java code that will be executed when the agent (material item) leaves the block. more
+On remove
+Here you can type Java code that will be executed when the agent (material item) is removed from this block. more
+On seize crane
+Here you can type Java code that will be executed when the agent (material item) seizes the crane. more
+Functions
+Function	Description
+boolean contains(Agent agent)	Returns true if this block contains the specified agent.
+
+agent — The agent (material item).
+int size()	Returns the number of agents that are currently inside this block.
+T get(int index)	Returns the agent with the specified index. The order of the agents corresponds to the order in which they are picked up by the block.
+index — The index of the agent.
+T remove(Agent agent)	Removes the specified agent from the block. If the agent is still in the queue, it is removed from both the queue and the block. If the crane is already moving to the agent, then when the function is called, the crane is released and the agent is removed from the block, with the crane stopping.
+
+agent — The agent (material item).
+Ports
+in
+The input port.
+out
+The output port.

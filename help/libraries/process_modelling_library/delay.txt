@@ -1,0 +1,154 @@
+Delay
+AnyLogic: The Delay block
+
+The Delay block delays agents for a given amount of time. The delay time is evaluated dynamically, may be stochastic and may depend on the agent as well as on any other conditions. Optionally, it may be calculated as the length of the animation path of Delay, divided by the “speed” of the agent. Multiple agents (up to the given Delay capacity) can be delayed simultaneously and independently.
+
+To understand how the delay time works, consider the following example. You have a data packet of agent type Packet, and you need to reflect in your model that the time it takes to process this packet is related to its size, with a larger packet taking more time.
+
+To do this, you must first define the size of the packet. Create a size Parameter within the Packet agent type.
+
+Next, you want to set up the delay time, which is the time it takes to process the packet. To do this, select Packet as the Agent type of the Delay block. Then, in the Delay time property, write processingTimePerDataUnit * agent.size. This means that the delay time is equal to the processing time per data unit multiplied by the size of the packet.
+
+If the capacity of the Delay block is changed dynamically, and the number of currently delayed agents exceeds the capacity, the Delay block will let them complete their delay times and will not let new agents in until the number falls below the new capacity.
+
+You can access the agents being delayed: for example, get their remaining times or remove agents from the block before they finish their delays.
+
+The Delay block can animate the agents either as moving along the specified path or as staying at the specified positions. If the agents are moving, they will cover the entire path during the delay time.
+
+You can dynamically extend the delay time for agents that are currently in the delay state using the extendDelay() function.
+
+Properties
+Type
+The type of agent release trigger:
+Specified time — the delay ends when the specified time elapses.
+Until stopDelay() is called — the user should end the delay and release the agent by calling the stopDelay() function of the Delay block.
+more
+Delay time
+[Visible if Type: Specified time]
+The expression that will be evaluated to obtain the delay time for the agent. more
+Capacity
+The capacity of the Delay block: the number of agents that can be delayed at the same time. more
+Maximum capacity
+If the option is selected (true), the capacity of Delay is the maximum possible (limited by Integer.MAX_VALUE). more
+Agent location
+The space markup shape (node or path) where the agents are located while in this Delay. more
+Advanced
+Forced pushing
+If the option is selected (true), agents are pushed to resume their flowchart movement as soon as they finish processing at the block, regardless of the state of the succeeding block.
+If the option is not selected, agents are not pushed, but pulled. This means that when the succeeding block is ready to accept another agent, it will request the agent from this block. Only then will the agent its their movement (be passed on). more
+Restore agent location on exit
+If the option is selected, after being animated in the Agent location shape, the agents will return to their original location (node or path) where they were before entering this block. more
+Force statistics collection
+This block collects statistics. If the statistics collection is turned off for all Process Modeling Library blocks in the model by the PMLSettings block, this option enables you to override this setting and collect the statistics for this specific block. Otherwise, statistics are collected regardless of this setting. more
+Actions
+On enter
+The code executed when the agent enters the block. more
+On at exit
+The code executed when the delay for the agent has expired and the agent is ready to exit the block. more
+On exit
+The code executed when the agent exits the block. more
+On remove
+The code executed when the agent is intentionally removed from this block by calling the agent’s remove() function. This code is automatically executed after the remove() function is called. more
+Statistics
+StatisticsContinuous statsUtilization
+Continuous delay utilization statistics.
+Utilization is calculated as size()/capacity at all times.
+Collected unless disabled by the PML Settings block.
+Functions
+Stop delay
+Function	Description
+void stopDelay(T agent)	Stops the delay for the specified agent. If the agent argument evaluates to null, then all the agents are released.
+
+agent — the agent to free
+void stopDelayForAll()	Stops the delay for all currently delayed agents.
+Suspend/resume
+Function	Description
+void suspend()	Suspends this Delay block. Blocks the input port, even if the block isn’t full. Timeouts of agents already being delayed are suspended until the resume() function is called. Agents that have already finished their delay and are waiting for the next block to accept them are free to leave whenever the next block is ready to accept them.
+void suspend(double dt)	Suspends this Delay block for the given timeout dt.
+
+dt — the timeout, in model time units
+void suspend(double timeout, TimeUnits units)	Suspends this Delay block for the given timeout in the given time units.
+
+dt — the timeout value
+units — the time units
+void resume()	Resumes the previously suspended delay (if not suspended, throws an error). After this function is called, all timeouts of delayed agents are resumed, so their total timeouts are increased by the amount of time elapsed between suspend() and resume() calls. Unblocks the input port if there is room for incoming agents.
+T resume(T agent)	Resumes the flowchart movement of the previously suspended agent within this Delay block. If the agent was not suspended, throws an error.
+
+agent — the agent whose flowchart movement should be resumed
+T suspend(T agent)	Suspends the specified agent within this Delay block. Do not confuse this function with Delay.suspend().
+
+agent — the agent to suspend
+boolean isSuspended()	Returns true if the Delay block is suspended, false if not.
+boolean isSuspended(T agent)	Returns true if the specified agent within is suspended within this Delay block, false if not.
+
+agent — the agent whose suspension status to check
+Extend/reduce delay
+Function	Description
+void extendDelay(T agent, double dt)	Extends the delay for the given agent (if it is possible to pass null as an argument, all delayed agents will be affected). The dt argument is measured in model time units. If a negative value of this argument is passed, the function reduces the delay for the given agent.
+This function does not affect agents that have finished their delay and are currently waiting to be accepted by subsequent blocks (due to the “pull” protocol).
+If the delay time has been reduced to 0 after calling this function, the stopDelay() function is automatically called for that agent. This function is only available for the Delay blocks of the Specified time type and has no effect if the initial delay time was set to 0.
+
+agent — the agent to delay
+dt — the delay extension time (in model time units)
+void extendDelay(T agent, double dt, TimeUnits units)	Extends the delay for the given agent (if it is possible to pass null as an argument, all delayed agents will be affected). The dt argument is measured in specified time units. If a negative value of this argument is passed, the function reduces the delay for the given agent.
+This function does not affect agents that have finished their delay and are currently waiting to be accepted by subsequent blocks (due to the “pull” protocol).
+If the delay time has been reduced to 0 after calling this function, the stopDelay() function is automatically called for that agent. This function is only available for the Delay blocks of the Specified time type and has no effect if the initial delay time was set to 0.
+
+agent — the agent to delay
+dt — the delay extension time
+units — the time units
+void reduceDelay(T agent, double dt)	Reduces the delay for the given agent (if it is possible to pass null as an argument, all delayed agents will be affected). The dt argument is measured in model time units.
+This function does not affect agents that have finished their delay and are currently waiting to be consumed by subsequent blocks (due to the “pull” protocol).
+If the delay time has been reduced to 0 after calling this function, the stopDelay() function is automatically called for that agent. This function is only available for the Delay blocks of the Specified time type.
+
+agent — the agent whose delay time is being reduced
+dt — the amount by which to reduce the delay (in model time units)
+void reduceDelay(T agent, double dt, TimeUnits units)	Reduces the delay for the given agent (if it is possible to pass null as an argument, all delayed agents will be affected) in specified time units.
+This function does not affect agents that have finished their delay and are currently waiting to be consumed by subsequent blocks (due to the “pull” protocol).
+If the delay time has been reduced to 0 after calling this function, the stopDelay() function is automatically called for that agent. This function is only available for the Delay blocks of the Specified time type.
+
+agent — the agent whose delay time is being reduced
+dt — the amount to decrease the delay time
+units — the time units
+Delay time
+Function	Description
+double getRemainingTime(T agent)	Returns the remaining delay time for the specified agent, in model time units. Note that when using the “pull” protocol, if this function returns 0, the agent may still remain in the Delay block if the next block cannot accept the agent immediately.
+
+agent — the agent whose remaining delay time is to be retrieved
+double getRemainingTime(T agent, TimeUnits units)	Returns the remaining delay time for the specified agent, in specified time units. Note that when using the “pull” protocol, if this function returns 0, the agent may still remain in the Delay block if the next block cannot accept the agent immediately.
+
+agent — the agent whose remaining delay time is to be retrieved
+units — the time units
+double getDelayTime(T agent)	Returns the initial (chosen) delay time calculated for the specified agent in this Delay block, in model time units. This function takes into account possible delay extensions from extendDelay() function calls. In the case of the “pull” protocol, the actual delay may be greater — if the next block cannot accept outgoing agents immediately.
+
+agent — the agent whose initial delay time is to be retrieved
+double getDelayTime(T agent, TimeUnits units)	Returns the initial (chosen) delay time calculated for the specified agent in this Delay block, in specified time units. This function takes into account possible delay extensions from extendDelay() function calls. In the case of the “pull” protocol, the actual delay may be greater — if the next block cannot accept outgoing agents immediately.
+
+agent — the agent whose initial delay time is to be retrieved
+units — the time units
+double getElapsedTime(T agent)	Returns the time that the specified agent has spent in this Delay block, in model time units. In the case of the “pull” protocol, the returned value may exceed getDelayTime() — if the next block cannot accept agents immediately.
+
+agent — the agent whose elapsed delay time is to be retrieved
+double getElapsedTime(T agent, TimeUnits units)	Returns the time that the specified agent has spent in this Delay block, in specified time units. In the case of the “pull” protocol, the returned value may exceed getDelayTime() — if the next block cannot accept agents immediately.
+
+agent — the agent whose elapsed delay time is to be retrieved
+units — the time units
+Agent
+Function	Description
+int size()	Returns the number of agents currently being delayed.
+T remove(T agent)	Removes the specified agent from the block and returns it.
+
+agent — the agent to remove
+T get(int i)	Returns the agent with index i. Note that this function is very slow and that the order of agents and their indices isn’t preserved and may be different at the next time moment.
+
+i — the index of the agent to receive
+Iterator<Agent> iterator()	Returns the iterator over agents (order: the first is at the exit, the last has the most time left in the delay).
+Statistics
+Function	Description
+boolean isStatisticsCollected()	Returns true if the block collects statistics.
+resetStats()	Resets the statistics collected for this block.
+Ports
+in
+The input port.
+out
+The output port.

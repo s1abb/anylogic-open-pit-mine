@@ -1,0 +1,44 @@
+TimeMeasureEnd
+AnyLogic: The TimeMeasureEnd block
+
+TimeMeasureEnd and TimeMeasureStart form a pair of blocks that measure the time that agents spend between them (given points in a flowchart), such as “time in system”, “length of stay”, and so on.
+
+For each incoming agent, this block measures the time it has spent since passing through one of the corresponding TimeMeasureStart blocks. There can be more than one TimeMeasureEnd block that references a number of TimeMeasureStart blocks.
+
+
+TimeMeasureStart keeps track of all agents that have passed through it and have not yet passed through a paired TimeMeasureEnd block. Therefore, you should make sure that there is no way for such agents to leave the system without going through TimeMeasureEnd, otherwise a memory leak will occur.
+If you see the runtime error "The TimeMeasureStart objects must be specified", it means that the TimeMeasureEnd block, mentioned in the first line of the error message, has the TimeMeasureStart blocks property empty. Specify there the TimeMeasureStart block that starts the time measurement in your flowchart.
+The collected statistics are available as histogram data and as a data set. They can be accessed as variables.
+
+Agents do not spend any time in this block.
+
+Demo model:
+ 
+Measuring Length of Stay
+Open the model page in AnyLogic Cloud. There you can run the model or download it (by clicking Model source files).
+Properties
+TimeMeasureStart blocks
+One or several TimeMeasureStart blocks where time measuring starts (and ends here, in this TimeMeasureEnd block). Add blocks into the list either by clicking the button and selecting the names from the list, or by clicking the button and selecting the required blocks in the graphical editor. more
+Dataset capacity
+The capacity of the block’s dataset where the time measure history is kept, as in, the maximum number of data samples that can be stored in this dataset. more
+Actions
+On enter
+The code executed when the agent enters the block. more
+Variables
+DataSet dataset
+The data set that stores the time each incoming agent spent since it has been through one of the corresponding TimeMeasureStart blocks.
+HistogramData distribution
+The histogram data element that stores the distribution of time the agents spent since they have been through one of the corresponding TimeMeasureStart blocks.
+Functions
+Function	Description
+void resetStats()	Resets the statistics collected for this block in dataset and distribution data items.
+Ports
+in
+The input port.
+out
+The output port.
+To visualize block statistics
+
+Open the Process Modeling Library palette. Find the TimeMeasureStart and TimeMeasureEnd blocks. Drag them into the graphical editor and include these blocks in your flowchart so that they measure the time agents spend in the correct block(s).
+Right-click the TimeMeasureEnd block in the graphical editor and select Create Chart, then select the desired chart type in the submenu.
+The chart will appear in the graphical editor. You will be able to configure it in the Properties section.

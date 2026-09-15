@@ -1,0 +1,32 @@
+ResourceDetach
+AnyLogic: The ResourceDetach block
+
+The ResourceDetach block detaches the previously seized and attached resources from the agent. The detached resource units are still owned by the agent, but will not follow the agent when it moves.
+
+The detach operation takes zero time.
+
+If the resources are released, they are automatically detached and you do not need to use this block in that case.
+
+Properties
+Detach
+Specifies which resources should be detached:
+All attached resources — All the currently attached resources will be detached.
+All attached units seized in given Seize block(s) — You specify the list of Seize blocks, and only the resources previously seized by these blocks will be detached.
+Specified resources (list of pools) — You specify the list of ResourcePool blocks, and only the resources previously attached by these blocks will be detached.
+more
+Seize blocks
+[Visible if Detach: All attached units seized in given Seize block(s)]
+The list of Seize blocks. Only the resources previously seized by these blocks will be detached. more
+ResourcePool objects
+[Visible if Detach: Specified resources (list of pools)]
+The list of ResourcePool blocks. Only the resources previously attached by these blocks will be detached. One unit will be detached per pool name, so if you wish to detach two or more units of the same pool, you should list that pool twice, for example: doctors, nurses, nurses. more
+Actions
+On enter
+The code executed when the agent enters the block. more
+On exit
+The code executed when the agent exits the block. more
+Ports
+in
+The input port.
+out
+The output port.

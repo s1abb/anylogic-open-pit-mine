@@ -1,0 +1,191 @@
+Downtime
+AnyLogic: The Downtime block
+
+The Downtime block defines either maintenance, repairs, or any other type of activity that is different from the usual activity of specific markup elements (cranes, conveyors, conveyor stations), resources defined by the ResourcePool block or transporters defined by the TransporterFleet block.
+
+You can schedule the recurring downtime activities either by using different types of triggers or by using the Schedule element. You can also customize the time of the first occurrence for this activity.
+
+If you define multiple first occurrence triggers, the first one to fire will start the countdown for the triggers that define the recurrence period for this activity, if you have specified them.
+
+If you do not define any triggers for the first occurrence and only specify the recurrence interval, the first occurrence will occur when the specified interval has elapsed. For example, if you define a cycle of 50 work hours, the first downtime will occur when the resource has accumulated 50 work hours from the start of the model run and will repeat at the same frequency until you stop the simulation.
+
+A set of resources may have multiple tasks with different priorities and preemption policies.
+
+If all tasks have the same priority, they will be executed in the usual way following their occurrence schedule. If there are enough resource units available, tasks can be executed simultaneously. If two tasks have the same priority, but one of them was suspended for some reason, this suspended task will be picked1.
+If you have configured no preemption policy for the tasks, these tasks will be executed one after another following their occurrence schedule. If there are enough resource units available, tasks can be executed simultaneously.
+The occurrence of one task does not reset the priorities for other tasks.
+1 Each resource unit may receive requests from different sources. When a single resource unit receives multiple tasks, suspended and new, with identical priority values, some rules apply to the picking order:
+The suspended tasks from the individual queue of the resource unit have the highest priority.
+This queue is formed by agents waiting in blocks that have the Task preemption policy set to Wait for original resource.
+After that, the suspended tasks from the queue of the ResourcePool block are processed.
+This queue is formed by agents waiting in the blocks that have the Task preemption policy set to Seize any resource.
+Once the suspended tasks from these queues are completed, the resource unit begins to process new tasks from their individual queues, and after that, the queue of the ResourcePool block.
+
+If this order does not suit your needs, manually decrease the task’s priority by code, using the On task suspended action of the block.
+
+If a downtime task is scheduled — whether as a maintenance task or a custom task — and at the scheduled start time the resource is still engaged in a higher-priority task, the downtime task will be delayed until the resource completes the higher-priority task.
+
+Suppose we have a downtime maintenance task specified with an “on”-“off” schedule. The “on” interval defines the maintenance task and is set to 2 hours long. It repeats every 10 hours, so the “off” interval is 8 hours. If a higher priority task takes up the first hour of the scheduled “on” interval, then the maintenance task will start at the second hour and last for the scheduled 2 hours. The “off” interval will decrease by the same amount of time that the higher priority task has taken up from the scheduled interval, and will last for 7 hours instead of 8.
+
+The downtime tasks of a particular ResourcePool block may occur at the same time as the end of the shift specified by the properties of that block. In this case, these downtime tasks are moved to the event queue of that ResourcePool. They will start when the end of shift task is completed, that is, when the next shift starts.
+
+During downtime, resources, transporters, and cranes can return to their designated home location or another specified location. Select returns home or goes to… in the At downtime equipment field to specify where to send the equipment during downtime.
+
+The specifics of how the Downtime block works for markup elements are covered in the articles that describe those elements (in the Maintenance, failures, breaks section of their properties).
+
+Demo model:
+ 
+Maintenance of a Coffee Machine
+Open the model page in AnyLogic Cloud. There you can run the model or download it (by clicking Model source files).
+Properties
+Unit type
+The type of the element that goes into downtime. In this article, it is referred as T. Has the following options:
+General — The default state, which causes the Downtime block to affect both agents and markup elements.
+Conveyor — The Downtime block affects conveyors.
+Station — The Downtime block affects conveyor stations.
+Jib Crane — The Downtime block affects jib cranes.
+Overhead Crane — The Downtime block affects bridges on an overhead crane.
+You can also select an agent type from the list; however, only transporters and resources are compatible with the Downtime block.
+If this Downtime block is used in your model only by resources or some specific equipment, you can select the corresponding option here. It will simplify accessing resource units in other properties and functions of this block: the unit local variable will have the type defined here, and you will be able to access any custom fields of equipment or resource units without typecasting. However, if you plan to use this block for units of different types, you should leave the default option (General), and cast the unit variable to the actual type, if required.
+If one type is selected as the Unit type (for example, Conveyor) and the Downtime block is used to model downtime for another type (for example, a Jib crane), an error will occur. more
+Type
+The type of the downtime task performed by the resource units. The available options are Maintenance (may be triggered by schedule), Failure / repair (may not be triggered by schedule), or Custom (any type of interrupting activity for resource units). more
+Defined by
+[Visible if Type: Maintenance or Custom]
+Defines whether to schedule tasks by defining the Triggers or you prefer to use AnyLogic Schedule instead. more
+Schedule
+[Visible if Defined by: Schedule]
+The schedule defining the occurrence pattern for the task. The schedule should be set to the “on/off” mode. During the “on” periods, the resource is on downtime. more
+Total time between occurrences
+[Visible if Defined by: Triggers]
+The period of working time (when the resource unit services an agent) and idle time that must pass between the assignments of this task. If the edit box is left empty, this type of trigger will not be applied. more
+... countdown starts when
+[Visible if Defined by: Triggers]
+Defines when the countdown for the Total time between occurrences property must start: either when the task starts or when the task finishes. If the downtime task has been started by a different trigger, the Total time between occurrences countdown will be restarted after the downtime task finishes. more
+Working time between occurrences
+[Visible if Defined by: Triggers]
+The period of working time that must pass between the assignments of this task. Working time includes the time spent by the resource to reach the agent that seized it and the time of service itself. If the edit box is left empty, this type of trigger will not be applied. more
+Cycles between occurrences
+[Visible if Defined by: Triggers]
+The number of times this resource must be seized between the assignments of this task. If the resource work was interrupted after it had been seized but then resumed once again, this is counted as two cycles. If the edit box is left empty, this type of trigger will not be applied. more
+Custom first occurrence
+[Visible if Defined by: Triggers]
+Enables the custom trigger values for the first downtime occurrence. If not enabled, the first downtime will occur when the recurrence period specified for the repeating downtime task runs out. more
+Total time to first occurrence
+[Visible if the Custom first occurrence option is selected]
+The amount of time that must pass from the appearance of the resource unit until this task is first assigned to the resource. It includes both working time (when the resource unit services an agent) and idle time. If the field is left empty, this type of trigger will not be applied. more
+Working time to first occurrence
+[Visible if the Custom first occurrence option is selected]
+The amount of working time that must pass until this task is first assigned to the resource. Working time includes the time spent by the resource to reach the agent that seized it and the time of service itself. If the edit box is left empty, this type of trigger will not be applied. more
+Cycles to first occurrence
+[Visible if the Custom first occurrence option is selected]
+The number of times this resource has been seized until this task is first assigned to the resource. If the resource work was interrupted after it had been seized and then resumed once again, it is counted as two cycles. If the edit box is left empty, this type of trigger will not be applied. more
+Downtime task
+Task type
+Defines how to model the downtime task:
+Delay (timeout/schedule) — you can set the task duration as a delay or use a schedule.
+Delay (timeout/schedule) with resources — you can define the task duration as a delay or use a schedule and define the minimal logic for the resources that will execute this task.
+If the resources you are using for the downtime task are also used elsewhere, the priority of the downtime task will be 0. If you need to define a more complex logic including the prioritizing of resources, you should define it in a separate flowchart and select Go to flowchart option in this property.
+Delay until stopTask() is called — the task will continue running until its explicit termination by calling the stopTask() function. Go to flowchart — as an alternative to modeling a task just with a delay, you can model it with a flowchart describing the process. The flowchart start should start with the ResourceTaskStart block specified in the Task start block property below.
+If the At downtime equipment property is set, the equipment starts the delay only after reaching the maintenance location.
+more
+Task duration
+[Visible if Defined by: Triggers and Task type: Delay (timeout/schedule)]
+The duration of the task. more
+Seize
+[Visible if Task type: Delay (timeout/schedule) with resources]
+Defines the seize mode: (alternative) resource sets or units of the same pool.
+For more details, see Using resources. more
+Resource sets (alternatives)
+[Visible if Seize: (alternative) resource sets]
+Defines alternative resource sets. To add a new list, click Add list. The resource set is selected based on the availability of units.
+For more details, see Using resources. more
+Resource pool
+[Visible if Seize: units of the same pool]
+The ResourcePool block from where the resources are requested.
+For more details, see Using resources. more
+Number of units
+[Visible if Seize: units of the same pool]
+The expression evaluated to obtain the required number of resource units for the agent. more
+Send seized resources
+If selected (true), the seized resources will be sent to the specified location. more
+Destination is
+[Visible if the Send seized resources option is selected]
+Defines where the resources will be sent. The resources can be sent to:
+Agent — current agent location.
+Network node — specified network node.
+Attractor — specified attractor.
+more
+Node
+[Visible if Destination is: Network node]
+The network node where the seized resources will be sent. more
+Attractor
+[Visible if Destination is: Attractor]
+The attractor where the seized resources will be sent. more
+After release resources
+[Visible if the Send seized resources option is selected]
+Defines the behavior of the resources after they are released: they will either Return to home location or Stay where they are. more
+Task start block
+[Visible if Task type: Go to flowchart]
+The ResourceTaskStart block that starts the flowchart defining the task process. more
+At downtime equipment
+[Compatible for Unit type: Jib Crane, Overhead Crane, moving resources defined by the ResourcePool or transporters defined by the TransporterFleet blocks.]
+Defines where the equipment or its moving part (for the cranes) go at downtime. Has the following options:
+stays where it is — equipment remains stationary during downtime.
+returns home — equipment relocates to its default location.
+goes to… — equipment moves to the specified location.
+The maintenance location must be accessible for the equipment: either in the same network or inside the reach zone for the cranes.
+more
+Maintenance location
+[Visible if At downtime equipment: goes to…]
+Specifies the location to send the equipment during downtime. The equipment can relocate to:
+Node — the specified network node.
+Agent — the current agent location.
+Attractor — the specified attractor.
+(x, y, z) — the specified coordinates.
+more
+Node
+[Visible if Maintenance location: Node]
+The node where the equipment will be sent during downtime. more
+Agent
+[Visible if Maintenance location: Agent]
+The agent to move to (for example, a particular resource unit of some other agent). more
+Attractor
+[Visible if Maintenance location: Attractor]
+The attractor where the equipment will be sent during downtime. more
+X, Y, Z
+[Visible if Maintenance location: (x, y, z)]
+The X, Y, and Z coordinates of the point where equipment will be sent during downtime. Note that you define absolute coordinates, so you should make the point coordinates correspond to the node coordinates, otherwise the equipment will move to the point outside the node. more
+Usage statistics are
+Defines whether to consider this task in the collected usage statistics as “busy” time,“idle” time, or to not take it into account at all. more
+Priorities
+Priority
+Sets the priority of the task. more
+May preempt other tasks
+Sets whether this task may preempt the task currently being executed, if any. In other words, true means that the resource unit will “drop its work” when this task is activated. If false, then the resource unit will finish all of its lower Priority tasks. Note that the true option has exceptions: the current task of the resource unit may have an “uninterruptible” option, No preemption. more
+Preemption policy
+Specifies the policy for the task preemption:
+No preemption — cannot be preempted (unit will be busy with this task until it is finished).
+Terminate — may be preempted and will be terminated.
+more
+Actions
+On downtime triggered
+The code to execute when this downtime task is triggered either by schedule, cycles, total or working time triggers, or manually. more
+On start
+The code to execute when the task starts. If during downtime the resource unit (a transporter, crane, and so on) moves to the specified location, this code is executed only when it reaches the destination. more
+On finish
+The code to execute when the task finishes. more
+On terminate
+[Visible if Preemption policy: Terminate]
+The code to execute when the task has been terminated because of preemption. more
+Functions
+Function	Description
+void restartTriggers(T unit)	Resets the countdowns of all triggers for the specified resource unit and starts waiting for the next triggering events.
+
+unit — the resource unit which countdowns are to be reset
+void stopTask(T unit)	Stops the downtime task for the specified resource unit and restarts all triggers according to their settings. If the resource unit (transporter, crane, etc.) is currently moving to the specified maintenance location, the function call will be ignored.
+
+unit — the resource unit which tasks are to be stopped
+boolean isActive(T unit)	Returns if the specified resource unit is currently executing the downtime task.
+
+unit — the resource unit to check for downtime

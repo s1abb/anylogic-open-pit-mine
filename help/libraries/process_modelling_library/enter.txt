@@ -1,0 +1,100 @@
+Enter
+
+
+The Enter block inserts the already existing agents into a specific location in the flowchart.
+
+Demo model:
+ 
+Enter and Exit
+Open the model page in AnyLogic Cloud. There you can run the model or download it (by clicking Model source files).
+This block is typically used either to transfer the agents created by a statechart, an event, and the like into the process flow, or, in conjunction with the Exit block, to implement custom routing in the process model.
+
+To insert the agent via this block, call its take(agent) function.
+
+
+Properties
+Agent type
+The type of the agents entering the flowchart via this block. Referred below as T. more
+New location
+Defines the new location for the agents entering the flowchart via this block. There are six options:
+Not specified — You do not specify the new location for the agents, they stay where they are currently.
+Network / GIS node — Agents are placed in the given network node, GIS point, or GIS region.
+Attractor — Agents are placed in the specified attractor.
+(x, y, z) — Agents are placed in the point with the specified coordinates X, Y, Z.
+(latitude, longitude) — Agents are placed in the given point on the GIS map with the specified Latitude and Longitude.
+Geographic place — Agents are placed in the particular location on the GIS map. You define this place using the Name of place property below.
+more
+Node
+[Visible if New location: Network / GIS node]
+The network node, GIS point, or GIS region where the agents that entered this block are put. more
+Attractor
+[Visible if New location is Attractor]
+Attractor where the agents that entered this block are put. more
+X, Y, Z
+[Visible if New location: (x, y, z)]
+The X, Y, and Z coordinates of the point where the agents will be put. more
+… located in
+[Visible if New location: (x, y, z)]
+Specifies where the agent will be added to upon entering this block: either Level or Network. more
+Level
+[Visible if … located in: Level]
+The level the agent will be added to once it enters the block. more
+Network
+[Visible if … located in: Network]
+The network the agent will be added to once it enters the block. more
+Latitude, Longitude
+[Visible if New location is (latitude, longitude)]
+The latitude and longitude of the point on the GIS map where the agents will be placed. more
+Name of place
+[Visible if New location: Geographic place]
+The name of the particular location on the GIS map, where the agents will be placed. You specify the name as text put in quotes, for example: "London". The GIS map will perform a GIS search for a location with the specified name. The first location from the list of GIS search results will be used. more
+Speed
+[Visible unless New location: Not specified]
+The speed of the agents that are entering the flowchart via this block. more
+Agent
+Change dimensions
+If the option is selected (true), you will be able to change the dimensions of the agents entering the flowchart via this block by specifying the new Length, Width, and Height values below. more
+Length
+[Visible if the Change dimensions option is selected]
+The new length of the agent. more
+Width
+[Visible if the Change dimensions option is selected]
+The new width of the agent. more
+Height
+[Visible if the Change dimensions option is selected]
+The new height of the agent. more
+Advanced
+Add newborns to
+Defines where the agents created by this block will be stored: in the default population of the top-level agent of the model or in a custom population (specified below in the Population property). Note that this applies only to those agents that were just created with the new() constructor and have not been present in the model yet. The default population (the Java collection of the AgentList type) contained in the top-level agent can be accessed with the getDefaultPopulation() function. more
+Population
+[Visible if Add newborns to: custom population]
+The name of the agent population where the agents created by this block will be stored. more
+Forced pushing
+If the option is selected (true), then when agents finish processing at the block, they are instantly pushed further regardless the state of the succeeding block.
+If the option is not selected, agents are not pushed, but pulled: only when the succeeding block is ready to accept one more agent, it requests the agent from this block, and only then this agent passes further. more
+Actions
+On enter
+The code executed when the agent enters the block. more
+On remove
+The code executed when the agent is intentionally removed from this block by calling the remove() function of the agent. This code is automatically executed after the remove() function call. more
+On at enter
+The code executed when the agent decides that it most likely will go through this block. more
+Functions
+Function	Description
+void take(T agent)	Inserts the specified agent into the process flow by sending it to output from the out port.
+
+agent — the agent to insert
+long count()	Returns the number of agents inserted into the flowchart by this Enter block. This function does not count agents waiting to be inserted; the size() function should be used instead.
+int size()	Returns the number of agents waiting to be inserted in this block: the agents that have not yet been accepted by subsequent flowchart blocks.
+boolean cancel(T agent)	Cancels the insertion of the specified agent, if it has not yet been accepted by subsequent flowchart blocks.
+Returns true if the agent has been successfully removed from this block, and false if the agent has already been inserted into the flowchart by this block, or if the specified agent has not been taken by this block using the take() function.
+
+agent — the agent to cancel; use null to cancel all the agents pending transfer in this block
+int cancelAll()	Cancels all the agents currently pending transfer in this block: the agents that have not yet been accepted by subsequent flowchart blocks. Returns the number of canceled agents.
+T remove(T agent)	Removes the agent from the block and returns it. If the agent was not in the block, returns null.
+
+agent — the agent to remove
+Iterator<T> iterator()	Returns the iterator over agents currently awaiting transmission in this block (which have not yet been accepted by subsequent flowchart blocks), in their take() order. Note that returned agents may be consumed by subsequent blocks at any time later, unless the cancel() function is called. For example, some Delay block may become free, or the Hold block may be unblocked.
+Ports
+out
+The output port.

@@ -1,0 +1,116 @@
+Queue
+The Queue block
+
+The Queue block models a queue (a buffer) of agents waiting to be accepted by the next block(s) in the process flow, or a general-purpose storage for the agents. Optionally, you may associate a maximum waiting time with an agent. You can also remove agents from any position in the queue by code.
+
+The queuing discipline may be FIFO (”First In, First Out” — the first stored agent will be the first agent to retrieve), LIFO (”Last In, First Out” — the last stored agent will be the first agent to retrieve), priority-based, or based on agent comparison. The priority may be explicitly stored in the agent or calculated based on the agent properties and external conditions. A priority queue always accepts an incoming agent, evaluates its priority and places it at the corresponding position in the queue.
+
+If the queue is full, the new agent may cause the last agent in the queue to be thrown out through the outPreempted port, or it can jump to the queue itself if its priority is lower than or equal to the last agent’s priority.
+
+If a timeout is associated with the agent, it will exit through the outTimeout port when the maximum wait time is reached.
+
+You can also remove arbitrary agents from the queue by calling the remove() function. In some cases, for example, when the Queue block is used to model storage with arbitrary access, it makes sense to leave the out port of Queue unconnected and use remove() as the primary way for the agents to exit the queue. You may insert the removed agents into other processes using Enter blocks.
+
+The queue capacity can be changed dynamically.
+
+The agents in the queue can be animated as they line up along the path or as they remain at the specified positions within a node.
+
+The Queue block has several extension points. For example, you can execute the custom actions when the agent enters the queue, exits the queue through one of the three ports, and appears in the first position of the queue.
+
+When the On enter action is executed, the agent is already placed in the queue. When the On Exit, On Exit (Timeout), or similar action is performed, the agent is already removed from the queue.
+Properties
+Capacity
+[Visible unless the Maximum capacity option is selected]
+The capacity of the queue (maximum number of agents that can wait in the queue). more
+Maximum capacity
+If the option is selected (true), the capacity of the queue is the maximum possible (limited by Integer.MAX_VALUE). more
+Agent location
+The space markup shape (node or path) where the agents are located when they are in this block. more
+Advanced
+Queuing
+The queuing discipline for the queue. Possible options are:
+FIFO — First In, First Out. The default policy. The first agent stored will be the first agent retrieved.
+Priority-based — Agents are queued according to their priority (defined in the Agent Priority edit box).
+Agent comparison — In this mode, the Boolean expression is evaluated for each incoming agent. It compares this agent with the agents that are already in the queue and determines the queue position based on the results.
+LIFO — Last In, First Out. The last agent stored will be the first to be retrieved.
+more
+Agent priority
+[Visible if Queuing: Priority-based]
+The priority of the incoming agent (the greater the higher). more
+"agent1 is preferred to agent2"
+[Visible if Queuing: Agent comparison]
+Specifies the Boolean expression to evaluate for each agent entering the queue. The expression compares this agent with the agents already in the queue and determines the queue position based on the results. If the expression returns true, the new agent is placed closer to the head of the queue than the agent from the queue it is compared with. more
+Enable exit on timeout
+If the option is selected (true), the timeout option for the queue is enabled. After spending the specified amount of time in queue, the agent will leave the block through the outTimeout port. more
+Timeout
+[Visible if the Enable exit on timeout option is selected]
+The expression that will be evaluated to get the timeout time for the agent. more
+Enable preemption
+If the option is selected (true), agents are queued according to their priority and can be preempted by agents with a higher priority. more
+Restore agent location on exit
+If the option is selected, the agents, after being animated in the shape specified as Agent Location, will return to their original location (node or path) where they were before entering this block. more
+Force statistics collection
+This block collects queue size statistics.
+If the statistics collection is turned off for all Process Modeling library blocks in the model by the PMLSettings block, this option enables you to override this setting and collect the statistics for this specific block. Otherwise, the statistics are collected regardless of this setting. more
+Actions
+On enter
+The code executed when the agent enters the block (and has been placed in the queue). more
+On at exit
+The code executed when the agent appears at the head of the queue (position 0), which can happen immediately after it enters the queue. more
+On exit
+The code executed when the agent exits the block via the out port (in the normal way). more
+On exit (preempted)
+[Visible if the Enable preemption option is selected]
+The code executed when the agent exits the block through the outPreempted port as a result of preemption. more
+On exit (timeout)
+[Visible if the Enable exit on timeout option is selected]
+The code executed when the agent exits via the outTimeout port as a result of waiting too long. more
+On remove
+The code executed when the agent is intentionally removed from this block by calling the agent’s remove() function. This code is automatically executed after the remove() function is called. more
+Statistics
+StatisticsContinuous statsSize
+Continuous queue size statistics. Collected unless disabled by the PML Settings block.
+Functions
+Block state
+Function	Description
+int size()	Returns the number of agents in the queue.
+boolean canEnter()	Returns true if a new agent can enter the Queue block.
+void sortAgents()	Reorders the queue elements by sorting them according to the queue rules.
+FIFO or LIFO queue: Does nothing.
+Agent comparison queue: Compares agents with each other.
+Priority-based queue: Recalculates agent priorities.
+Agents in queue
+Function	Description
+T get(int index)	Returns the agent at the position index (0 is at the exit).
+
+index — the position of the agent to get
+T getLast()	Returns the last agent or null if the queue is empty.
+T getFirst()	Returns the first agent or null if the queue is empty.
+T removeFirst()	Removes the first agent from the queue and returns it.
+T remove(T agent)	Removes the specified agent from the queue and returns it. If the agent is not contained in the queue, returns null.
+
+agent — the agent to remove
+T remove(int index)	Removes the agent at the specified position in the queue and returns it.
+
+index — the position of the agent to remove
+boolean release(T agent)	Tells the queue to release the specified agent and send it to the out port.
+Since this function is called, the agent can leave the Queue block via the out port, but it “holds” the capacity of the queue until it is actually removed from this Queue block.
+In addition, if the Queue block has the appropriate configuration, the agent can be preempted or timed out of the queue while waiting on the out port.
+The On at exit action is performed for the specified agent.
+This function returns true if the agent was successfully released and false if there is no such agent in the queue or the agent has already left the queue due to timeout or preemption, or this agent is already waiting on the out port.
+
+agent — the agent to release
+Iterator<T> iterator()	Returns the iterator over agents (order: the first is at the exit, the last has the most time left in the delay).
+Statistics
+Function	Description
+boolean isStatisticsCollected()	Returns true if the block collects statistics.
+void resetStats()	Resets the statistics collected for this block.
+Ports
+in
+The input port.
+out
+The output port.
+outTimeout
+The output port for agents leaving the block due to a timeout.
+outPreempted
+The output port for agents leaving the block due to a preemption.

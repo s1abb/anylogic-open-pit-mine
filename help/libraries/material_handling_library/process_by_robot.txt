@@ -1,0 +1,209 @@
+ProcessByRobot
+
+
+This block simulates processing of an agent (material item) by a robot. The block defines only the logic, namely the operation that the agent requires to perform using the robot. The robot itself and all its physical properties (links length, maximum arm reach, etc.) are defined by the corresponding space markup shape: robot.
+
+The block seizes the specified robot, then performs the required operation (it can be either processing, or agent transportation to the specified location), and finally releases the robot.
+
+If at the moment of the agent's request the robot is busy, the agent is placed into the internal queue of the block and waits there for the robot to become available. This block retrieves agents from the internal queue based on the FIFO rule (first-in, first-out).
+
+The most important property is the Operation time. For the simplicity, you define just one value to define the operation duration. It includes both the time the robot requires to move its robotic arm to the agent (material item) and the time required for agent processing or transportation.
+
+You can define the post-process for the robot that will be accomplished after finishing the agent processing if there are no other agents waiting in the internal queue. You can choose the required type of the post-process (e.g. move the robot's end effector to the specified location) using the After operation robot option, and specify the time required to complete it, in the Post-process time property.
+
+The agent is considered reachable by a robot, even if it is located only partially in the robot's arm reach area.
+
+You can set the safe height for the robot to satisfy the conditions of the environment you are modeling. If the agent needs to be picked up and transported by the robot, at the start of the agent transportation the robot checks its safe height. If the agent is located below the safe height level, before the transportation the robot lifts it up first to the minimum allowed height, and only then transports it to the target location.
+
+Demo model:
+ 
+ProcessByRobot
+Open the model page in AnyLogic Cloud. There you can run the model or download it (by clicking Model source files).
+Properties
+Change end effector
+Defines whether the robot should change its end effector when it starts processing the agent (material item). more
+End effector
+[Visible and applies only if the Change end effector option is selected]
+A new end effector for the robot that is set when the processing of the agent (material item) starts. You can choose whether to use gripper, vacuum gripper, welding gun end effector, or none (not set). more
+Pick up agent
+If selected (true), the robot will move the agent to the specified destination, otherwise the agent will remain stationary and only the robot will move. more
+Operation time
+The time required by the robot to perform the operation. It includes both the time it takes for the robot to move its arm to the agent (material item) and the time required for agent processing or transportation. The value is evaluated for each agent after the On at enter action is executed. more
+Movement type
+Defines how the robot moves during agent processing or transporting - along the specified path or directly between source and destination locations. The possible options are:
+point to point - the robot moves between source and destination locations along shortest trajectory.
+path controlled - the robot moves along the specified path.
+more
+Path
+[Visible and applies only if the Movement type is path controlled]
+The path, which defines the trajectory along which the robot’s end effector will move while the robot is processing or transporting the agent. If it is more convenient, you can draw a path defining the welding (soldering, gluing, etc.) line right inside the agent. In this case you can use the agent local variable to access the current agent and specify here the path that you have previously drawn inside the corresponding agent type as e.g. agent.path. But if the agent has any vertical rotation, it is not applied to its internal path. more
+Processing ends at
+[Visible and applies only if the Movement type is point to point]
+Defines where the robot will move the agent to or will move itself after it reaches the start location. The possible destinations are:
+Node - the specified network node
+Attractor - the specified attractor
+Conveyor - the specified conveyor
+Position on conveyor - the specified position on conveyor
+(x, y, z) - the point with the specified coordinates
+Agent - the specified agent location
+more
+Node
+[Visible and applies only if the Processing ends at: Node]
+The network node the robot will move to after it reaches the start location. more
+Attractor
+[Visible and applies only if the Processing ends at: Attractor]
+The attractor the robot will move to after it reaches the start location. more
+Conveyor
+[Visible and applies only if the Processing ends at: Conveyor]
+The conveyor the robot will move to after it reaches the start location. more
+Offset from
+[Visible and applies only if the Processing ends at: Conveyor]
+Defines how to calculate the offset of the exact point on a conveyor the robot will move to after it reaches the start location: either from The beginning of the conveyor, or from The end of the conveyor. more
+Offset
+[Visible and applies only if the Processing ends at: Conveyor]
+The distance from the start or end point of the conveyor (depends on the Offset from parameter) defining the exact destination point for the robot. more
+Position on conveyor
+[Visible and applies only if the Processing ends at: Position on conveyor]
+The position on conveyor the robot will move to after it reaches the start location. more
+X, Y, Z
+[Visible and applies only if the Processing ends at: (x, y, z)]
+X, Y, Z coordinate of the point the robot will move to after it reaches the start location. more
+Agent
+[Visible and applies only if the Processing ends at: Agent]
+The agent the robot will move to after it reaches the start location. more
+End effector approaches
+Defines from which point the robot approaches the location/agent. The possible options are:
+Top side - the robot approaches the location from above.
+Nearest side - the robot approaches the location from the side, closest to the robot base.
+more
+Safe height
+The absolute minimum height for the robot operations. The robot should raise its end effector above the safe height level (e.g., to avoid obstacles). The safe height is not applied to the agent transportation if the Movement type is path controlled. If the specified safe height is located above the point where the Processing starts at, the robot should first raise its end effector to this height and then perform the task of moving to the specified destination. If the destination point (the Processing ends at) is located below the safe height level, the robot must first move its end effector to a position above this point taking into account the safe height and then move the end effector to the final point. more
+Seize robot
+Seize robot
+If selected (true), the agent will seize a robot for the operation. If the option is not selected, the agent should already have a previously seized robot, otherwise, the error is raised. more
+Robot
+[Visible and applies only if the Seize robot option is selected]
+The robot that processes the agent (material item). more
+Processing starts at
+[Visible and applies only if the Seize robot option is selected and the Movement type is point to point]
+Defines the point to which the robot should move its end effector before starting processing. The possible destinations are:
+Agent - the current agent location
+Node - the specified network node
+Attractor - the specified attractor
+Conveyor - the specified conveyor
+Position on conveyor - the specified position on conveyor
+(x, y, z) - the point with the specified coordinates
+more
+Node
+[Visible and applies only if the Processing starts at: Node]
+The network node the robot will move to its end effector before starting processing. This value is evaluated right after the robot picks up the agent. more
+Attractor
+[Visible and applies only if the Processing starts at: Attractor]
+The attractor the robot will move to its end effector before starting processing. This value is evaluated right after the robot picks up the agent. more
+Conveyor
+[Visible and applies only if the Processing starts at: Conveyor]
+The conveyor the robot will move to its end effector before starting processing. This value is evaluated right after the robot picks up the agent. more
+Offset from
+[Visible and applies only if the Processing starts at: Conveyor]
+Defines how to calculate the offset of the exact point on a conveyor the robot will move to its end effector before starting processing: either from The beginning of the conveyor, or from The end of the conveyor. more
+Offset
+[Visible and applies only if the Processing starts at: Conveyor]
+The distance from the start or end point of the conveyor (depends on the Offset from parameter) defining the exact destination point for the robot. This value is evaluated right after the robot picks up the agent. more
+Position on conveyor
+[Visible and applies only if the Processing starts at: Position on conveyor]
+The position on conveyor the robot will move to its end effector before starting processing. This value is evaluated right after the robot picks up the agent. more
+X, Y, Z
+[Visible and applies only if the Processing starts at: (x, y, z)]
+X, Y, Z coordinate of the point the robot will move to its end effector before starting processing. This value is evaluated right after the robot picks up the agent. more
+Priority
+[Visible and applies only if the Seize robot option is selected]
+Defines the priority of this task for the current agent (the larger the higher). The robot will serve agents with the highest priority first. If several agents have the same priority, they will be served in the order they have arrived in the block (FIFO, First In, First Out). more
+Release robot
+Release robot
+If selected (true), the agent will release the previously seized robot. Using the following property, you can define the post-process to be executed after finishing the processing operation and releasing the robot. more
+After operation robot
+[Visible and applies only if the Release robot option is selected]
+Defines the robot behavior after agent processing is finished and if there are no other agents in the queue. You can choose the robot to do nothing, return to its initial position, or move its end effector to the specified target after finishing the agent processing. more
+Destination
+[Visible and applies only if After operation robot: moves end effector to]
+Defines where the robot will move its end effector to after the operation. The possible destinations are:
+Node - the specified network node
+Attractor - the specified attractor
+Conveyor - the specified conveyor
+Position on conveyor - the specified position on conveyor
+(x, y, z) - the point with the specified coordinates
+Agent - the specified agent location
+more
+Node
+[Visible and applies only if the Destination is Node]
+The network node the robot will move its end effector to after the operation. more
+Attractor
+[Visible and applies only if the Destination is Attractor]
+The attractor the robot will move its end effector to after the operation. more
+Conveyor
+[Visible and applies only if the Destination is Conveyor]
+The conveyor the robot will move its end effector to after the operation. more
+Offset from
+[Visible and applies only if the Destination is Conveyor]
+Defines how to calculate the offset of the exact point on a conveyor the robot will move its end effector to after the operation: either from The beginning of the conveyor, or from The end of the conveyor. more
+Offset
+[Visible and applies only if the Destination is Conveyor]
+The distance from the start or end point of the conveyor (depends on the Offset from parameter) defining the exact destination point for the robot. more
+Position on conveyor
+[Visible and applies only if the Destination is Position on conveyor]
+The position on conveyor the robot will move its end effector to after the operation. more
+X, Y, Z
+[Visible and applies only if the Destination is (x, y, z)]
+X, Y, Z coordinate of the point the robot will move its end effector to after the operation. more
+Agent
+[Visible and applies only if the Destination is Agent]
+The agent the robot will move its end effector to after the operation. more
+End effector approaches
+[Visible and applies only if After operation robot: moves end effector to]
+Defines from which point the robot approaches the target. The possible options are:
+top side - the robot approaches the target from above.
+nearest side - the robot approaches the target from the side, closest to the robot base.
+more
+Post-process time
+[Visible and applies only if the After operation robot is not set to stays where it is]
+The time it takes for the robot to move to the specified location after the agent processing is finished and there are no other agents in the queue. more
+Actions
+On enter
+Here you can type Java code that will be executed when the agent (material item) enters the block. more
+On seize
+[Visible and applies only if the Seize robot option is selected]
+Here you can type Java code that will be executed when the agent (material item) seizes the robot. more
+On processing start
+Here you can type Java code that will be executed when the robot has reached the agent (material item) and is ready to start processing or transporting. more
+On processing end
+Here you can type Java code that will be executed when the robot has reached the destination, i.e. finished processing or transporting. more
+On release
+[Visible and applies only if the Release robot option is selected]
+Here you can type Java code that will be executed when the agent (material item) releases the robot. more
+On at exit
+Here you can type Java code that will be executed when the agent (material item) decides that it will most likely exit the block. more
+On exit
+Here you can type Java code that will be executed when the agent (material item) leaves the block. more
+On remove
+Here you can type Java code that will be executed when the agent (material item) is removed from this block. more
+On cancel
+Here you can type Java code that will be executed when the agent (material item) exits the block via ccl port. more
+Functions
+Function	Description
+int size()	Returns the number of agents (material items) currently located in this block (either being handled by the robot, or waiting for it in the block's internal queue).
+T remove(Agent agent)	Removes the specified agent (material item) from the block. If the robot is currently transporting this agent at the moment the function is called, the warning is thrown.
+
+agent — the agent to remove
+boolean contains(Agent agent)	Returns true if this block (including the block's internal queue containing the agents waiting for the robot) contains the specified agent (material item).
+
+agent — the agent to check
+void cancel(T agent)	Causes the specified agent to immediately exit the block through the ccl port. The On cancel code section is executed for the agent.
+
+agent — the agent to remove through the ccl port
+Ports
+in
+The input port.
+out
+The output port.
+ccl
+The output port for agents leaving the block because of the "cancel" event (caused by a call of the cancel() function).

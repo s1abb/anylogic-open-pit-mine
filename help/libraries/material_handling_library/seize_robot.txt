@@ -1,0 +1,77 @@
+SeizeRobot
+
+
+The block seizes the specified robot for an agent (material item) and moves the end effector of the seized robot to the specified location.
+
+If at the moment of the agent's request the robot is busy, the agent is placed into the internal queue of the block and waits there for the robot to become available. This block retrieves agents from the internal queue based on the FIFO rule (first-in, first-out).
+
+Use the ReleaseRobot block to release the seized robot. All seized robots must be released before the agent (material item) is disposed.
+
+Properties
+Robot
+The robot that should be seized by the agent (material item). more
+Movement time
+The time required by the robot to move its end effector to the specified location. more
+Destination is
+Defines where the robot's end effector will be moved. The possible destinations are:
+Agent - the current agent location
+Node - the specified network node
+Attractor - the specified attractor
+Conveyor - the specified conveyor
+Position on conveyor - the specified position on conveyor
+(x, y, z) - the point with the specified coordinates
+more
+Node
+[Visible and applies only if the Destination is: Node]
+The network node the robot will move its end effector to. This value is evaluated right after the robot picks up the agent. more
+Attractor
+[Visible and applies only if the Destination is: Attractor]
+The attractor the robot will move its end effector to. This value is evaluated right after the robot picks up the agent. more
+Conveyor
+[Visible and applies only if the Destination is: Conveyor]
+The conveyor the robot will move its end effector to. This value is evaluated right after the robot picks up the agent. more
+Offset from
+[Visible and applies only if the Destination is: Conveyor]
+Defines how to calculate the offset of the exact point on a conveyor the robot will move its end effector to: either from The beginning of the conveyor, or from The end of the conveyor. more
+Offset
+[Visible and applies only if the Destination is: Conveyor]
+The distance from the start or end point of the conveyor (depends on the Offset from parameter) defining the exact destination point for the robot's end effector. This value is evaluated right after the robot picks up the agent. more
+Position on conveyor
+[Visible and applies only if the Destination is: Position on conveyor]
+The position on conveyor the robot will move its end effector to. This value is evaluated right after the robot picks up the agent. more
+X, Y, Z
+[Visible and applies only if the Destination is: (x, y, z)]
+X, Y, Z coordinate of the point the robot will move its end effector to. This value is evaluated right after the robot picks up the agent. more
+End effector approaches
+Defines from which point the robot's end effector approaches the location/agent. The possible options are:
+top side - the robot approaches the location from above.
+nearest side - the robot approaches the location from the side, closest to the robot base.
+more
+Safe height
+The absolute minimum height for the robot. The robot's end effector may move only above the safe height level (e.g., to avoid obstacles). more
+Priority
+Defines the priority of this task for the current agent (the larger the higher). The robot will serve agents with the highest priority first. If several agents have the same priority, they will be served in the order they have arrived in the block (FIFO, First In, First Out). more
+Actions
+On enter
+Here you can type Java code that will be executed when the agent (material item) enters the block. more
+On seize
+Here you can type Java code that will be executed when the agent (material item) seizes the robot. more
+On exit
+Here you can type Java code that will be executed when the agent (material item) leaves the block. more
+On remove
+Here you can type Java code that will be executed when the agent (material item) is removed from this block with the remove() function. more
+Functions
+Function	Description
+int size()	Returns the number of agents (material items) currently located in this block (either being processed by the robot, or waiting for it in the block's internal queue).
+T remove(Agent agent)	Removes the specified agent (material item) from the block. If the robot is currently processing this agent at the moment the function is called, the robot will stop the processing and will switch to the next agent or "after operation" task.
+
+agent — the agent to remove
+boolean contains(Agent agent)	Returns true if this block (including the block's internal queue containing the agents waiting for the robot) contains the specified agent (material item).
+
+agent — the agent to check
+double recalculatePriorities()	Recalculates the task priority (the expression specified in the Priority property) for all agents (material items) currently waiting for the robot in the internal queue of this block.
+Ports
+in
+The input port.
+out
+The output port.

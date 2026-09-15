@@ -1,0 +1,24 @@
+TimeMeasureStart
+AnyLogic: The TimeMeasureStart block
+
+The TimeMeasureStart block, like the TimeMeasureEnd block, forms a pair of blocks that measure the time that agents spend between them, such as “time in system”, “length of stay”, and so on.
+
+This block remembers the time when an agent passes through. Later, when the agent passes through one of the corresponding TimeMeasureEnd blocks, the time the agent spent between these two “marker” blocks is measured.
+
+
+Make sure that each agent that passes through a given TimeMeasureStart block later passes through the TimeMeasureEnd block that references the initial TimeMeasureStart block as its pair.
+
+TimeMeasureStart keeps track of all agents that have passed through it and have not yet passed through a paired TimeMeasureEnd block. Therefore, you should make sure that there is no way for such agents to leave the system without going through TimeMeasureEnd, otherwise a memory leak will occur.
+If you see the runtime error "The TimeMeasureStart objects must be specified", it means that the TimeMeasureEnd block, mentioned in the first line of the error message, has the TimeMeasureStart blocks property empty. Specify there the TimeMeasureStart block that starts the time measurement in your flowchart.
+Demo model:
+ 
+Measuring Length of Stay
+Open the model page in AnyLogic Cloud. There you can run the model or download it (by clicking Model source files).
+Properties
+On enter
+The code executed when the agent enters the block. more
+Ports
+in
+The input port.
+out
+The output port.

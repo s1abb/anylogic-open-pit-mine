@@ -1,0 +1,50 @@
+TrainEnter
+
+
+Takes the train agent and places it on the railway track. Together with TrainExit, this block is used to model part of the train movement on a higher abstraction level, namely without detailed physical level rail traffic modeling.
+
+Here are just two use cases of the TrainEnter — TrainExit bundle of blocks:
+
+Before entering the track the train should wait for some resources. In this case the flowchart may look as follows: it starts with the block TrainSource (with the option Leave as logical agent (will use TrainEnter later on) selected in its After creation parameter), that creates the train but does not places it on the railway track; then — block Seize, that seizes required resources; and finally — block TrainEnter, that adds the train on the specified track.
+There are several railway networks in the model. Trains can move from one railway network to another, but we do not want to define this part of the railway (for instance a long segment) at the physical level and want to model it simply as a time delay. In this case we can extract the train from one railway network using the block TrainExit, then pass the train through the flowchart composed of Process Modeling Library blocks (in our case — Delay block), and finally place the train in another railway network using the block TrainEnter.
+
+
+Demo model:
+ 
+Train Exits One and Enters Another Rail Yard
+Open the model page in AnyLogic Cloud. There you can run the model or download it (by clicking Model source files).
+Properties
+Entry point defined as
+Select how you will define the position on track where new trains will be placed.
+There are two options:
+Position on track — Define the point graphically with specific space markup element Position on Track.
+Offset on the track — Define the point as the distance from the start or end point of the track to the front side of the first car of the train. You specify the offset in the parameter Offset of 1st car, see below.
+more
+Position on track
+[Visible if Entry point defined as: Position on track]
+Select the Position on Track element defining the point of the track where new trains will be placed. more
+Railway track
+[Visible if Entry point defined as: Offset on the track]
+The railway track where the newly created train will be placed (all cars should be fully located on a single track). more
+Offset from
+[Visible if Entry point defined as: Offset on the track]
+Choose here whether to count the offset from: End of the track or Beginning of the track. more
+Offset of 1st car
+[Visible if Entry point defined as: Offset on the track.]
+The distance from the start or end point of the track to the front side of the first car of the train. more
+Orientation on track
+Defines the orientation of the train relative to the track:
+Forward (first car is closer to the end of the track) — the train orientation is the same as the track has.
+Backward (first car is closer to the beginning) — opposite orientation.
+more
+Actions
+On exit
+Code executed when the train exits the block. more
+Functions
+Function	Description
+long count()	Returns the number of trains passed through this TrainEnter.
+Ports
+in
+The input port.
+out
+The output port.

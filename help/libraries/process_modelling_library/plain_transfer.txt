@@ -1,0 +1,24 @@
+PlainTransfer
+AnyLogic: The PlainTransfer block
+
+The PlainTransfer allows you to write an action for when an agent passes through some point of your flowchart.
+
+Note that the On at enter code is executed when the agent decides that it is most likely to pass this block, but it has not yet entered this block. The resulting behavior depends on the target receiver block: it may be currently busy, and also the preceding block may cancel this agent (it may be Hold becoming blocked). After such a cancellation, the agent may even be redirected to a different path, for example, due to recalculated conditions in preceding SelectOutput blocks.
+
+Properties
+On at enter
+The code executed when the agent decides that it most likely goes through this block. more
+On cancel enter
+The code executed when enter for the agent is canceled. more
+On enter
+The code executed when the agent enters the block. more
+Functions
+Function	Description
+long count()	Returns the number of agents, which passed through this block.
+boolean isPortInConnected()	Returns true if the in port of this block is connected to some other block.
+boolean isPortOutConnected()	Returns true if the out port of this block is connected to some other block.
+Ports
+in
+The input port.
+out
+The output port.

@@ -1,0 +1,132 @@
+TrainMoveTo
+AnyLogic: TrainMoveTo block
+
+The only block that controls the train movement. A train can only move while inside a TrainMoveTo block.
+
+The train can move forward (first car in front) or backward. The train can have a target position where it should arrive, or it can move without a target. In the latter case, the train agent will exit TrainMoveTo either when it leaves the rail yard via an open-ended track or if it hits another train. The train can move:
+
+Without a predefined route, meaning it would just follow the current states of switches.
+On the explicitly specified route.
+On a route calculated by the block TrainMoveTo automatically from the current location to target.
+Optionally, you can ask the train to accelerate to a given speed at the beginning of movement and to decelerate to stop at the target.
+
+If the train hits another train when moving, it stops and exits TrainMoveTo through the outHit port. In all other cases (namely, when it reaches the specified target or leaves the yard) it exits via the out port.
+
+A target is a point on a given track specified either as an offset from the track start in meters or graphically, with the Position on Track element intersecting the track. You can additionally tell TrainMoveTo to check if there are other rail cars on the target track and to adjust the target point respectively so that the train stops exactly at the first car on its way (available only if the route is specified). This is useful when the train is going to be coupled with another train.
+
+The check is performed only for the target track and only at the time when the train enters the TrainMoveTo block. If the situation on the target track changes while the train is moving, it will not notice it.
+A route can be specified explicitly as a sequence of tracks or calculated automatically. If you choose to specify the route explicitly, you should enter the track where the head of the train is located as the first track, and then all other tracks the train should go by in the correct order. If the target is specified, the target track must be the last track in the sequence. To let TrainMoveTo calculate the route automatically, you need to specify the target track. TrainMoveTo will only find straight routes, that is, the ones without the need for changing of movement direction. When moving with a route, the train will control the switches on its way, namely, it will change a switch state as needed when it approaches the switch. If a track on the train’s route becomes unavailable due to blocking or reservation when the train is already on the way, the train can either stop at the last available switch before the blocked track and wait until it becomes unblocked or it can recalculate the route to exclude this track and keep moving to the target.
+
+Keep in mind that while the Rail Library will detect the train collisions, it does not take care of managing the train traffic, like making one train to wait until another train passes a certain switch or track. The higher-level traffic management may differ from one rail yard to another and is something to be defined by the modeler.
+
+To enable the train to make decisions about acceleration or route while it is moving, a continuous movement can be modeled by a sequence of multiple TrainMoveTo blocks, possibly with SelectOutput blocks in between. You can let the train keep its current speed between the two TrainMoveTo blocks by setting the Finish option of the first block to Finish at current speed and not to Decelerate and stop. The second TrainMoveTo can then either Continue at current speed or Accelerate/decelerate to the cruise speed.
+
+You can specify the cruise speed specific for the movement defined by a particular instance of TrainMoveTo, otherwise the current cruise speed of the train will be used. Depending on the length of the route and acceleration/deceleration values, the train may not be able to achieve the cruise speed. The current (actual) speed of the train can be obtained by calling the train function getSpeed().
+
+While the train is moving under the control of TrainMoveTo, you still can modify its speed or let it accelerate or decelerate by using the train API. TrainMoveTo offers a number of callback extension points where you can define the actions to be executed while the train is moving.
+
+Properties
+Direction
+Defines in which direction should the train go:
+Forward — the first car of the train moves at the head.
+Backward — the last car of the train moves the head, and the first — at the tail.
+more
+Route is
+Defines the routing options:
+Not specified (train will follow switches) — the train will move without a predefined route, i.e. just will follow the current states of switches. If the Target is parameter is set to Not specified, at the end of the movement (when the train leaves the rail yard), the train will be removed from the system.
+A given list of tracks — the train will go along the route explicitly defined by you.
+Calculated automatically from current to target track — the route will be automatically calculated. The target track and position must be specified if this option is selected.
+more
+Route {Track1, Track2, …}
+[Visible if Route is: A given list of tracks]
+The sequence of tracks. The track where the head of the train is located must be the first track in the sequence, followed by all other tracks the train should go by in correct order. If the target is specified, the target track must be the last track in the sequence. more
+If the track gets blocked
+[Visible if Route is: Calculated automatically from current to target track]
+Here you can specify the behavior of the train in case a track from its current route becomes unavailable because of blocking or reservation. The train can either Stop before this track, that is, stop at the switch connected to the blocked track and wait until the track gets unblocked, or it can Recalculate route. Note that unblocking some track in a rail yard does not trigger route recalculation of the train which route contains this track but only if the corresponding option is selected. more
+Route should not contain
+[Visible if Route is: Calculated automatically from current to target track]
+The list of tracks (it may contain one or several tracks) that are forbidden to include in the automatically calculated route for the train. Add the tracks in the list, or if you use the dynamic value editor, put the list in curly brackets, for exampleÇ: {railwayTrack1, railwayTrack2} more
+Target is
+Defines the target options:
+Not specified — the train will just move on until it either leaves the yard or hits another train. If the Route is parameter is set to Not specified (train will follow switches), at the end of the movement (when the train leaves the rail yard), the train will be removed from the system.
+A given position on track — the train will finish at the intersection point of the target track and a given Position on Track element.
+A given offset on a track — the train will finish at a particular position on a given track; the offset of the position is calculated from the start or the end of the track.
+more
+Position on track
+[Visible if Target is is set to A given position on track]
+The Position on Track element defining the place to stop at. The element must have an intersection point with the target track. more
+Railway track
+[Visible if Target is is set to A given offset on a track]
+The target track where the train should finish. more
+Offset from
+[Visible if Target is: A given offset on the track]
+Choose here where to count the offset from: End of the track or Beginning of the track. more
+Offset on track
+[Visible if Target is is set to A given offset on a track]
+The offset of the finish position from the start or end point of the target track. more
+Check free space on target track
+[Visible if Route is is not set to Not specified and Target is is not set to Not specified]
+If selected (true), the train will check if there are other rail cars on the target track and to adjust the target point respectively so that the train stops exactly at the first car on its way. This is useful when the train is going to be coupled with another train. The check is done only for the target track and only at the time when the train enters the TrainMoveTo block, so if the situation on the target track changes while the train is moving, it will not notice it. more
+Limit distance to move
+[Visible if Route is is not set to Not specified]
+If selected (true), the train will move no more than by the distance specified with the parameters below. more
+Distance is
+[Visible if Limit distance to move]
+Here you can choose how you want to limit distance the train may move — by specifying the maximum distance (Traveled by train), or by specifying the distance from some particular switch (From switch to train tail). more
+Distance
+[Visible if Limit distance to move]
+Here you can specify the maximum movement distance for the train — either from the current place, or from some particular switch, depending on the value of the Distance is parameter. more
+Switch
+[Visible if Limit distance to move and Distance is: From switch to train tail]
+The switch shape. The train will be stopped when its tail will move for the distance specified in the Distance parameter from this particular switch. more
+Cruise speed (0 for no change)
+Optional new cruise speed for the train that will apply starting from this movement. If 0 is specified, the current cruise speed setting will not be changed. more
+Start options
+Defines what the train should do at the beginning of movement:
+Continue at current speed — just continue moving at the current speed (left from the previous TrainMoveTo, TrainSource, or set by calling setSpeed()).
+Accelerate/decelerate to cruise speed — accelerate or decelerate from the current speed to the Cruise speed (0 for no change).
+Accelerate if condition is true — same as above, but only if a given condition is true
+more
+Accelerate if
+[Visible if Start options: Accelerate if condition is true]
+The condition that is calculated at the time the train enters the block to find out whether to change the cruise speed. more
+Finish options
+[Invisible if the Route is: Not specified (train will follow switches), or when the Target is: Not specified]
+It defines what the train should do at the end of movement:
+Finish at current speed — do nothing, just finish at whatever speed it has gained.
+Decelerate and stop — try to decelerate to stop, which may not be possible because of the route length, the current speed, and deceleration value.
+Decelerate if condition is true — same as above, but only if a given condition is true.
+If the finish options haven’t been specified, the speed of the train will remain the same. more
+Decelerate if
+[Visible if Finish options: Decelerate if condition is true]
+The condition that is calculated at the time the train enters the block to find out whether to apply deceleration to zero at the end of movement. The train will decelerate if the condition evaluates to true. more
+Actions
+On enter
+The code executed when the train enters the block. more
+On at switch
+The code executed when the train approaches a switch.
+You can still change the switch state here, but if the route is specified, the train does this automatically.
+more
+On enter track
+The code executed when the train is entering a new track. more
+On exit track
+The code executed when the train exits a track, that is, when its tail leaves the track. more
+On exit rail yard
+The code executed when the train exits the rail yard. more
+On exit
+The code executed when the train leaves the block via the out port, which means the train has reached the target or left the yard. more
+On exit (hit another train)
+The code executed when the train leaves the block via the outHit port, having touched another train. more
+On remove
+The code executed when a train is intentionally removed from this block by calling the train’s function remove(). This code is automatically executed after the remove() function call. more
+Functions
+Function	Description
+int size()	Returns the number of trains currently being moved by this block.
+Agent getTrain( int index )	Returns the train with a given index that is currently moving.
+Ports
+in
+The input port.
+out
+The output port for trains that reach the target or leave the yard.
+outHit
+The output port for trains that hit another train.

@@ -1,0 +1,44 @@
+SelectOutputOut
+AnyLogic: The SelectOuputOut block
+
+There are two blocks for routing agents to different flowchart branches: SelectOutput and SelectOutput5.
+
+SelectOutput has two output ports and can split the agent flow to two branches.
+SelectOutput5 has five output ports and it may route agents to up to five exits.
+Using the SelectOutputIn and SelectOutputOut blocks, you can create a quasi-block SelectOutput with the required number of exits. You create it by adding a SelectOutputIn block and the required number of SelectOutputOut blocks. These blocks should not be connected together graphically.
+
+The SelectOutputOut block that the agent is sent to is determined by the settings of the associated SelectOutputIn and SelectOutputOut blocks. By default, the routing decision occurs is made before the agent completes its operation in the block preceding SelectOutputIn. It is implemented this way because agents do not spend any time in the SelectOutputIn or SelectOutputOut blocks, so they are instantly forwarded to the next flowchart block. This is why we need to make sure first that the next block can accept the agent (because, for example, it can be a closed Hold block or full Queue). Thus, the availability of the further route within the flowchart is calculated in advance, before letting the agent exit the current block and enter the SelectOutputIn block.
+
+The SelectOutputIn block has the Choice is stochastic or volatile option, which is relevant if your routing logic uses stochastic or volatile expressions, such as calls to randomTrue(), expressions depending on the current state of other blocks, or changes in agent properties. By default, this option is disabled. This means the routing expressions can be evaluated twice: when the agent finishes the operation in the preceding block, and again right before the agent actually leaves it. If the value changes between these two evaluations, AnyLogic raises an error indicating that the agent can no longer follow the initially selected route. Enabling the Choice is stochastic or volatile option disables this check, and the agent will follow the route selected during the first evaluation even if the expression’s value has changed by the time the agent proceeds.
+
+In probability-based routing mode, the Choice is stochastic or volatile option is ignored: the decision is made once based on the specified probabilities when the agent finishes its operation in the preceding block. However, the probability values themselves are still evaluated twice. If they change between the two evaluations, AnyLogic raises an error because the agent might follow a route that no longer matches the original decision.
+
+Note that this option is available in the properties of the SelectOutputIn block, but not in SelectOutputOut.
+
+To implement a custom routing to N flowchart branches
+
+Add a SelectOutputIn block from the Auxiliary section located at the bottom of the Process Modeling Library palette.
+Add the desired number of SelectOutputOut blocks.
+In each SelectOutputOut block, specify the name of the SelectOutputIn block that serves as the input.
+Define the routing principle. There are two options:
+In the SelectOutputIn properties, select Select output: By explicit choice and specify the expression that returns the SelectOutputOut block in the property below.
+In the SelectOutputIn properties, select Select output: With probabilities in SelectOutputOut blocks, and specify probabilities for each SelectOutputOut block.
+The following simple model shows how to implement both cases.
+
+Demo model:
+ 
+SelectOutputN
+Open the model page in AnyLogic Cloud. There you can run the model or download it (by clicking Model source files).
+Properties
+Agent type
+The type of agents exiting this block. This agent type is referred to below as T. more
+SelectOutputIn block
+The SelectOutputIn block that composes a quasi multi-exit SelectOutput together with this and other SelectOutputOut blocks. more
+Probability [0.. 1], when applicable
+Applies when the associated SelectOutputIn block has the Select output property set to With probabilities in SelectOuputOut blocks. Defines the expression used to evaluate the probability that the current agent will exit via this SelectOutputOut block. The probability value should be in the [0..1] range. more
+Actions
+On exit (true)
+The code executed when the agent exits the block. more
+Ports
+out
+The output port.

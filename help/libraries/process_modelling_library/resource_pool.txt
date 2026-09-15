@@ -1,0 +1,303 @@
+ResourcePool
+AnyLogic: The ResourcePool block
+
+The ResourcePool block defines a set of resource units that can be seized and released by agents using the Seize, Release, Assembler, and Service flowchart blocks.
+
+There are 3 types of resources:
+
+Static resources are tied to a specific location (that is, a node) within the network and cannot move or be moved. An example of a static resource would be an X-ray room or a weigh bridge.
+Moving resources can move on their own and can represent personnel, vehicles, and so on.
+Portable resources can be moved by agents or by moving resources. A portable U-sound device or a wheelchair would be an example of a portable resource.
+Moving and portable resources have home locations to which they can optionally return or be returned. The resource units in a pool can have individual properties, can be animated, collect unit-based statistics, and so on. You can define your own resource type to represent staff, equipment, and so on. The agent uses the pool name to refer to the resource units, and can select a particular unit by analyzing the unit’s attributes.
+
+Each resource unit can be either idle or busy. This block collects utilization statistics, which are continuous time statistics on the percentage of busy units. Resource units always collect their individual utilization statistics. You can also collect detailed statistics on the downtime of individual resource units, that is, the time that a particular unit has spent on maintenance, breaks, broken, or in user-defined downtime.
+
+Moving resources do not recognize each other as obstacles and will move over each other, which does not correspond to reality. If you want to take collisions into account and model how moving resources resolve navigational conflicts, path-guided or free-space transporters would be a better choice.
+
+Library blocks that work with resources
+There are a variety of possible operations with resource units supported by the Process Modeling Library: the agent can seize one or more units (Seize), release units (Release), send seized units to a specific location (ResourceSendTo), attach units so that they will move with the agent (ResourceAttach), and detach attached units (ResourceDetach). Whenever an operation is performed on multiple resource units, the list of their ResourcePool blocks is specified. For example, to seize two nurses and an X-ray room, you would specify Nurse, Nurse, XRay.
+
+The requests from different Seize and Service blocks are queued in ResourcePool if they cannot be satisfied immediately. The queue can be simple FIFO or based on priorities.
+
+A set of resources may have multiple tasks with different priorities and preemption policies.
+
+If all tasks have the same priority, they will be executed in the usual way following their occurrence schedule. If there are enough resource units available, tasks can be executed simultaneously. If two tasks have the same priority, but one of them was suspended for some reason, this suspended task will be picked1.
+If you have configured no preemption policy for the tasks, these tasks will be executed one after another following their occurrence schedule. If there are enough resource units available, tasks can be executed simultaneously.
+The occurrence of one task does not reset the priorities for other tasks.
+1 Each resource unit may receive requests from different sources. When a single resource unit receives multiple tasks, suspended and new, with identical priority values, some rules apply to the picking order:
+The suspended tasks from the individual queue of the resource unit have the highest priority.
+This queue is formed by agents waiting in blocks that have the Task preemption policy set to Wait for original resource.
+After that, the suspended tasks from the queue of the ResourcePool block are processed.
+This queue is formed by agents waiting in the blocks that have the Task preemption policy set to Seize any resource.
+Once the suspended tasks from these queues are completed, the resource unit begins to process new tasks from their individual queues, and after that, the queue of the ResourcePool block.
+
+If this order does not suit your needs, manually decrease the task’s priority by code, using the On task suspended action of the block.
+
+Defining the resources capacity
+The capacity of this block (the number of units) can be defined directly as a number that you type into its Capacity property. Then, if you want to change the number of resources dynamically at the model runtime, you can use the set_capacity(new value) function. If the capacity is dynamically reduced by calling set_capacity(), but the number of currently seized units exceeds the new capacity, the extra units are not removed from the pool until they are released.
+
+Another way to define capacity is by the home location of resources. The special space markup elements called nodes are used as the home locations for resources. Click the AnyLogic: The Plus icon button to add a node or click the AnyLogic: The Add icon first and then select a node in the graphical editor.
+
+The number of nodes you add as home locations determines the capacity of the resources. You can even add the same node multiple times in this property.
+
+In the figure below, you can see that the ...based on attractors option is also selected. Then the ResourcePool block will count the number of attractors in the home node and treat that number as the number of the resource units in this pool.
+
+If you define the capacity both with multiple nodes as the home locations and with attractors in those nodes, the total number of resources will be the sum of all elements.
+
+AnyLogic: The ResourcePool block with its capacity defined by the number of attractors
+
+Defining an operating schedule for the resources
+You can define a work schedule for your resources. There are four different ways to use the AnyLogic: The Schedule icon Schedule element to define the capacity for the resources. The Schedule element is a part of the Agent palette. You can also add the Clock element from the Pictures palette to the agent diagram to keep track of time at the model runtime.
+
+By schedule — With a schedule that defines how the number of resources changes over time (the schedule Type is integer). For each of the intervals that you define in the schedule, you must specify the number of the resources that are available during this interval.
+AnyLogic: The number of resources defined by a schedule
+
+By "on/off" schedule — With a schedule that defines how resource availability changes over time (the schedule Type is on/off). Here you define the intervals and set the type of value for each time period, on or off. Then, in the ResourcePool properties, you specify the number of the resources available during the on intervals. During the off intervals, 0 resources are available.
+AnyLogic: The number of resources defined by an on/off schedule
+
+By shifts: group schedules — In the ResourcePool properties, select multiple schedules of integer type in the Schedules property:
+AnyLogic: The number of resources defined by a group schedule
+
+These schedules will all run at the same time creating the number of resource units according to the values in their intervals. You can create these schedules so that the shifts they define overlap or do not overlap:
+AnyLogic: Runtime: The number of resources defined by a group schedule
+
+By shift plan — Define the capacity of resources in a schedule, but for different shifts, that is, a shift plan (for examples, see the shift plan Wikipedia page).
+You define the number of resources for each shift in the ResourcePool property Shift group sizes { size1, size2, … }. In the example below, the shift with the ID 1 contains 10 resource units, the shift with the ID 2 contains 8 resource units, and the shift with the ID 3 contains 5 units. The IDs are a simple count starting from 1 and so on, i.e. you do not need to define these IDs anywhere.
+Next, in the schedule of type integer, you assign a shift ID to each interval: the interval from 1 to 7 AM belongs to the shift with the ID 1. This means that during this interval, the number of resource units will be 10 as it is defined in the Shift group sizes { size1, size2, … } property.
+AnyLogic: The number of resources set by a shift plan
+
+At the model runtime, the schedule shows the shift IDs:
+AnyLogic: Runtime: The number of resources set by a shift plan
+
+Demo model:
+ 
+Defining a Work Schedule for Resources
+Open the model page in AnyLogic Cloud. There you can run the model or download it (by clicking Model source files).
+Properties
+In all dynamic properties, the resource unit is available as the T unit local variable.
+
+Resource type
+The type of the resource units in this pool: Static, Moving, Portable. more
+Capacity defined
+Defines how the number of resource units is defined:
+Directly — explicitly as a fixed number, in the Capacity field below.
+By home location — by the home location nodes (equal to the number of nodes specified as Home location (nodes) or to the number of attractors inside these node(s), if the based on attractors option is selected).
+By schedule — with a schedule that defines how the number of resources changes over time (the schedule Type is Integer).
+By "on/off" schedule — with a schedule that defines how the resources availability changes over time (the schedule Type is on/off).
+By shifts: group schedules — several schedules (Integer) define the resources’ capacity.
+By shift plan — one schedule (Integer) defines the resources’ capacity for different shifts.
+more
+Capacity
+[Visible if Capacity defined: Directly]
+The number of resource units in the pool.
+more
+When capacity decreases
+[Visible if Capacity defined: Directly, By schedule, or By on/off schedule]
+Defines what should be done with the excess units:
+units are preserved ('End of shift') — units are retained alive when the capacity of pool decreases (this is like their shift ends) and reactivated when capacity recovers.
+units are destroyed — once the capacity of pool decreases, all the excess units will be destroyed (and removed from their population, if any), so for the next capacity recovery, brand new units will be created.
+more
+Based on attractors
+[Visible if Capacity defined: By home location]
+If selected, the number of resource units in the pool will be equal to the number of attractors inside the node specified as Home location (nodes) for this resource pool. Otherwise the number of resources is equal to the number of Home location (nodes). more
+Capacity schedule
+[Visible if Capacity defined: By schedule]
+The schedule that defines how the number of resources changes over time (the schedule Type is Integer). more
+On/off schedule
+[Visible if Capacity defined: By "on/off" schedule]
+The schedule that defines how the resources availability changes over time (the schedule Type is on/off).
+When the schedule value is off — there are no resources.
+When the schedule value is on — there are Capacity when "On" resources. more
+Capacity when "On"
+[Visible if Capacity defined: By "on/off" schedule]
+The number of resource units in the pool when the schedule value is on. more
+Schedules
+[Visible if Capacity defined: By shifts: group schedules]
+Several schedules of the Integer type. more
+Shift group sizes { size1, size2,.. }
+[Visible if Capacity defined: By shift plan]
+The number of resources for each shift ID (delimited with commas). more
+Schedule of shift group IDs (1, 2,..)
+[Visible if Capacity defined: By shift plan]
+The Schedule containing IDs of shiftGroups, where 1 is the first shift group.
+Use -1 to mark a common out-of-shift time when all shiftGroups are off. more
+New resource unit
+The type of the resources in this resource pool. Referred below as T. more
+Speed
+[Visible if Resource type: Moving]
+The speed with which the resource units move. more
+Home location (nodes)
+Select the nodes that will be used as the home locations for these resources. more
+Show default animation
+[Visible if Resource type: Static]
+If selected, and the resources are of the default Agent type (not of a user-created custom resource type), the static resources will be animated as small multi-colored circles. This option is mostly used to check that the static resources are correctly placed in the desired nodes. more
+Maintenance, failures, shifts, breaks
+Specified by
+Defines how to create the downtime tasks for your resource pool. The default option is a Downtime block(s): a list of Downtime blocks that describe the corresponding behavior. Alternatively, you can use the ResourcePool properties option to define the tasks from the ResourcePool block properties. more
+Downtime block(s)
+[Visible if Specified by: Downtime block(s)]
+The list of the effective Downtime blocks. more
+Maintenance
+[Visible if Specified by: ResourcePool properties]
+If selected, the resource units of this pool will have maintenance. The maintenance task parameters are configured using the properties below. more
+Initial time to maintenance
+[Visible if the Maintenance option is selected]
+The time before the first maintenance. more
+Time to next maintenance
+[Visible if the Maintenance option is selected]
+The time between maintenance tasks (starts counting when the maintenance task ends). more
+'Maintenance' priority
+[Visible if the Maintenance option is selected]
+The priority of the maintenance task. A higher value means a higher priority. It will be compared to other task priorities when making decisions what task may preempt other, and so on. more
+'Maintenance' may preempt
+[Visible if the Maintenance option is selected]
+If selected, the maintenance task may preempt the currently performed task (if allowed in the task properties and the task priority is lower). more
+Maintenance type
+[Visible if the Maintenance option is selected]
+Defines how to simulate the maintenance: simply as a delay (Delay) or as a complex process described by a specific flowchart (Send to flowchart). more
+Task start block (maintenance)
+[Visible if Maintenance type: Send to flowchart]
+The ResourceTaskStart block that defines the start of the flowchart simulating the resource maintenance process. more
+Maintenance time
+[Visible if Maintenance type: Delay]
+The maintenance time. more
+Usage statistics are
+[Visible if the Maintenance option is selected]
+Defines whether to consider the maintenance time in the collected usage statistics as the “busy” time, the “idle” time, or to not take it into account at all. more
+Failures / Repairs
+[Visible if Specified by: ResourcePool properties]
+If selected, the resource units of this pool will have failures. The failures are configured using the properties below. more
+Initial time to failure
+[Visible if the Failures / Repairs option is selected]
+The time before the first failure. more
+Time to next failure
+[Visible if the Failures / Repairs option is selected]
+The time between failures; starts counting from the repair moment. more
+Count busy time only
+If selected, the time between failures (time to failure) is counted only when the resource is busy with a task. Otherwise, the time to failure is counted unconditionally. more
+Repair type
+[Visible if the Failures / Repairs option is selected]
+Defines how to simulate the repair: simply as a delay (Delay) or as a complex process described by a specific flowchart (Send to flowchart).
+more
+Task start block (repair)
+[Visible if Repair type: Send to flowchart]
+The ResourceTaskStart block that defines the start of the flowchart simulating the resource repair process. more
+Time to repair
+[Visible if Repair type: Delay]
+Time required to fix the failure. more
+Usage statistics are
+[Visible if the Failures / Repairs option is selected]
+Defines whether to consider the failures in the collected usage statistics as the “busy” time, the “idle” time, or to not take them into account at all. more
+Breaks
+[Visible if Specified by: ResourcePool properties]
+If selected, the resource units of this pool will have breaks. The breaks are configured using the properties below. more
+Breaks schedule
+[Visible if the Breaks option is selected]
+The schedule that defines the schedule of breaks for this resource pool (the schedule Type should be on/off). more
+'Break' priority
+[Visible if the Breaks option is selected]
+Defines the priority of the break task. A higher value means a higher priority.
+When a break is scheduled to start, its priority is compared with the priority of the task currently executed by the resource. If the resource is executing a task with a higher priority, the break is postponed until that task is completed. The break duration itself does not change.
+However, if the break is defined by a repeating schedule (for example, an “on”/“off” schedule), the subsequent “off” interval is shortened by the amount of time the break start was delayed. For example, if the “on” interval (break) is 2 hours and repeats every 10 hours (8-hour “off” interval), and a higher-priority task occupies the first hour of the “on” interval, then:
+the break starts one hour later,
+it still lasts 2 hours,
+the following “off” interval becomes 7 hours instead of 8.
+more
+'Break' may preempt
+[Visible if the Breaks option is selected]
+If selected, the break may preempt the currently performed task (if allowed in the task properties and the task priority is lower). more
+'Break' preemption policy
+[Visible if the Breaks option is selected]
+Defines whether the other tasks may terminate the current break (Terminate) or not (No preemption). more
+Usage statistics are
+[Visible if the Breaks option is selected]
+Defines whether to consider the break time in the collected usage statistics as the “busy” time, the “idle” time, or to not take it into account at all. more
+Custom tasks
+[Visible if Specified by: ResourcePool properties]
+If selected, you can define more tasks for the resources with the Downtime blocks. Use this option when your task cannot be defined with standard patterns provided for failures, breaks, or maintenance. more
+List of tasks
+[Visible if the Custom tasks option is selected]
+The list of the Downtime blocks of Custom type that define additional custom tasks for these resources. more
+'End of shift' priority
+The priority of the shift schedule. A higher value means a higher priority. more
+'End of shift' may preempt
+Sets whether the End of shift task may preempt the task currently being executed, if any. In other words, true means that unit will “drop its work” right at the moment of its shift end. If false, then the unit will finish all its tasks with less priority. more
+'End of shift' preemption policy
+Defines whether the other tasks may terminate the current task (Terminate) or not (No preemption). more
+Advanced
+Customize request choice
+If the option is selected, the resource units will take into account the specified Request choice condition when accepting the task. more
+Request choice condition
+[Visible if the Customize request choice option is selected]
+A Boolean expression that will be checked before the resource unit(s) accepts the task. If none of the available tasks satisfy the specified condition (the condition returns false), the unit will remain idle. If the condition returns true, the resource unit will select the task with the highest priority.
+more
+Add units to
+Defines where the resource units created by this block will be stored: in the default population of the top-level agent of the model or in a custom population (specified below in the Population property). The default population (a Java collection of type AgentList) contained in the top-level agent can be accessed with the getDefaultPopulation() function. more
+Population
+[Visible if Add units to: custom population]
+The name of the agent population where the units created by this block will be stored. more
+Force statistics collection
+This block collects statistics, both for itself and the resource units it contains.
+If the statistics collection is turned off for all Process Modeling Library blocks in the model by the PMLSettings, this option enables you to override this setting and collect the statistics for this specific block. Otherwise, the statistics will be collected regardless of this setting’s value.
+For more information regarding the statistics collected by individual resource units, see the section on utilization statistics. more
+Actions
+On new unit
+The code executed when a new resource unit is generated and can be used to do additional setup. more
+On destroy unit
+The code executed when a resource unit is destroyed. more
+On seize
+The code executed when a resource unit is seized. more
+On release
+The code executed when a resource unit is released. more
+On wrap up
+The code executed when a resource unit is wrapped up. more
+On unit state changed
+The code executed when a resource unit changes its activity. more
+On maintenance start
+[Visible if the Maintenance option is selected]
+The code executed when a resource unit starts a maintenance task. more
+On maintenance end
+[Visible if the Maintenance option is selected]
+The code executed when a resource unit finishes a maintenance task. more
+On failure
+[Visible if the Failures / Repairs option is selected]
+The code executed when the failure task starts. more
+On repair
+[Visible if the Failures / Repairs option is selected]
+The code executed when the repair task ends. more
+On break start
+[Visible if the Breaks option is selected]
+The code executed when a resource unit starts break task. more
+On break end
+[Visible if the Breaks option is selected]
+The code executed when a resource unit finishes break task. more
+On break terminated
+[Visible if the Breaks option is selected]
+The code executed when break task is terminated. more
+Functions
+Resources and their utilization
+Function	Description
+int idle()	Returns the number of currently idle resource units. Off-shift units are not counted.
+int busy()	Returns the number of busy units, including those who are in wrap-up/maintenance/break/failure. Off-shift units are not counted.
+int size()	Returns the total number of units in this resource pool (including those that are off shift).
+int sizeActive()	Returns the total number of resource units in the current shift.
+boolean containsUnit(Agent unit)	Checks whether the resource pool contains the specified unit. Returns true if it does, false otherwise.
+
+unit — the agent (resource unit) to check for
+double utilization()	Returns the utilization of this resource pool. The returned value is the mean over all individual unit utilization, calculated from the last resetStats() call to the current time. If the number and availability of resource units is defined by a schedule, the utilization is calculated only for the operating hours of the corresponding resource unit.
+Collection<ResourceRequest> getRequests()	Returns the current queue of requests for resource units of this pool, ordered by their priority.
+This list is unmodifiable.
+Iterator<Agent> iterator	Returns the iterator over all units within this pool.
+Shift groups
+Function	Description
+void setShiftGroupCapacity(int id, int capacity)	Sets new size of shift group. Does not destroy excess resource units, instead assigns them out-of-shift task to them (idle units are pushed out-of-shift first, followed by units with lower priority tasks).
+
+id — the unique identifier of the shift group (1, 2, 3, …)
+capacity — the new size of the shift group
+int sizeOfShiftGroup(int id)	Returns the total number of units (including off-shift units) in the shift group with the given ID.
+
+id — the unique identifier of the shift group (1, 2, 3, …)
+Statistics
+Function	Description
+boolean isStatisticsCollected()	Returns true if the block collects statistics.
+void resetStats()	Resets the statistics collected for this block.

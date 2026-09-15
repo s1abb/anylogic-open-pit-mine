@@ -1,0 +1,12 @@
+PML Settings
+
+
+This optional detached block defines specific settings that apply to all Process Modeling library blocks on the same graphical diagram where you have placed PMLSettings. You can add no more than one PMLSettings block on the diagram.
+
+Properties
+Offset for attached units
+The agent and its attached units are animated in a row; this defines the offset between their animations (in pixels). more
+Initial capacity of animation locations
+The initial capacity for paths and nodes with the arranged location layout. When agents are animated inside these shapes, the offset between agent animations will be calculated based on this setting. more
+Enable statistics by default
+By default, statistics are collected for all Process Modeling Library blocks (like this: queue.statsSize). By clearing this option, you can switch off the statistics collection for all the blocks in the model to optimize the model performance. However, you can override this setting in some particular blocks using their advanced property Force statistics collection. more

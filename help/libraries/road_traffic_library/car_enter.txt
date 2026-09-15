@@ -1,0 +1,83 @@
+CarEnter
+
+
+The CarEnter block takes the car agent and attempts to place it as a car at the specified location within a road network. The car can appear on the specified road or in the specified parking lot (defined by the Appears parameter).
+
+If cars are set to appear on a road, the direction of the road should also be specified. Cars will appear at the beginning of the specified road and start moving in the specified direction. By default, the Random lane parameter is selected, so the cars will appear at random lanes, if there is more than 1 lane on the specified road. You can explicitly specify the index of the lane where cars will appear by clearing the Random lane option and using the Lane index parameter.
+
+If cars are set to appear on a road, they enter the road network only when there is enough distance in the lane ahead of the car. The greater the initial speed of the car, the greater the distance required for a car to safely enter the network. Cars that cannot enter the road network immediately are accumulated in a queue within the CarEnter block and are removed from the queue when there is enough space in the specified lane to place a car.
+
+If cars are set to appear in a parking lot, they appear in free spaces of the specified parking lot and wait until they leave the road network or start moving by entering the CarMoveTo block. If all parking spaces are occupied, an error is generated.
+
+Together with CarExit, this block is used to model part of the car movement at a higher abstraction level, that is, without detailed physical level road traffic modeling.
+
+Demo model:
+ 
+CarEnter and CarExit
+Open the model page in AnyLogic Cloud. There you can run the model or download it (by clicking Model source files).
+Properties
+Appears
+Specifies where the cars that enter this block will appear: on the road or in the parking lot.
+on road — The cars will be placed at the beginning of the road specified below in the Road parameter.
+in parking lot — The cars will be placed in a randomly chosen free parking space in the parking lot specified below in the Parking lot parameter.
+more
+Road
+[Visible and applies only if Appears: on road]
+The road on which the car will be placed after the start of the movement. The car enters the Road in the specified lane (backward lane or forward lane). The lane is specified by the Enters parameter below. The lane is chosen randomly (if the Random lane option is enabled) or specified explicitly in the Lane index parameter below.
+The car does not immediately appear at the specified location. The car appears and starts movement only when:
+there is enough space on the specified position of the road to avoid a collision, and
+the car is sent to a destination by the CarMoveTo block.
+more
+Enters
+[Visible and applies only if Appears: on road]
+Specifies the lane (forward lane or backward lane) of the road on which the car will be placed. If the road does not have the specified lane (that is, is one-way), the error is generated. more
+Lane selection policy
+[Visible and applies only if Appears: on road]
+Specifies the policy by which a lane is selected for placing the car. This policy remains in effect as the car passes through subsequent blocks, unless one of those blocks specifies a different policy. The following options are available:
+Random lane — Places the car in a random lane. Selected by default.
+Closest to median — Selects the lane closest to the median. For one-way roads, this is the outermost lane on the left (right-hand traffic) or on the right (left-hand traffic).
+Closest to roadside — Selects the lane closest to the roadside. For one-way roads, this is the outermost lane on the right (right-hand traffic) or on the left (left-hand traffic). When this option is selected, the Number of lanes property determines how many lanes from the roadside are considered. The specific lane for each car is chosen randomly among these lanes.
+Specified explicitly — Places the car on a specified lane, defined by the Lane index property.
+more
+Number of lanes
+[Visible and applies only if Lane selection policy: Closest to roadside]
+Specifies how many lanes from the roadside edge are considered. The roadside lane is the outermost lane on the right (right-hand traffic) or on the left (left-hand traffic). The car is placed on a randomly selected lane among the specified lanes, starting from the roadside. The specified number may exceed the actual number of lanes on the road; in this case, any available lane is used.
+The value must be a positive integer greater than zero. more
+Lane index
+[Visible and applies only if Lane selection policy: Specified explicitly]
+Specifies the index of the lane where the car should be placed. Lane indices start at 0 (the outermost lane) and increase toward the innermost lane. If the specified Road does not have a lane with the given index, an error is generated.
+Prior to AnyLogic 8.9.7, this property affected only the lane in which the car initially appeared. After creation, the car could move to any other lane. Starting with AnyLogic 8.9.7, the Specified explicitly policy also applies to subsequent movement. The car will attempt to stay in or return to the specified lane if it temporarily leaves it (for example, due to a turn or a road segment with fewer lanes).
+To generate a car in a specific lane and allow it to change lanes freely, add a CarMoveTo or CarEnter block with the Lane selection policy set to Random lane.
+The policy is flexible: if the car prefers a certain lane (for example, the second) and enters a one-lane segment, a warning will be displayed, but the car will continue moving. Once multiple lanes become available again, the car will return to the preferred lane. more
+Parking lot
+[Visible and applies only if the option in parking lot is selected]
+The parking lot where the car will be placed immediately after entering this block. If the parking lot does not have free parking spaces, an error will be generated. The car will not move from the parking space until it is sent to some destination by the CarMoveTo block. more
+Car
+Length
+The length of the car. The length must be greater than 0. more
+Initial speed
+The initial speed of the car. The initial speed must be greater than 0. If the initial speed is equal to 0, the car will start accelerating to its preferred speed when it is sent to a destination by the CarMoveTo block. more
+Preferred speed
+TThe preferred speed of the generated car. The preferred speed must be greater than or equal to 0. If the preferred speed is equal to 0 and the initial speed is equal to 0, the car will not start movement even if it is sent to a destination by the CarMoveTo block. The car will not start accelerating until it is assigned a positive initial speed by the call of the setPreferredSpeed(speed) function.
+The car will always try to move at a speed equal to its preferred speed. The following factors can prevent the car from moving at its preferred speed:
+the inability to accelerate or decelerate immediately to the preferred speed,
+a car ahead that is moving slower than the preferred speed of the car,
+a stop line with a red light ahead,
+the proximity of a parking space or bus stop, where the car should slow down to park or stop,
+the speed limit.
+more
+Max acceleration
+The maximum acceleration of the car. The maximum acceleration should be greater than 0. more
+Max deceleration
+The maximum deceleration of the car. The maximum deceleration should be greater than 0. The car will only use its maximum deceleration in an emergency. At other times it uses a fraction of the maximum deceleration. more
+Actions
+On exit
+The code that is executed when a car exits this block. more
+Functions
+Function	Description
+long count()	Returns the number of cars that have entered the road network via this CarEnter block.
+Ports
+in
+The input port.
+out
+The output port.

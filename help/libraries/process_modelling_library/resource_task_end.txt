@@ -1,0 +1,36 @@
+ResourceTaskEnd
+AnyLogic: The ResourceTaskEnd block
+
+The ResourceTaskEnd block defines the end of the flowchart branch that models the task for the resource unit(s) that have just being released (usually a wrap-up process). The flowchart branch of the wrap-up task starts at the bottom port of the block that has released the resource(s) (Release) and ends at the ResourceTaskEnd block. The agent can immediately move to the next block in the flowchart, while the released resources will become available only after the wrap-up task is completed.
+
+Example
+Demo model:
+ 
+Emergency Department
+Open the model page in AnyLogic Cloud. There you can run the model or download it (by clicking Model source files).
+In the given demo model, you can find examples of the preparation and wrap-up tasks. They are located in the custom USoundProcess agent type that defines the ultrasound examination process. The ultrasound examination requires an ultrasound machine to be brought by an ultrasound technician.
+
+If you look at the flowchart, you can see that the patient seizes a technician in the seizeTech block. When this happens, the resource preparation process starts because this block has a connection to a flowchart branch via its lower port. The resource preparation flowchart always starts with the ResourceTaskStart block. Here we specify the particular resource for which we are defining this subprocess (here it is technician).
+
+The preparation subprocess consists of the seizeUSound block (seizes the ultrasound machine), the takeUSound MoveTo block (moves the technician to the seized machine), and the attachUSound ResourceAttach block (attaches the ultrasound machine resource to the technician resource). The preparation subprocess ends when the connector goes into the bottom port of the Seize block that initiated this task. Since this Seize block has the Send seized resources option selected, the technician will finally bring the ultrasound machine to the patient who requested it.
+
+After the examination (the doUSound Delay block), the releaseTechUSound Release block follows. It releases the specified resource (technician) and starts the wrap-up subprocess (since another flowchart branch is connected to its lower port). The technician moves to the home node of the seized usound (MoveTo) and releases this seized resource upon arrival (Release). The wrap-up process always ends with the ResourceTaskEnd block.
+
+
+
+Properties
+Move resource to its home location
+If selected (true), the resource(s) will be moved to their home location on finishing the task. more
+Release resources seized by this unit
+If selected (true), the resources seized by this resource unit, will be released. more
+Actions
+On exit
+The code executed when the resource unit exits the ResourceTaskEnd block. more
+On remove
+The code executed when the resource unit is intentionally removed from this block by calling the remove() function of the unit. This code is automatically executed after the remove() function call. more
+Functions
+Function	Description
+long count()	Returns the number of resource units passed through this block.
+Ports
+in
+The input port.

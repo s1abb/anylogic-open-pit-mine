@@ -1,0 +1,47 @@
+ResourceTaskStart
+AnyLogic: The ResourceTaskStart block
+
+The ResourceTaskStart block defines the start of the flowchart branch that models the task for the seized resource units (usually a resource preparation process). The flowchart branch of the preparation task starts with ResourceTaskStart block and ends at the lower port of the Seize block that has seized the resource(s). The agent will not proceed to the blocks following the Seize block until the preparation task is completed.
+
+Example
+Demo model:
+ 
+Emergency Department
+Open the model page in AnyLogic Cloud. There you can run the model or download it (by clicking Model source files).
+In the given demo model, you can find examples of the preparation and wrap-up tasks. They are located in the custom USoundProcess agent type that defines the ultrasound examination process. The ultrasound examination requires an ultrasound machine to be brought by an ultrasound technician.
+
+If you look at the flowchart, you can see that the patient seizes a technician in the seizeTech block. When this happens, the resource preparation process starts because this block has a connection to a flowchart branch via its lower port. The resource preparation flowchart always starts with the ResourceTaskStart block. Here we specify the particular resource for which we are defining this subprocess (here it is technician).
+
+The preparation subprocess consists of the seizeUSound block (seizes the ultrasound machine), the takeUSound MoveTo block (moves the technician to the seized machine), and the attachUSound ResourceAttach block (attaches the ultrasound machine resource to the technician resource). The preparation subprocess ends when the connector goes into the bottom port of the Seize block that initiated this task. Since this Seize block has the Send seized resources option selected, the technician will finally bring the ultrasound machine to the patient who requested it.
+
+After the examination (the doUSound Delay block), the releaseTechUSound Release block follows. It releases the specified resource (technician) and starts the wrap-up subprocess (since another flowchart branch is connected to its lower port). The technician moves to the home node of the seized usound (MoveTo) and releases this seized resource upon arrival (Release). The wrap-up process always ends with the ResourceTaskEnd block.
+
+
+
+Properties
+Unit type
+The type of resource units performing the task. This resource type is referred to below as T. more
+Start here
+Defines whether all the resource units will start the task or only specific ones.
+all the resources — all the resources seized by the Seize block that initiated this task, start performing this task.
+specific resources — only some particular resources from the seized set, start this task.
+more
+Resource pool
+[Visible if Start here: specific resources]
+Defines the particular ResourcePool whose resource units will start this task. more
+Actions
+On enter
+The code executed when the resource unit enters this ResourceTaskStart block. more
+On remove
+The code executed when the resource unit is intentionally removed from this block by calling the remove() function of the unit. This code is automatically executed after the remove() function call. more
+Functions
+Function	Description
+int size()	Returns the number of units currently pending transfer in this block (that have not yet been accepted by subsequent flowchart blocks).
+long count()	Returns the number of resource units entered this flowchart block.
+void take(T unit)	Inserts the given resource unit into the process flow by sending it to output it via the out port.
+
+unit — the resource unit to insert
+Iterator<T> iterator()	Returns the iterator over the resource units currently pending transfer in this block (that have not yet been accepted by subsequent flowchart blocks), in their take() order.
+Ports
+out
+The output port.

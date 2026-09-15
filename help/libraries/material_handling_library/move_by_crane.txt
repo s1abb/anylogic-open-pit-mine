@@ -1,0 +1,155 @@
+MoveByCrane
+
+
+This block performs transportation of an agent (material item) by a crane.
+
+When describing the crane’s operation, the two major parameters are speed and time. The crane operation speed is usually defined by the movement speed of the crane’s individual parts, such as jib, hoisting winch and trolley. You can specify these values in the corresponding crane space markup element and the system will automatically calculate the time it takes the crane to move an agent from one point to another. In case where this level of detail is excessive or the data available to you are incomplete, you can simply select option Use operation time in the block’s Properties view and specify the time directly.
+
+You can set the safe height for agent transportation to satisfy the conditions of the environment you are modeling.
+
+The default pattern in which this block selects agents for transportation is based on FIFO rule (first-in, first-out). You can customize the selection pattern to fit your simulation requirements.
+
+Crane seize rules
+When working with multibridge overhead cranes, you can seize either a whole crane or a specific bridge.
+
+If the selected bridge is seized by a different agent, the new agent is placed in the queue of this bridge.
+If you select a multibridge crane, the agent will seize the closest available bridge that is physically able to pick up this agent and deliver it to the destination point.
+If all bridges are seized, the agent will wait in the crane's queue until one of the bridges is released and then will check whether this bridge can deliver it to the destination point.
+If several bridges are released simultaneously, the agent will select the closest of those that can deliver it to the destination point.
+Demo model:
+ 
+MoveByCrane
+Open the model page in AnyLogic Cloud. There you can run the model or download it (by clicking Model source files).
+Properties
+Destination is
+Defines where the crane will take the agent to. The possible destinations are:
+Node — agent is moved to the specified network node
+Attractor — agent is moved to the specified attractor
+Conveyor — agent is moved to the specified conveyor
+Position on conveyor — agent is moved to the specified position on conveyor
+(x, y, z) — agent is moved to the point with the specified coordinates
+Agent — agent is moved to the specified Agent
+more
+Node
+[Visible and applies only if the Destination is: Node]
+The network node the crane will move to. This value is evaluated right after the crane picks up the agent. more
+Attractor
+[Visible and applies only if the Destination is: Attractor]
+The attractor the crane will move to. This value is evaluated right after the crane picks up the agent. more
+Conveyor
+[Visible and applies only if the Destination is: Conveyor]
+The conveyor the crane will move to. This value is evaluated right after the crane picks up the agent. more
+Offset from
+[Visible and applies only if the Destination is: Conveyor]
+Defines how to calculate the offset of the exact point on a conveyor the crane will move to: either from The beginning of the conveyor, or from The end of the conveyor. This value is evaluated right after the crane picks up the agent. more
+Offset
+[Visible and applies only if the Destination is: Conveyor]
+The distance from the start or end point of the conveyor (depends on the Offset from parameter) defining the exact destination point for the crane. This value is evaluated right after the crane picks up the agent. more
+Position on conveyor
+[Visible and applies only if the Destination is: Position on conveyor]
+The position on conveyor the crane will move to. This value is evaluated right after the crane picks up the agent. more
+Change orientation
+[Visible and applies only if the Destination is: Position on conveyor]
+If selected, you will be able to change the Orientation of the material item that enters the conveyor by selecting the new leading edge of the item in the Orientation field below. more
+Orientation
+[Visible and applies only if the Destination is: Position on conveyor]
+If you need to rotate the material item when it is placed on the conveyor, here you can choose the side of the item that must be facing the direction of travel:
+Front
+Rear
+Left
+Right
+more
+X, Y, Z
+[Visible and applies only if the Destination is: (x, y, z)]
+X, Y, Z coordinate of the point the crane will move to. This value is evaluated right after the crane picks up the agent. more
+... located in
+[Visible and applies only if the Destination is: (x, y, z)]
+Specifies where the agent (material item) will be added to when the crane drops it: either Level or Network. more
+Level
+[Visible and applies only if the ...located in: Level option is selected]
+The level where the agent will be added once the crane drops it. more
+Network
+[Visible and applies only if the ...located in: Network option is selected]
+The network the agent will be added to once the crane drops it. more
+Agent
+[Visible and applies only if the Destination is: Agent]
+The agent the crane will move to. This value is evaluated right after the crane picks up the agent. more
+Safe height
+Specifies the minimum height the crane should raise the agent to in order to transport it (e.g., to avoid obstacles). more
+Use operation time
+If this option is selected, you can directly specify the time it takes the crane to reach the agent (material item) and then transport it from one point to another. Speed values will be recalculated for every agent to satisfy operation time. more
+Operation time
+[Visible and applies only if the Use operation time option is selected]
+The amount of time provided to the crane to transport the agent. Depending on how the crane is seized and released, the total operation time is calculated differently:
+The crane is seized and released by the MoveByCrane block: Total operation time includes the Loading time, movement time, and Unloading time.
+The crane is seized by the SeizeCrane block: The operation time doesn’t include the Loading time.
+The crane is released by the ReleaseCrane block: The operation time doesn’t include the Unloading time.
+The value is evaluated for each agent after the On at enter action is executed and is remembered until the agent is released. more
+Seize crane
+Seize crane
+If selected (true), this block seizes a crane or a bridge from a multibridge crane. A crane or a bridge must be seized to move the agent. Make sure that either this option is selected or use a properly configured SeizeCrane block in your flowchart placed before this MoveByCrane block. more
+Crane
+[Visible and applies only if the Seize crane option is selected]
+The crane or the bridge that moves the agent (material item). more
+Loading time
+[Visible and applies only if the Seize crane option is selected]
+Specifies the amount of time the crane or the bridge will spend to pick up the agent (material item).
+Note that the value is evaluated right before the crane or the bridge picks up the agent.
+more
+Priority
+[Visible and applies only if the Seize crane option is selected]
+Defines the expression that the crane or bridge evaluates to select an agent to serve. The expression must return an integer. The crane or bridge will serve the agents for which the expression returns the larger value first.
+The simplest way to use this is to create an integer parameter for the agent type that the crane or bridge should serve, and then specify it as Priority. For example, if your agent type has the priority parameter, which represents the priority of the individual material item, the value of this property can be set to agent.priority.
+If set to the default value of 0, or if multiple agents have the same priority, the agents are served according to the FIFO (first in, first out) policy. more
+Release crane
+Release crane
+Allows this block to release the previously seized crane or bridge. A crane or a bridge could have been seized either by this block or by the SeizeCrane block. more
+Unloading time
+[Visible and applies only if the Release crane option is selected]
+Specifies the amount of time the crane or the bridge will spend to drop off the agent (material item).
+Note that the value is evaluated right before the crane or the bridge drops off the agent.
+more
+After release, hook
+[Visible and applies only if the Release crane option is selected]
+Here you can specify the behavior of the crane's lifting device after the crane has released the material item: either the lifting device Stays where it is or Returns to initial position if no other tasks. For jib cranes, the initial position of the hook will be calculated according to the values specified in the Initial jib angle and Trolley position parameters of the crane's properties. For overhead cranes, it will depend on the value specified in the Bridge parking position parameter of the bridge's properties and Trolley position parameter of the crane's properties. more
+Actions
+On at enter
+Here you can type Java code that will be executed when the agent (material item) decides that it will most likely go through the block. more
+On enter
+Here you can type Java code that will be executed when the agent (material item) enters the block. more
+On at exit
+Here you can type Java code that will be executed when the agent (material item) decides that it will most likely exit the block. more
+On exit
+Here you can type Java code that will be executed when the agent (material item) leaves the block. more
+On cancel
+Here you can type Java code that will be executed when the agent (material item) exits the block via ccl port. more
+On remove
+Here you can type Java code that will be executed when the agent (material item) is removed from a crane. more
+On seize crane
+[Visible and applies only if Seize crane option is enabled]. Here you can type Java code that will be executed when the agent (material item) seizes the crane or the bridge. more
+On release crane
+[Visible and applies only if Release crane option is enabled]. Here you can type Java code that will be executed when the agent (material item) releases the crane or the bridge. more
+Functions
+Function	Description
+int size()	Returns the number of agents currently being transported by this crane.
+T remove(Agent agent)	Removes the specified agent from the crane it is being transported by.
+
+agent — The agent to remove.
+T get(int index)	Returns the agent by its index number. The order of the agents corresponds to the order in which they are picked up by the crane.
+
+index — The index number of the agent to get.
+boolean contains(Agent agent)	Returns true if the block contains the specified agent.
+
+agent — The agent to check for presence.
+void cancel(T agent)	Causes the specified agent to immediately exit the block through the ccl port. The On cancel code section is executed for the agent.
+
+agent — The agent to remove through the ccl port
+int numberOfLoading()	The number of agents that are currently being loaded. For example, the multibridge crane can load multiple agents at the same time.
+int numberOfUnloading()	The number of agents that are currently being unloaded. For example, the multibridge crane can unload multiple agents at the same time.
+Ports
+in
+The input port.
+out
+The output port.
+ccl
+The output port for agents leaving the block because of the "cancel" event (caused by a call of the cancel() function).

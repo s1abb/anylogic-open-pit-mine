@@ -1,0 +1,40 @@
+ResourceSendTo
+AnyLogic: The ResourceSendTo block
+
+The ResourceSendTo block sends (moves) resources from their current location(s) to a new location. Only moving resources or portable resources accompanied by moving resources can be sent. The resource units sent by this block may be in different locations, but each location must have at least one moving resource. The agent leaves this block when the last unit arrives at the destination, so the time spent by the agent in this block is equal to the longest travel time of the unit being sent. The speed of each group of units sent together will be the speed of the slowest moving resource in that group.
+
+The resource units are animated to move along the shortest paths from their origin to their destination. The agent is animated to remain at its current location (at a random position within the current network node).
+
+Properties
+Resources to send
+The list of the names of the ResourcePool blocks whose units are being sent. One unit will be sent per pool name, so if you wish to send two or more units of the same pool, you should list that pool twice, for example, { doctors, nurses, nurses }. more
+Destination is
+Defines where the resources will be sent. The resources can be sent to:
+Network node — resources are sent to the specified network node.
+Attractor —  are sent to the specified attractor.
+Agent — resources are sent to the current agent location.
+Other seized resource unit — resources are sent to the current location of another seized resource (specified below in the Resource edit box).
+Home of seized resource unit — resources are sent to the home location of the seized resource unit.
+more
+Node
+[Visible if Destination is: Network node]
+The network node where the seized resources will be sent. more
+Attractor
+[Visible if Destination is: Attractor]
+The attractor where the seized resources will be sent. more
+Resource
+[Visible if Destination is: Other seized resource unit]
+The name of the resource pool of the unit to whose location the agent will move. If several units of the same pool are seized, the first in the list will be selected. more
+Actions
+On enter
+The code executed when the agent enters the block. more
+On exit
+The code executed when the agent exits the block. more
+Functions
+Function	Description
+int size()	Returns the number of agents (waiting for their resource units to arrive at their destinations) in this block.
+Ports
+in
+The input port.
+out
+The output port.

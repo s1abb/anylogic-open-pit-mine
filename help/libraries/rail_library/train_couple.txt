@@ -1,0 +1,40 @@
+TrainCouple
+
+
+Couples two trains and makes them one single train. The two trains to be coupled must enter TrainCouple at different input ports (and maybe at different times), and have two ends “touching” each other. To make sure the trains are close enough to be coupled, you can, for example, move one of the train to the track where the other train is located and select the option Check free space on target track of the TrainMoveTo block.
+
+TrainCouple contains two queues, one for each input port, where trains wait to be coupled. When a train enters TrainCouple via one of the ports, the block checks if there is a train in another queue that can be coupled with it. If yes, the trains are combined into one single train and leave TrainCouple. If not, the train remains in the queue. A single TrainCouple block can handle coupling of trains on several tracks simultaneously and independently.
+
+Coupling is done by adding the rail cars of train entered via port in2 to the train entered via port in1, so that the train at the port in1 remains in the model, whereas the train at the port in2 is disposed. The orientation of the train at in1 is kept after coupling as well as its other properties like speed, and so on. No rail cars change their position during coupling.
+
+The actual operation of coupling takes zero time, so if you wish to model the time delay associated with coupling, you should add a Delay block after the TrainCouple block.
+
+Properties
+On enter 1
+The code executed when the train enters the block via port in1. more
+On enter 2
+The code executed when the train enters the block via port in2. more
+On exit
+The code executed when the train leaves the block. This is the same train that entered the block via the port in1 with the rail cars of another train added to it. more
+Advanced
+Train type (1)
+The type of train entering this block via port in1. In the properties of this agent type you should specify that it is used in flowcharts as train. more
+Train type (2)
+The type of train entering this block via port in2. In the properties of this agent type you should specify that it is used in flowcharts as train. more
+Functions
+Function	Description
+int size1()	Returns the number of trains that entered TrainCouple via in1 and currently waiting in the corresponding queue to be coupled.
+int size2()	Returns the number of trains that entered TrainCouple via in2 and currently waiting in the corresponding queue to be coupled.
+T1 get1(int index)	Returns the train that waits in the first queue at a given position (0 is at the head of the queue).
+
+index — The position of the train to retrieve.
+T2 get2(int index)	Returns the train that waits in the second queue at a given position (0 is at the head of the queue).
+
+index — The position of the train to retrieve.
+Ports
+in1
+The input port 1.
+in2
+The input port 2.
+out
+The output port.

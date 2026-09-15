@@ -1,0 +1,85 @@
+Wait
+AnyLogic: The Wait block
+
+The Wait block can store agents inside and supports their manual release (you need to call free() or freeAll()). It has no order (except in the case of preemption, if the latter is enabled).
+
+Properties
+Capacity
+[Visible unless the Maximum capacity option is selected]
+The capacity of the queue. more
+Maximum capacity
+If the option is selected (true), the capacity of the queue is maximum possible (limited by Integer.MAX_VALUE). more
+Agent location
+The space markup shape (node or path) where the agents are located while being in this block. more
+Advanced
+Enable exit on timeout
+If this option is selected (true), the timeout option for the queue is on. After spending the specified time in the queue, the agent will leave the block through the outTimeout port. more
+Timeout
+[Visible if the Enable exit on timeout option is selected]
+The expression evaluated to obtain the timeout time for the agent. more
+Enable preemption
+If this option is selected (true), the agents are placed in the queue according to their priorities and may be preempted by higher priority ones. more
+Preempt
+[Visible if the Enable preemption option is selected]
+Defines how the incoming agents preempt the agents that are already in the queue. The choice defines the agent to be preempted:
+the most recent agent — The default policy. The last stored agent will be preempted.
+agent with the least priority value — The agents will be preempted according to their priorities (defined in the Agent priority field below).
+by comparison — In this mode, the Boolean expression, defined in the "agent1 may preempt agent2" edit box, is evaluated for every incoming agent. It compares this agent with the agents that are already stored in the block and determines the agent that will be preempted.
+the oldest agent — The first stored agent will be preempted.
+more
+Agent priority
+[Visible if Preempt: agent with the least priority value]
+The priority of the incoming agent (the larger the higher). more
+"agent1 may preempt agent2"
+[Visible if Preempt: by comparison]
+The comparison callback which should return true if 'agent1' has higher priority than 'agent2' (and false otherwise, including the case of equal priorities). more
+Forced pushing
+If this option is selected (true), then when agents finish processing at the block, they are instantly pushed further regardless the state of the succeeding block. If the option is not selected, agents are not pushed, but pulled: only when the succeeding block is ready to accept one more agent, it requests the agent from this block, and only then this agent passes further. more
+Restore agent location on exit
+If the option is selected, then after being animated in the Agent location shape, the agents will return to their original location (node or path) where they were before entering this block. more
+Force statistics collection
+This block collects the statistics on the queue size. If the statistics collection is turned off for all the Process Modeling Library blocks in the model by the PMLSettings block, this option enables you to override this setting and collect the statistics for this specific block. Otherwise, the statistics will be collected regardless this setting. more
+Actions
+On enter
+The code executed when the agent enters the block (and has been placed in the queue). more
+On exit
+The code executed when the agent exits the block normally, via the out port. more
+On exit (preempted)
+[Visible if the Enable preemption option is selected]
+The code executed when the agent exits the block via the outPreempted port as a result of preemption. more
+On exit (timeout)
+[Visible if the Enable exit on timeout option is selected]
+The code executed when the agent exits the block via the outTimeout port as a result of waiting for too long. more
+On remove
+The code executed when the agent is intentionally removed from this block by calling the remove() function of the agent. This code is automatically executed after the remove() function call. more
+Statistics
+StatisticsContinuous statsSize
+Continuous statistics on the queue size. Is collected if the statistics collection is not turned off by PML Settings block.
+Functions
+Agents
+Function	Description
+int size()	Returns the number of agents in the queue.
+T get(int index)	Returns the agent at position index (0 is at the exit).
+
+index — the position of the agent
+T remove(T agent)	Removes the given agent from the queue and returns it. If the agent is not contained in the queue, returns null.
+
+agent — the agent to return
+boolean free(T agent)	Tells the queue to release the given agent and forward it to the out port.
+
+agent — the agent to return
+boolean freeAll()	Tells the queue to release all the agents and forward it to the out port.
+Iterator<Agent> iterator()	Returns an iterator of agents.
+Statistics
+Function	Description
+boolean isStatisticsCollected()	Returns true if the block collects statistics.
+resetStats()	Resets the statistics collected for this block.
+Ports
+in
+The input port.
+out
+The output port.
+outTimeout
+The output port for the agents leaving the block because of a timeout.
+outPreempted
+The output port for the agents leaving the block because of a preemption.

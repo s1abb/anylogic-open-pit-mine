@@ -1,0 +1,227 @@
+TransporterFleet
+TransporterFleet block
+
+The TransporterFleet block defines a fleet of transporters that can be seized and released by agents (material items) using the SeizeTransporter and ReleaseTransporter flowchart blocks from the Material Handling library.
+
+An example of a transporter is an automated guided vehicle (AGV).
+
+Demo model:
+ 
+Transporters Moving in Free Space
+Open the model page in AnyLogic Cloud. There you can run the model or download it (by clicking Model source files).
+Transporters have home locations to which they can optionally return. Transporters within a fleet can have unique properties, can be animated, collect unit-based statistics, and so on.
+
+Each transporter can be either idle or busy. This block collects utilization statistics, which are continuous time statistics on the percentage of busy units. Transporters always collect their individual utilization statistics. Additionally, MTTR and MTBF metrics are collected for the individual transporters.
+
+Depending on the selected navigation type, transporters can move either along network paths and nodes or in free space. By default, transporters take the most efficient route to their destination.
+
+If necessary, you can manage the routing of transporters moving along the network paths using the TransporterControl block and set the route selection algorithm as a dynamic value in the Find path parameter. The setting specified in this block will affect all transporter fleets with path-guided type of navigation. To set individual routing rules for a single transporter fleet, select the Custom routing option in the properties of the corresponding TransporterFleet block.
+
+You can change the number of transporters in a fleet at runtime using the set_capacity() function. When decreasing the number, the behavior of the transporters will differ depending on their current state:
+
+If the transporter has already been seized and is currently moving to the agent or transporting the agent to the destination point, it will be removed only after the task has been completed, that is, when the agent has been successfully transported.
+If the function is called after the transporter has been released, it will be removed either immediately or upon reaching the home location. This behavior depends on the setting of the Returns parameter of the MoveByTransporter block.
+If the function is called while the transporter is in the moving lift, the transporter will be removed, and the lift will proceed with its own tasks.
+Properties
+Navigation type
+Here you can select how the transporters of the fleet will conduct their movement to the target point. Path-guided navigation is selected to model transporters that move along predetermined paths. Free space navigation is selected to model transporters that can detect their surroundings and move towards the target arbitrarily. more
+Recognize all transporters
+If selected, the transporters of this fleet will recognize both path-guided and free-space transporters in your model as obstacles and behave accordingly. Otherwise, only the transporters with the same navigation type will be recognized as obstacles. more
+Capacity defined
+Here you can select the method of defining how many transporters there are in the fleet: either Directly or By schedule. more
+Capacity
+[Visible and applies only if Capacity defined: Directly]
+Here you can directly define the number of transporters in this fleet. This number must not exceed the number of attractors (if any) placed at the home location. more
+Schedule
+[Visible and applies only if Capacity defined: By schedule]
+Here you can specify the schedule that defines the number of transporters in the fleet.
+Make sure to use the schedule of the integer type.
+more
+Home locations
+The location transporters are based at and may return to when released. Home location can be defined by a Rectangular Node, a Polygonal Node or a Point Node. The rectangular and polygonal nodes can contain Attractors, serving as specific spots for transporters. The number of attractors you place within the nodes defines the maximum number of transporters they can accept. Empty rectangular and polygonal nodes may accept unlimited number of transporters. Point Node may contain one transporter only. more
+Turn radius
+[Visible and applies only if Navigation type: Free space]
+The radius of the smallest circular turn that the transporter can execute. more
+Min distance to obstacle
+Here you can define how close a transporter of this fleet can get to an obstacle. The distance is calculated from the edge of the transporter. For transporters with path-guided navigation the obstacle is another transporter (of this and other fleets with path-guided navigation). The restriction is only applied when the transporter is minding the distance to the transporter situated in front of it. For transporters with free-space navigation the obstacle is a static element, e.g., a wall, a conveyor, etc. Transporters can bypass the restriction to avoid collisions with other transporters or when there is not enough space for movement, e.g. the distance between two walls where the transporter must pass is less than the value specified in this property. more
+Limit speed near obstacle
+[Visible and applies only if Free space option is selected]
+Select this check box if you want to limit the transporter's speed when the distance from the transporter to the obstacle becomes less than the value specified in the Min distance to obstacle parameter. more
+Max speed near obstacle
+[Visible and applies only if Limit speed near obstacle option is selected]
+Maximum permitted speed of the transporter when the distance to the obstacle is less than specified in the Min distance to obstacle parameter. more
+Transporter
+New transporter
+Specify here the type of the transporters in this fleet. more
+Set dimensions
+If selected, you can alter the dimensions (length, width, height) of the transporters in this fleet. more
+Length
+[Visible and applies only if Set dimensions option is selected]
+The length of the transporter. more
+Width
+[Visible and applies only if Set dimensions option is selected]
+The width of the transporter. more
+Height
+[Visible and applies only if Set dimensions option is selected]
+The height of the transporter. more
+Maximum speed
+The maximum speed of the transporter. more
+Limit speed on curves
+If selected (true), limits the transporter's speed on the curved segments of the network. If transporter decelerate sufficiently in time before entering the curved segment, then once it enters the curved segment, its speed will immediately drop down to the value specified in the Maximum speed on curves parameter. more
+Maximum speed on curves
+[Visible and applies only if Limit speed on curves option is selected]
+Maximum permitted speed of the transporter when it enters the curved segment of the network.
+The speed value specified here has a lower priority compared to the speed value specified in Maximum speed parameter, and transporter will only be able to accelerate to the specified maximum speed once it enters the curved segment, no matter the speed value specified here.
+more
+Allow spin turn on path
+[Visible and applies if Navigation type: Path-guided and the Tugger train option is not enabled]
+If selected, allows a path-guided transporter to turn around on a path without heading to the node first to perform a turnaround. Note that this property applies to all transporters in the fleet, but you can change its value for individual transporters using the API. Additionally, some paths may prohibit such a turnaround. more
+Rotation speed
+[Visible and applies if Navigation type: Path-guided]
+The rotation speed of the transporter. 0 implies immediate rotation. more
+Acceleration
+The acceleration of the transporter. A value of 0 means instant acceleration: the transporter reaches its target speed on the next simulation step. more
+Deceleration
+The deceleration of the transporter. A value of 0 means instant deceleration: the transporter reaches its target speed on the next simulation step. more
+Delay to resume movement
+Here you can specify the time required for the transporter to start moving again after an obstacle forced it to stop. more
+Delay for route calculation
+If the transporters of this particular type require some time to calculate the route before moving to the next target and you need to take this into account, here you can specify the required time. more
+Add transporters to
+Defines whether the transporters created by this block will be stored in the default population of the top-level agent or in a custom population (specified below in the Population property). more
+Population
+[Visible if Add transporters to: Custom population]
+The name of the agent population where the transporters created by this block will be stored. more
+Multiload transportation
+Tugger train
+Defines that the transporter is a tugger train, that is capable of working with multiple agents (material items) and transports these items in trailers or behind itself. more
+Max number of loads
+[Visible unless the Tugger train option is enabled]
+Defines the maximum number of agents (material items) that the transporter (a regular one, not a tugger train) can carry at one time. more
+New trailer
+[Visible if the Tugger train option is enabled]
+Specifies the type of the generated trailer used by the tugger train. When creating a new agent using the link inside this property, a new agent is flagged Use in flowchart as: Material Item. more
+Number of trailers
+[Visible if the Tugger train option is enabled]
+Defines the initial number of trailers for the tugger train.
+is specified explicitly — The number of trailers is specified in the Initial number of trailers property below.
+equals number of agents — Each trailer is generated automatically when the tugger train picks up a material item and is removed when the tugger unloads the item.
+more
+Initial number of trailers
+[Visible if Number of trailers: is specified explicitly]
+Defines the initial number of trailers in the tugger train. more
+Max number of trailers
+[Visible if Number of trailers: equals number of agents]
+Defines the maximum number of trailers in the tugger train. more
+Gap between trailers
+[Visible if the Tugger train option is enabled]
+Defines the distance between two consequent trailers. more
+Add trailers to
+[Visible if the Tugger train option is enabled]
+Defines where the trailer created by this block will be stored: in the default population of the root agent or in the custom population specified below in the Population property. more
+Trailers population
+[Visible if Add trailers to: Custom population]
+The name of the agent population where the trailer created by this block will be stored. more
+Prefer partially filled transporters
+If selected, the partially filled transporters have priority when a unit to seize is selected.
+more
+Delivery starts when
+Defines the policy for a transporter to begin the delivery.
+transporter is full — the delivery starts when the transporter is full; the transporter may wait indefinitely for additional agents.
+timeout ends — the transporter begins delivery after the timeout specified in the Pickup timeout per agent property if no new agents arrive; the timeout is reset when a new agent is assigned.
+no available agents left — the delivery starts when no more suitable agents are available for pickup or the transporter is full.
+condition is met — the delivery starts when the condition specified in the Condition property is met or the transporter is full; if the condition is not met, a timeout may be used.
+more
+Condition
+[Visible if Delivery starts when: condition is met]
+Defines the condition for the delivery. If the condition is met (evaluates to true), the tugger train starts delivery. If the condition is not met (evaluates to false), then the tugger train continues collecting agents. more
+Pickup timeout per agent
+[Visible if Delivery starts when: timeout ends or condition is met]
+Defines the waiting period during which the tugger train waits for an additional agent. If an agent becomes available during this period, the timer is reset, and the tugger is dispatched to collect it. Otherwise, the tugger proceeds with its delivery after the timeout has expired. more
+Maintenance, failures, breaks
+Downtime block(s)
+Select here Downtime blocks that will cause the transporters to enter the downtime state.
+During the downtime, the element stops working and stops executing new tasks, unless a task has a sufficient priority to override the downtime tasks. Even if the element has acceleration or deceleration settings, it still stops immediately when it enters downtime.
+During a transition to downtime the element moves from the current state to one of the following states: MAINTENANCE, FAILED, CUSTOM_DOWNTIME depending on the type of downtime specified in the Type property of the Downtime block. If the equipment is configured to move to the service point when the downtime occurs, it is in the corresponding downtime state during this movement as well.
+Transporter behavior and routing during and after downtime may be affected:
+
+If the priority of the downtime is higher and can preempt the current transporter task, the transporter will stop and the downtime will begin. If the downtime location is specified, transporter moves there.
+If the transporter is in the process of loading or unloading when the downtime occurs, the current loading or unloading operation will be stopped and restarted after the downtime ends.
+If the transporter is in the delivering state when the downtime occurs, and is configured to move to the specified maintenance location during the downtime, it will restart the loading operation again when it will return to the agent for the task completion.
+When the transporter resumes movement after the downtime, it rebuilds the route to the destination.
+If the downtime has preempted the transporter’s delivery task, which can happen if the Task preemption policy in the MoveByTransporter or SeizeTransporter block is set to Seize any resource, then when the downtime ends, the transporter executes the task defined for it in the Canceled transporter property of the block where it was preempted (that is, either SeizeTransporter or MoveByTransporter).
+New agents cannot take over a transporter in the downtime if their preemption policy does not allow them to preempt the transporter’s task, but instead wait for it to come out of downtime in the logical queue.
+Downtime can interrupt a transporter in the GOING_TO_AGENT, DELIVERING, WAITING, or PROCESSING states, but the transporter remains captured by the agent.
+If in the GOING_TO_AGENT state during downtime: after downtime, if the original task had the task preemption policy set to Seize any resource, the transporter moves to the highest priority agent which has the May preempt other tasks policy enabled.
+If in the DELIVERING, WAITING, or PROCESSING state during downtime: if the downtime location is specified, the transporter leaves the agents it is currently transporting and goes to the downtime location empty. After the downtime, the transporter picks up the same agent and continues transporting it, ignoring any higher-priority agents that arrive during the downtime.
+
+To learn how the downtime affects tugger train transporters, see the section on downtimes in the corresponding article.
+more
+Advanced
+Custom routing
+[Visible if Navigation type: Path-guided]
+If selected (true), you can override automatic routing algorithm which calculates the shortest path from the source to the target and specify your own route for the transporters. The route specified in this parameter will override any routing settings specified in TransporterControl block. more
+Find path
+Here you can define a custom routing algorithm as a function returning the route (RouteData object). more
+Avoid paths
+A path (or several paths) that you want to exclude from the automatically calculated transporter route. more
+Avoid nodes
+A node (or several nodes) that you want to exclude from the automatically calculated transporter route. more
+Include paths
+A path (or several paths) that you want to include in the automatically calculated transporter route. more
+Actions
+On new transporter
+Here you can type Java code to be executed when new transporter is generated (it can be used for additional setup). more
+On seize
+Here you can type Java code to be executed when a transporter is seized. more
+On release
+Here you can type Java code to be executed when a transporter is released. more
+On transporter state changed
+Here you can type Java code to be executed when a transporter state changes. more
+On destination reached
+Java code to be executed when the transporter reaches its destination, which is triggered in the following situations:
+After the manual movement,
+After the transporter delivers the agent that passed through the MoveByTransporter block,
+After the transporter approaches the agent passing through the SeizeTransporters block,
+After the transporter reaches its home location, when the agent releases it by passing the ReleaseTransporter block.
+more
+On enter path
+Here you can type Java code to be executed when a transporter enters a path. more
+On exit path
+Here you can type Java code to be executed when a transporter exits a path. more
+On enter node
+Here you can type Java code to be executed when a transporter enters a node while moving in the network. There is an exception: the code specified in this field will not be executed when the transporter has just been created in the node. If you want the same code to be executed both when the transporter is created and when the transporter enters the node, duplicate the code from this field in the On new transporter field. more
+On exit node
+Here you can type Java code to be executed when a transporter exits a node. more
+Functions
+Function	Description
+double utilization()	Returns the utilization of this fleet. The value returned is the mean of all individual unit utilization, calculated from the last resetStats() call to the current time.
+int numberOfIdle()	Returns the number of currently idle transporters.
+int numberOfBusy()	Returns the number of busy transporters.
+int size()	Returns the total number of transporters in this transporter fleet.
+void resetStats()	Resets the statistics collected for this block. Also resets the distance traveled by each transporter (see Transporter API).
+boolean containsTransporter(Agent unit)	Checks if the transporter fleet contains the specified transporter. Returns true if it does, false otherwise.
+
+unit — The transporter to check the fleet for.
+Collection<ResourceRequest> getRequests()	Returns the current queue of requests for transporters of this transporter fleet, ordered by their priority. This list is unmodifiable.
+RouteData findShortestPath(ILocation source, ILocation target, Node[] nodesToAvoid, Path[] pathsToAvoid)	Calculates the shortest path from the source to the target considering the paths and nodes to avoid.
+
+source — The starting location.
+Target — The destination location.
+nodesToAvoid — The array of nodes to avoid.
+pathsToAvoid — The array of paths to avoid.
+RouteData findShortestPath(ILocation source, ILocation target, Node[] nodesToAvoid, Path[] pathsToAvoid, Path[] pathsToInclude)	Calculates the shortest path from the source to the target considering the paths and nodes to avoid and paths to include.
+
+source — The starting location.
+Target — The destination location.
+nodesToAvoid — The array of nodes to avoid.
+pathsToAvoid — The array of paths to avoid.
+pathsToInclude — The array of paths to include in the transporter’s route.
+RouteData findShortestPath(T unit, ILocation source, ILocation target, Node[] nodesToAvoid, Path[] pathsToAvoid, Path[] pathsToInclude)	Calculates the shortest path from the source to the target for the specified transporter considering the paths and nodes to avoid and paths to include.
+
+unit — The transporter for which to calculate the route.
+source — The starting location.
+Target — The destination location.
+nodesToAvoid — The array of nodes to avoid.
+pathsToAvoid — The array of paths to avoid.
+pathsToInclude — The array of paths to include in the transporter’s route.

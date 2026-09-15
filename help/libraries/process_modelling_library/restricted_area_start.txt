@@ -1,0 +1,32 @@
+RestrictedAreaStart
+The RestrictedAreaStart block
+
+The RestrictedAreaStart block marks the entry to the section (area) of the process where you wish to limit the maximum number of agents. Such an area can have only one entry and any number of exits, each of which must be marked with a block that references this RestrictedAreaStart (see the figure below). Once the number of times RestrictedAreaStart has been entered minus the number of times RestrictedAreaEnd has been exited reaches the limit, the RestrictedAreaStart block blocks the entry and would not allow a new agent to enter until one of the agents exits the area.
+
+
+
+The RestrictedAreaStart block is implemented using the Hold block, so the agent is simply passed on to the next block and does not spend any time in RestrictedAreaStart.
+
+If you occasionally allow agents to leave the area other than through a RestrictedAreaEnd block (for example, by programmatically removing them from the flow), the RestrictedAreaStart would not notice this and would count those agents as still in the area, which could result in the area entry being blocked forever.
+Demo model:
+ 
+RestrictedAreaStart and RestrictedAreaEnd
+Open the model page in AnyLogic Cloud. There you can run the model or download it (by clicking Model source files).
+Properties
+Capacity (max allowed)
+The maximum number of agents allowed in the restricted area. more
+Actions
+On enter
+The code executed when the agent enters the block. more
+Functions
+Function	Description
+int entitiesInside()	Returns the number of agents currently in the restricted area.
+boolean isBlocked()	Returns true if the entry to the area is blocked, otherwise false.
+Embedded block
+Hold block
+The embedded block that is used to block the entry to the restricted area depending on the number of agents there.
+Ports
+in
+The input port.
+out
+The output port.

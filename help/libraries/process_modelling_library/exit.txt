@@ -1,0 +1,36 @@
+Exit
+AnyLogic: The Exit block
+
+The Exit block removes the incoming agents from the process flow and lets the user specify what to do with them.
+
+Demo model:
+ 
+Enter and Exit
+Open the model page in AnyLogic Cloud. There you can run the model or download it (by clicking Model source files).
+If you simply want to dispose of the agents, use the Sink block. Typically, Exit is used either to transfer the agents to a part of the model implemented in a different modeling style (for example, to a statechart, function, and so on), or, in conjunction with the Enter block, to implement custom routing of agents between different parts of the process model. The agent is accessible in the On exit property.
+
+
+Custom block
+Suppose you want to develop a reusable block with functionality not covered by the Process Modeling Library and use it in the process flowchart. You may then create a new agent type, declare two regular ports (say, in and out), use Exit at the input and Enter at the output, and use any modeling constructs in between as shown in the figure below.
+
+To route the incoming agent to the custom implementation, use the On exit property of Exit where the agent is accessible. To output the outgoing agent, call enter.take(agent).
+
+
+
+Custom routing
+Suppose you want to route agents in a custom way, like depending on some global conditions (for example, you may want to select a service point with the shortest queue). This can be done by using a set of SelectOutput blocks, but it would not be elegant if there are many routing points, and even impossible if the receiving block is replicated by selecting the advanced option of Agent population.
+
+In this case, the solution is to use the Exit block at the sending side and an Enter block at the receiving side. Then on each agent arrival, you can analyze the conditions and call the take(agent) function of the selected Enter block. Note that such custom routing can cross the agent boundaries: you may write something like receiver(i).enter.take(agent) to route the agent to the i-th instance of the receiving element.
+
+
+
+Properties
+Actions
+On exit
+The code executed when the agent exits the block. more
+Functions
+Function	Description
+long count()	Returns the number of agents passed through this block.
+Ports
+in
+The input port.

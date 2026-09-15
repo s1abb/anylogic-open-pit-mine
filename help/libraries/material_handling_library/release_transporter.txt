@@ -1,0 +1,85 @@
+ReleaseTransporter
+
+
+Releases the transporter previously seized by the SeizeTransporter block.
+
+Different policies are available to define the transporter's actions after release (this setting is configured by the Transporter parameter). It can return to its current home location node, move to the nearest home location node (if several nodes were specified in the TransporterFleet block), move to any other specified location or remain where it is.
+
+Transporter can return to the specified location every time it is released and only then move to perform the next task, or it can prioritize the performance of the task (if there is one) over the return to the specified location.
+
+The release operation takes zero time.
+
+All seized transporters must be released before the agent is disposed by the Sink block.
+Demo model:
+ 
+SeizeTransporter and ReleaseTransporter
+Open the model page in AnyLogic Cloud. There you can run the model or download it (by clicking Model source files).
+Properties
+Transporter
+Defines the behavior of the released transporter. Depending on your choice, the transporter:
+Returns to current home location
+Returns to the nearest home location (selected from the list of the locations specified in the properties of the TransporterFleet block). Once the transporter returns to the node that satisfies this condition, this node will become the current home location for this transporter.
+Goes to... — the location specified in the Destination is parameter
+Remains where it is
+more
+Destination is
+Defines where the transporter will move after being released. The possible destinations are:
+Node — transporter moves to the specified network node
+Attractor — transporter moves to the specified attractor
+Path — transporter moves to the specified path
+Conveyor — transporter moves to the specified conveyor
+Position on conveyor — transporter moves to the specified position on conveyor
+Conveyor station — transporter moves to the specified station
+(x, y, z) — transporter moves to the point with the specified coordinates.
+more
+Node
+[Visible and applies only if Destination is: Node]
+The network node the transporter will move to. more
+Attractor
+[Visible and applies only if Destination is: Attractor]
+The attractor the transporter will move to. more
+Path
+[Visible and applies only if Destination is: Path]
+The path the transporter will move to. more
+Conveyor
+[Visible and applies only if Destination is: Conveyor]
+The conveyor the transporter will move to. more
+Offset from
+[Visible and applies only if Destination is: Path or Conveyor]
+Defines how to calculate the offset of the exact point on a path or a conveyor the transporter will move to: from The beginning of the conveyor/path or from The end of the conveyor/path. more
+Offset
+[Visible and applies only if Destination is: Path or Conveyor]
+The distance from the start or end point of the path/conveyor (depends on the Offset from parameter) defining the exact destination point for the transporter. more
+Position on conveyor
+[Visible and applies only if Destination is: Position on conveyor]
+The position on conveyor the transporter will move to. more
+Conveyor station
+[Visible and applies only if Destination is: Conveyor station]
+The station the transporter will move to. more
+X, Y, Z
+[Visible and applies only if Destination is: (x, y, z)]
+X, Y, Z coordinates of the point the transporter will move to. more
+... located in
+[Visible and applies only if Destination is: (x, y, z)]
+Specifies where the transporter will be added to after the release: either Level or Network. more
+Level
+[Visible and applies only if ...located in Level option is selected]
+The level the transporter will be added to once it is released. more
+Network
+[Visible and applies only if ...located in Network option is selected]
+The network the transporter will be added to once it is released. more
+Returns
+[Visible and applies if any of the return options is selected in Transporter parameter]
+Defines the policy of the transporter's return after the release. It can either proceed to perform the next task (if there is one) and return only when no tasks are left for it or always return to the specified location and only then move to perform the next task. more
+Actions
+On enter
+Here you can type Java code to be executed when an agent enters the block. more
+On release transporter
+Here you can type Java code to be executed when the transporter has been released. more
+On exit
+Here you can type Java code to be executed when an agent exits the block. more
+Ports
+in
+The input port.
+out
+The output port.

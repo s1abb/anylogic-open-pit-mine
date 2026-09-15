@@ -1,0 +1,53 @@
+FluidExit
+
+
+The FluidExit block forwards the flow into the connected FluidEnter block. This block is designed to set up flow networks dynamically, for example, when the network configuration is read from a database, or when dynamic re-routing is needed between multiple parts of the network, such as replicated fragments, which may not be well managed by FluidSelectOutput and FluidSelectInput blocks.
+
+The initially connected FluidEnter block can optionally be set in the Forward flow to property and then changed later by calling the connect() and disconnect() functions.
+
+A FluidExit block can be connected to at most one FluidEnter block at a time, and vice versa.
+
+Demo model:
+ 
+FluidEnter and FluidExit
+Open the model page in AnyLogic Cloud. There you can run the model or download it (by clicking Model source files).
+Properties
+Forward flow to
+The FluidEnter block initially connected to this FluidExit (optional). more
+Animation
+Show batches in flowchart
+If set, the block icon will display the size and color of batches. more
+Actions
+On new batch
+The action executed when a new batch appears at the input. It will not necessarily start flowing into the block. more
+On rate change
+The action executed when the flow rate changes.
+Changing something in the action may result in another immediate rate change and immediately following another call of On rate change, so the user can possibly create a livelock.
+more
+Functions
+Fluid amount
+Function	Description
+double amountPassed()	Returns the total amount passed through the block since the start of the simulation.
+double amountPassed(AmountUnits units)	Returns the total amount (in given units) passed through the block since the start of the simulation.
+
+units — the amount units
+Flow rate
+Function	Description
+double currentRate()	Returns the current flow rate of fluid that goes out.
+double currentRate(FlowRateUnits units)	Returns the current flow rate (in given units) of fluid through the block.
+
+units — the flow rate units
+Connection to FluidEnter
+Function	Description
+void connect(FluidEnter fluidEnter)	Connects this block to the specified FluidEnter block. Prior to this, disconnects both blocks from previous connections, if any.
+
+fluidEnter — the FluidEnter block
+void disconnect()	Disconnects this block from the connected FluidEnter block, if there is any.
+boolean isConnected()	Tests if the block is currently connected to a FluidEnter block. Returns true if the block is connected and false otherwise.
+FluidEnter getConnection()	Returns the FluidEnter block currently connected to this FluidExit. If there is none, returns null.
+Resetting statistics
+Function	Description
+void resetStats()	Resets statistics collected for this block, including the statistics collected for its ports.
+Ports
+in
+The input port.

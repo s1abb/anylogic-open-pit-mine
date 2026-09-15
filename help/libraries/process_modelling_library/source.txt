@@ -1,0 +1,177 @@
+Source
+AnyLogic: The Source block
+
+Being a common starting point for a process model, the Source block generates agents.
+
+The agents can be standard agents or a custom agent type. You can customize the generated agents by specifying the agent type in the New agent field, and then specifying the action to be performed before the agent exits the Source block in the On exit action field.
+
+There are a number of ways to define when and how many agents to generate. You can:
+
+Set the arrival rate and change it dynamically by calling the set_rate() function,
+Specify an interarrival time,
+Define the rate by a schedule,
+Schedule exact arrival times and quantities,
+Trigger the arrival of a new agent by calling this block’s inject() function.
+For example, a Poisson stream of arrivals can be implemented by selecting arrivals with a certain rate, or by specifying the exponentially distributed time between arrivals. You can also specify the number of agents in each arrival and limit the total number of arrivals.
+
+In some cases, it makes sense to use two or more Source blocks to implement complex arrival patterns.
+
+By default, Source does not allow the agents to wait at its output port until they can be consumed by the next block. You can change this behavior by clearing the Forced pushing advanced option and selecting the required behavior from the Agents which can't exit list.
+In addition to Source, there are other ways to create agents in the Process Modeling Library models. For example, you can use the Enter block as a the starting point of the flowchart and call its take() function to inject agents. The latter function is useful if the agents are generated elsewhere (for example, by a state chart or an event) and only need to be injected into the process.
+
+Demo model:
+ 
+Source Arrival Modes
+Open the model page in AnyLogic Cloud. There you can run the model or download it (by clicking Model source files).
+Properties
+Arrivals defined by
+Specifies the mode of agent generation:
+Rate — Agents are generated with the specified arrival rate, which is equivalent to an exponentially distributed interarrival time with mean equal to 1/rate.
+Interarrival time — The time between two subsequent agents is defined by the specified expression. Use this option to generate agents with, for example, regular intervals or with non-exponential interarrival times.
+Arrival table in Database — Agents are generated according to the records in the specified database table. Specify the table in the Database table property, then select the table column containing the arrival times in the Arrival date drop-down list. The block will generate one agent for each record in the specified table. If you need to generate multiple agents per one record, select the Multiple agents per arrival checkbox, and specify how many agents should be generated per arrival in the Agents per arrival field.
+Rate schedule — Agents are generated according to a rate schedule — a schedule that defines how the arrival rate changes over time.
+Arrival schedule — Agents are generated according to an arrival schedule — a schedule that defines how many agents should be generated at particular times.
+Calls of inject() function — Agents are not generated automatically and are generated only when the inject() function is called.
+more
+Arrival rate
+[Visible if Arrivals defined by: Rate]
+The arrival rate of the agents. If rate is used and its value becomes negative or zero, no next arrival will be scheduled until the rate changes to a positive value. more
+Interarrival time
+[Visible if Arrivals defined by: Interarrival time]
+The expression used to evaluate the delay time for each agent. If the interarrival time is used and it occasionally evaluates to infinity, Source stops generating agents and will never resume. If the timeout value becomes negative or zero, an error will occur. more
+First arrival occurs
+[Visible if Arrivals defined by: Interarrival time]
+Specifies the time at which the first agent arrives to the Source block.
+After timeout — the first agent arrival occurs after the time specified in the Interarrival time property has elapsed.
+At model start — the first arrival occurs when the model is run.
+At the specified time — the first arrival occurs at the moment of time specified in the First arrival time property.
+more
+First arrival time
+[Visible if First arrival occurs: At the specified time]
+The exact time when the Source block generates the first agent(s). This time cannot be less than the model run length or the time of creation and initialization of this Source block. more
+Database table
+[Visible if Arrivals defined by: Arrival table in Database]
+Specifies the database table containing the agent arrival data. more
+Arrival date
+[Visible if Arrivals defined by: Arrival table in Database]
+Specifies the column of the Database table that contains the agent arrival timestamps.
+Rate schedule
+[Visible if Arrivals defined by: Rate schedule]
+The name of the schedule that defines how the arrival rate changes over time. more
+Modify rate
+[Visible if Arrivals defined by: Rate schedule]
+If this option is enabled, the Rate expression property specifies the expression by which the rate will be modified. more
+Rate expression
+[Visible if the Modify rate option is selected]
+The expression that evaluates the rate. more
+Arrival schedule
+[Visible if Arrivals defined by: Arrival schedule]
+The name of the schedule that defines how many agents will be generated at certain times. more
+Set agent parameters from DB
+[Visible unless Arrivals defined by: Arrival table in Database or Calls of inject() function]
+If this option is selected (true), it allows the initialization of agent parameters from the model database. This approach is described in Source creates agents with parameters read from DB. more
+Database table
+[Visible if the Set agent parameters from DB option is selected]
+Specifies the database table that contains the data (parameter values) of arriving agents. more
+Multiple agents per arrival
+[Visible if Arrivals defined by: Rate, Interarrival time, Arrival table in Database, or Rate schedule]
+If this option is selected (true), multiple agents are generated for each arrival. more
+Agents per arrival
+[Visible if the Multiple agents per arrival option is selected]
+The number of agents in an arrival. more
+Limited number of arrivals
+If this option is selected (true), the number of arrivals is limited to Number of arrivals. more
+Maximum number of arrivals
+[Visible if the Limited number of arrivals option is selected]
+The maximum number of arrivals that will be generated by this block. more
+Location of arrival
+Defines the location where the generated agent will be placed. Possible options:
+Not specified — You do not specify the arrival location of the agents.
+Network / GIS node — Agents appear at the specified network node, GIS point, or GIS region.
+Attractor — Agents appear at the specified attractor.
+(x, y, z) — Agents appear at the point with the specified coordinates X, Y, Z.
+(latitude, longitude) — Agents appear at the specified point on the GIS map with the specified Latitude and Longitude.
+Geographic place — Agents appear in the particular location on the GIS map. Define the location using the Name of place property.
+more
+Node
+[Visible if Location of arrival: Network / GIS node]
+The network node, GIS point, or GIS region, where the agent created by this block will be placed. more
+Attractor
+[Visible if Location of arrival: Attractor]
+The attractor to which the agent will move. more
+X, Y, Z
+[Visible if Location of arrival: (x, y, z)]
+The X, Y, and Z coordinates of the point where the agent will be placed. more
+… located in
+[Visible if Location of arrival: (x, y, z)]
+Specifies where to add agents when they are generated by this block: either Level or Network. more
+Level
+[Visible if … located in: Level]
+The level to which the agent will be added when generated by this block. more
+Network
+[Visible if … located in: Network]
+The network to which the agent will be added when generated by this block. more
+Latitude, Longitude
+[Visible if Location of arrival: (latitude, longitude)]
+The latitude and longitude of the point on the GIS map where the agent will be placed. more
+Name of place
+[Visible if Location of arrival: Geographic place]
+The name of the specific location on the GIS map, where the agent will arrive when generated. Specify the name as a text put enclosed in quotation marks: for example, "London". The GIS map will search for a place with this name. The first location from the list of GIS search results will be used. more
+Speed
+[Visible unless Location of arrival: Not specified]
+The speed of the generated agent. more
+Agent
+New agent
+The type of agent generated by the block. In this article, it is referred as T. Typically, you simply select the agent type name from the list. In rare cases (for example, when you need to parameterize agents with different attribute values), you can switch to the dynamic value editor and specify the agent type constructor there. more
+Change dimensions
+If this option is selected (true), you can change the dimensions of the agent generated by this block by specifying the new values in the Length, Width, and Height edit boxes. more
+Length
+[Visible if the Change dimensions option is selected]
+The new length of the generated agent. more
+Width
+[Visible if the Change dimensions option is selected]
+The new width of the generated agent. more
+Height
+[Visible if the Change dimensions option is selected]
+The new height of the generated agent. more
+Advanced
+Custom time of start
+If this option is selected (true), you can set the block to start generating agents at a custom time in the model lifetime. more
+Time of start
+[Visible if the Custom time of start option is selected]
+The time in model time at which the block will start generating agents. more
+Add agents to
+Specifies whether the agents created by this block will be stored in the default population of the top-level agent of the model, or in a custom population (specified in the Population property). The default population (a Java collection of the AgentList type) contained in the top-level agent can be accessed with the getDefaultPopulation() function. more
+Population
+[Visible if Add agents to: custom population]
+The name of the agent population in which the agents created by this block will be stored. more
+Forced pushing
+If this option is selected (true), when agents are generated by the block, they immediately attempt to start their movement through the flowchart, regardless of the state of the subsequent block. If the option is not selected, agents are not pushed, but act according to the behavior selected in the Agents which can't exit property. more
+Agents which can't exit
+[Visible unless the Forced pushing option is selected]
+Specifies how to handle the agents that cannot exit the block: whether they are destroyed or wait in this block. more
+Actions
+On before arrival
+The code executed before the agent is generated.
+On at exit
+The code executed when the agent is ready to exit the block. more
+On exit
+The code executed when the agent exits the block. more
+On discard
+[Visible if Agents which can't exit: are destroyed]
+The code executed when the agent is removed from the block forcefully. more
+Functions
+Injecting agents
+Function	Description
+void inject()	Generates a single agent at the time of the call.
+void inject(int n)	Generates the specified number of agents at the time of the call.
+
+n — the number of agents to generate
+Count generated agents
+Function	Description
+long count()	Returns the number of agents generated by this block.
+long countArrivals()	Returns the number of arrivals that have occurred in this Source block so far.
+One arrival can generate multiple agents.
+Ports
+out
+The output port.
