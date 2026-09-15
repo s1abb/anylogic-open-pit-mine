@@ -43,12 +43,19 @@ p_Network.loadDataFromJson();
 p_Network.initializeNetwork();
 presentation.add(p_Network.v_Level);
 
-DataDriver loadingPointsDriver = new DataDriver();
-loadingPointsDriver.initialiseFromCSV(
-    () -> this.p_loadingPoints.add_p_loadingPoints("", ""),
-    "C:\\repos\\anylogic-open-pit-mine\\network\\loading_points.csv",
-    true
-);
+try {
+    DataDriver loadingPointsDriver = new DataDriver();
+    loadingPointsDriver.initialiseFromCSV(
+        () -> this.add_p_loadingPoints(),
+        "C:\\repos\\anylogic-open-pit-mine\\input\\loading_points.csv",
+        true
+    );
+    loadingPointsDriver.callOnParametersSet();
+    loadingPointsDriver.callOnRunStarted();
+} catch (InputException e) {
+    logger.error("Error loading loading points CSV: {}", e.getMessage(), e);
+    traceln("Error loading loading points CSV: " + e.getMessage());
+}
 loadingPointsDriver.callOnParametersSet();
 loadingPointsDriver.callOnRunStarted();]]></StartupCode>
 	<Generic>false</Generic>
