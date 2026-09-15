@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Experiments>
+	<SimulationExperiment ActiveObjectClassId="1430113419548">
+		<Id>1430113419571</Id>
+		<Name><![CDATA[Simulation]]></Name>
+		<CommandLineArguments/>
+		<MaximumMemory>512</MaximumMemory>
+		<RandomNumberGenerationType>fixedSeed</RandomNumberGenerationType>
+		<CustomGeneratorCode>new Random()</CustomGeneratorCode>
+		<SeedValue>1</SeedValue>
+		<SelectionModeForSimultaneousEvents>LIFO</SelectionModeForSimultaneousEvents>
+		<VmArgs/>
+		<LoadRootFromSnapshot>false</LoadRootFromSnapshot>
+		<Presentation>
+			<Image>
+				<Id>1434541890655</Id>
+				<Name><![CDATA[image]]></Name>
+				<X>0</X>
+				<Y>0</Y>
+				<Label>
+					<X>0</X>
+					<Y>-10</Y>
+				</Label>
+				<PublicFlag>true</PublicFlag>
+				<PresentationFlag>true</PresentationFlag>
+				<ShowLabel>false</ShowLabel>
+				<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+				<EmbeddedIcon>false</EmbeddedIcon>
+				<Z>0</Z>
+				<Width>1200</Width>
+				<Height>700</Height>
+				<Rotation>0.0</Rotation>
+				<ImageFiles>
+					<ImageResourceReference>
+						<PackageName>grain_terminal</PackageName>
+						<ClassName>Terminal.jpg</ClassName>
+					</ImageResourceReference>
+				</ImageFiles>
+				<OriginalSize>true</OriginalSize>
+			</Image>
+			<Rectangle>
+				<Id>1434541952746</Id>
+				<Name><![CDATA[rectangle]]></Name>
+				<X>0</X>
+				<Y>50</Y>
+				<Label>
+					<X>10</X>
+					<Y>10</Y>
+				</Label>
+				<PublicFlag>true</PublicFlag>
+				<PresentationFlag>true</PresentationFlag>
+				<ShowLabel>false</ShowLabel>
+				<Lock>true</Lock>
+				<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+				<EmbeddedIcon>false</EmbeddedIcon>
+				<Z>0</Z>
+				<ZHeight>10</ZHeight>
+				<LineWidth>1</LineWidth>
+				<LineColor/>
+				<LineMaterial>null</LineMaterial>
+				<LineStyle>SOLID</LineStyle>
+				<Width>1200</Width>
+				<Height>650</Height>
+				<Rotation>0.0</Rotation>
+				<FillColor>-1761607681</FillColor>
+				<FillMaterial>null</FillMaterial>
+			</Rectangle>
+			<Text>
+				<Id>1435846432540</Id>
+				<Name><![CDATA[text]]></Name>
+				<X>80</X>
+				<Y>80</Y>
+				<Label>
+					<X>0</X>
+					<Y>-10</Y>
+				</Label>
+				<PublicFlag>true</PublicFlag>
+				<PresentationFlag>true</PresentationFlag>
+				<ShowLabel>false</ShowLabel>
+				<DrawMode>SHAPE_DRAW_2D</DrawMode>
+				<EmbeddedIcon>false</EmbeddedIcon>
+				<Z>0</Z>
+				<Rotation>0.0</Rotation>
+				<Color>-16777216</Color>
+				<Text><![CDATA[This model simulates the basic set of operations of a grain terminal.
+
+These operations are:
+- grain unloading from an incoming auto to auto silos.
+- grain unloading from a train
+- grain unloading from main silos to a ship
+
+Grain unloading from an incoming auto to auto silos.
+The auto waits until a suitable line of auto silos become available. After this an auto silo is selected using the following criteria:
+ - it is empty or contains the same type of grain as the type being unloaded;
+ - there is no operation like unloading to main silos in progress.
+
+After an auto silo is filled to 75% of its capacity, the grain unloading process to main silos is started.
+
+Grain unloading from a train
+The train delivers grain and the unloading process to main silos is started immediately. 
+Each train and auto delivers only one type of grain. The unloading process from a train and auto silos can happen simultaneously.
+
+Both main silo and auto silos are considered vacant (and thus can be used for loading or unloading) in the following situations:
+ - it is empty or contains the same type of grain as the type in question;
+ - it is not being loaded or unloaded (i.e. the silo cannot be loaded and unloaded at the same time).
+
+Grain unloading from main silos to a ship
+ - The ship berths to one of available piers
+ - The ship includes several bilges.
+ - Each bilge can contain only one type of grain, however the grain types in different bilges can be different.
+ - The ships on different piers can be loaded simultaneously.]]></Text>
+				<Font>
+					<Name><![CDATA[SansSerif]]></Name>
+					<Size>16</Size>
+					<Style>0</Style>
+				</Font>
+				<Alignment>LEFT</Alignment>
+			</Text>
+			<Rectangle>
+				<Id>1434522775027</Id>
+				<Name><![CDATA[rectangle16]]></Name>
+				<X>210</X>
+				<Y>0</Y>
+				<Label>
+					<X>10</X>
+					<Y>10</Y>
+				</Label>
+				<PublicFlag>true</PublicFlag>
+				<PresentationFlag>true</PresentationFlag>
+				<ShowLabel>false</ShowLabel>
+				<DrawMode>SHAPE_DRAW_2D</DrawMode>
+				<EmbeddedIcon>false</EmbeddedIcon>
+				<Z>0</Z>
+				<ZHeight>10</ZHeight>
+				<LineWidth>1</LineWidth>
+				<LineColor/>
+				<LineMaterial>null</LineMaterial>
+				<LineStyle>SOLID</LineStyle>
+				<Width>990</Width>
+				<Height>50</Height>
+				<Rotation>0.0</Rotation>
+				<FillColor>-8272897</FillColor>
+				<FillMaterial>null</FillMaterial>
+			</Rectangle>
+			<Rectangle>
+				<Id>1434523443639</Id>
+				<Name><![CDATA[rectangle91]]></Name>
+				<X>0</X>
+				<Y>0</Y>
+				<Label>
+					<X>10</X>
+					<Y>10</Y>
+				</Label>
+				<PublicFlag>true</PublicFlag>
+				<PresentationFlag>true</PresentationFlag>
+				<ShowLabel>false</ShowLabel>
+				<DrawMode>SHAPE_DRAW_2D</DrawMode>
+				<EmbeddedIcon>false</EmbeddedIcon>
+				<Z>0</Z>
+				<ZHeight>10</ZHeight>
+				<LineWidth>1</LineWidth>
+				<LineColor/>
+				<LineMaterial>null</LineMaterial>
+				<LineStyle>SOLID</LineStyle>
+				<Width>210</Width>
+				<Height>50</Height>
+				<Rotation>0.0</Rotation>
+				<FillColor>-14774017</FillColor>
+				<FillMaterial>null</FillMaterial>
+			</Rectangle>
+			<Text>
+				<Id>1434523443654</Id>
+				<Name><![CDATA[text81]]></Name>
+				<X>20</X>
+				<Y>10</Y>
+				<Label>
+					<X>10</X>
+					<Y>0</Y>
+				</Label>
+				<PublicFlag>true</PublicFlag>
+				<PresentationFlag>true</PresentationFlag>
+				<ShowLabel>false</ShowLabel>
+				<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+				<EmbeddedIcon>false</EmbeddedIcon>
+				<Z>0</Z>
+				<Rotation>0.0</Rotation>
+				<Color>-1</Color>
+				<Text><![CDATA[Grain Terminal]]></Text>
+				<Font>
+					<Name><![CDATA[SansSerif]]></Name>
+					<Size>26</Size>
+					<Style>0</Style>
+				</Font>
+				<Alignment>LEFT</Alignment>
+			</Text>
+			<Image>
+				<Id>1527774901285</Id>
+				<Name><![CDATA[image1]]></Name>
+				<X>970</X>
+				<Y>600</Y>
+				<Label>
+					<X>0</X>
+					<Y>-10</Y>
+				</Label>
+				<PublicFlag>true</PublicFlag>
+				<PresentationFlag>true</PresentationFlag>
+				<ShowLabel>false</ShowLabel>
+				<DrawMode>SHAPE_DRAW_2D3D</DrawMode>
+				<OnClickCode>getExperimentHost().openWebSite("https://www.anylogic.com");</OnClickCode>
+				<EmbeddedIcon>false</EmbeddedIcon>
+				<Z>0</Z>
+				<Width>200</Width>
+				<Height>75</Height>
+				<Rotation>0.0</Rotation>
+				<ImageFiles>
+					<ImageResourceReference>
+						<PackageName>grain_terminal</PackageName>
+						<ClassName>AnyLogic model logo dark.png</ClassName>
+					</ImageResourceReference>
+				</ImageFiles>
+				<OriginalSize>false</OriginalSize>
+			</Image>
+		</Presentation>
+		<Parameters>
+			<Parameter>
+				<ParameterName>siloCapacity</ParameterName>
+			</Parameter>
+			<Parameter>
+				<ParameterName>numOfTypes</ParameterName>
+			</Parameter>
+			<Parameter>
+				<ParameterName>autoSiloCapacity</ParameterName>
+			</Parameter>
+			<Parameter>
+				<ParameterName>autoSiloThr</ParameterName>
+			</Parameter>
+			<Parameter>
+				<ParameterName>maxRate</ParameterName>
+			</Parameter>
+			<Parameter>
+				<ParameterName>conveyorSpeed</ParameterName>
+			</Parameter>
+			<Parameter>
+				<ParameterName>truckCapacity</ParameterName>
+			</Parameter>
+			<Parameter>
+				<ParameterName>trainCapacity</ParameterName>
+			</Parameter>
+		</Parameters>
+		<PresentationProperties>
+			<EnableZoomAndPanning>false</EnableZoomAndPanning>
+			<ExecutionMode>realTimeScaled</ExecutionMode>
+			<Title>Grain Terminal : Simulation</Title>
+			<EnableDeveloperPanel>true</EnableDeveloperPanel>
+			<ShowDeveloperPanelOnStart>false</ShowDeveloperPanelOnStart>
+			<RealTimeScale>25.0</RealTimeScale>
+		</PresentationProperties>
+		<ModelTimeProperties>
+			<StopOption>Never</StopOption>
+			<InitialDate>1523836800000</InitialDate>
+			<InitialTime>0.0</InitialTime>
+			<FinalDate>1523836900000</FinalDate>
+			<FinalTime>100.0</FinalTime>
+		</ModelTimeProperties>
+		<BypassInitialScreen>false</BypassInitialScreen>
+	</SimulationExperiment>
+</Experiments>

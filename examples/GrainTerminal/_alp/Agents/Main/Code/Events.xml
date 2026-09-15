@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Events>
+	<Event>
+		<Id>1430939249540</Id>
+		<Name><![CDATA[connectInConveyors]]></Name>
+		<X>-150</X>
+		<Y>530</Y>
+		<Label>
+			<X>10</X>
+			<Y>0</Y>
+		</Label>
+		<PublicFlag>false</PublicFlag>
+		<PresentationFlag>true</PresentationFlag>
+		<ShowLabel>true</ShowLabel>
+		<Properties TriggerType="timeout" Mode="occuresOnce">
+			<Timeout Class="CodeUnitValue">
+				<Code><![CDATA[1]]></Code>
+				<Unit Class="TimeUnits">SECOND</Unit>
+			</Timeout>
+			<Rate Class="CodeUnitValue">
+				<Code><![CDATA[1]]></Code>
+				<Unit Class="RateUnits">PER_SECOND</Unit>
+			</Rate>
+			<Id>1430113399964</Id>
+			<OccurrenceAtTime>true</OccurrenceAtTime>
+			<OccurrenceDate>1430985600000</OccurrenceDate>
+			<OccurrenceTime Class="CodeUnitValue">
+				<Code><![CDATA[0]]></Code>
+				<Unit Class="TimeUnits">MILLISECOND</Unit>
+			</OccurrenceTime>
+			<RecurrenceCode Class="CodeUnitValue">
+				<Code><![CDATA[1]]></Code>
+				<Unit Class="TimeUnits">SECOND</Unit>
+			</RecurrenceCode>
+			<Condition>false</Condition>
+		</Properties>
+		<Action xmlns:al="http://anylogic.com"/>
+		<Logging>false</Logging>
+	</Event>
+	<Event>
+		<Id>1431426275000</Id>
+		<Name><![CDATA[connectOutConveyors]]></Name>
+		<X>-150</X>
+		<Y>550</Y>
+		<Label>
+			<X>10</X>
+			<Y>0</Y>
+		</Label>
+		<PublicFlag>false</PublicFlag>
+		<PresentationFlag>true</PresentationFlag>
+		<ShowLabel>true</ShowLabel>
+		<Properties TriggerType="timeout" Mode="occuresOnce">
+			<Timeout Class="CodeUnitValue">
+				<Code><![CDATA[1]]></Code>
+				<Unit Class="TimeUnits">SECOND</Unit>
+			</Timeout>
+			<Rate Class="CodeUnitValue">
+				<Code><![CDATA[1]]></Code>
+				<Unit Class="RateUnits">PER_SECOND</Unit>
+			</Rate>
+			<Id>1430113399963</Id>
+			<OccurrenceAtTime>true</OccurrenceAtTime>
+			<OccurrenceDate>1430985600000</OccurrenceDate>
+			<OccurrenceTime Class="CodeUnitValue">
+				<Code><![CDATA[1]]></Code>
+				<Unit Class="TimeUnits">MILLISECOND</Unit>
+			</OccurrenceTime>
+			<RecurrenceCode Class="CodeUnitValue">
+				<Code><![CDATA[1]]></Code>
+				<Unit Class="TimeUnits">SECOND</Unit>
+			</RecurrenceCode>
+			<Condition>false</Condition>
+		</Properties>
+		<Action xmlns:al="http://anylogic.com"/>
+		<Logging>false</Logging>
+	</Event>
+	<Event>
+		<Id>1527771557232</Id>
+		<Name><![CDATA[shipArrival]]></Name>
+		<X>-150</X>
+		<Y>573</Y>
+		<Label>
+			<X>10</X>
+			<Y>0</Y>
+		</Label>
+		<PublicFlag>false</PublicFlag>
+		<PresentationFlag>true</PresentationFlag>
+		<ShowLabel>true</ShowLabel>
+		<Properties TriggerType="timeout" Mode="userControls">
+			<Timeout Class="CodeUnitValue">
+				<Code><![CDATA[1]]></Code>
+				<Unit Class="TimeUnits">SECOND</Unit>
+			</Timeout>
+			<Rate Class="CodeUnitValue">
+				<Code><![CDATA[1]]></Code>
+				<Unit Class="RateUnits">PER_SECOND</Unit>
+			</Rate>
+			<Id>1430113399962</Id>
+			<OccurrenceAtTime>true</OccurrenceAtTime>
+			<OccurrenceDate>1527840000000</OccurrenceDate>
+			<OccurrenceTime Class="CodeUnitValue">
+				<Code><![CDATA[1000]]></Code>
+				<Unit Class="TimeUnits">SECOND</Unit>
+			</OccurrenceTime>
+			<RecurrenceCode Class="CodeUnitValue">
+				<Code><![CDATA[1]]></Code>
+				<Unit Class="TimeUnits">SECOND</Unit>
+			</RecurrenceCode>
+			<Condition>false</Condition>
+		</Properties>
+		<Action xmlns:al="http://anylogic.com"/>
+	</Event>
+</Events>

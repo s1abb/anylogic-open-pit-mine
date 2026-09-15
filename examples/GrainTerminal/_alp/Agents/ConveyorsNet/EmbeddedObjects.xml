@@ -1,0 +1,1251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmbeddedObjects>
+	<EmbeddedObject>
+		<Id>1439800635139</Id>
+		<Name><![CDATA[input1]]></Name>
+		<X>75</X>
+		<Y>180</Y>
+		<Label>
+			<X>5</X>
+			<Y>-10</Y>
+		</Label>
+		<PublicFlag>false</PublicFlag>
+		<PresentationFlag>true</PresentationFlag>
+		<ShowLabel>true</ShowLabel>
+		<ActiveObjectClass>
+			<PackageName>com.anylogic.libraries.fluid</PackageName>
+			<ClassName>BulkConveyor</ClassName>
+		</ActiveObjectClass>
+		<GenericParameterSubstitute>
+			<GenericParameterSubstituteReference>
+				<PackageName>com.anylogic.libraries.fluid</PackageName>
+				<ClassName>BulkConveyor</ClassName>
+				<ItemName>1414355720595</ItemName>
+			</GenericParameterSubstituteReference>
+		</GenericParameterSubstitute>
+		<Parameters>
+			<Parameter>
+				<Name><![CDATA[length]]></Name>
+				<Value Class="CodeUnitValue">
+					<Code><![CDATA[input1Belt.length()]]></Code>
+					<Unit Class="LengthUnits">METER</Unit>
+				</Value>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[speed]]></Name>
+				<Value Class="CodeUnitValue">
+					<Code><![CDATA[main.conveyorSpeed]]></Code>
+					<Unit Class="SpeedUnits">MPS</Unit>
+				</Value>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[maxInputRate]]></Name>
+				<Value Class="CodeUnitValue">
+					<Code><![CDATA[main.maxRate]]></Code>
+					<Unit Class="FlowRateUnits">CUBIC_METER_PER_SECOND</Unit>
+				</Value>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[stopped]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[customPriority]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[priorityOutCustom]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[showBatchesInFlowchart]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[bulkConveyorBelt]]></Name>
+				<Value Class="CodeValue">
+					<Code><![CDATA[input1Belt]]></Code>
+				</Value>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[onNewBatchIn]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[onNewBatchOut]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[lengthDefinedByPath]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[onRateChange]]></Name>
+			</Parameter>
+		</Parameters>
+		<ReplicationFlag>false</ReplicationFlag>
+		<Replication Class="CodeValue">
+			<Code><![CDATA[100]]></Code>
+		</Replication>
+		<CollectionType>ARRAY_LIST_BASED</CollectionType>
+		<InitialSpeedCode Class="CodeUnitValue">
+			<Code><![CDATA[10]]></Code>
+			<Unit Class="SpeedUnits">MPS</Unit>
+		</InitialSpeedCode>
+		<InitialLocationType>XYZ</InitialLocationType>
+		<XCode Class="CodeValue">
+			<Code><![CDATA[0]]></Code>
+		</XCode>
+		<YCode Class="CodeValue">
+			<Code><![CDATA[0]]></Code>
+		</YCode>
+		<ZCode Class="CodeValue">
+			<Code><![CDATA[0]]></Code>
+		</ZCode>
+		<ColumnCode Class="CodeValue">
+			<Code><![CDATA[0]]></Code>
+		</ColumnCode>
+		<RowCode Class="CodeValue">
+			<Code><![CDATA[0]]></Code>
+		</RowCode>
+		<LocationNameCode Class="CodeValue">
+			<Code><![CDATA[""]]></Code>
+		</LocationNameCode>
+		<InitializationType>SPECIFIED_NUMBER</InitializationType>
+		<InitializationDatabaseTableQuery>
+			<Id>1430113399834</Id>
+			<TableReference/>
+		</InitializationDatabaseTableQuery>
+		<InitializationDatabaseType>ONE_AGENT_PER_DATABASE_RECORD</InitializationDatabaseType>
+		<QuantityColumn/>
+	</EmbeddedObject>
+	<EmbeddedObject>
+		<Id>1439800635153</Id>
+		<Name><![CDATA[input2]]></Name>
+		<X>75</X>
+		<Y>330</Y>
+		<Label>
+			<X>0</X>
+			<Y>-10</Y>
+		</Label>
+		<PublicFlag>false</PublicFlag>
+		<PresentationFlag>true</PresentationFlag>
+		<ShowLabel>true</ShowLabel>
+		<ActiveObjectClass>
+			<PackageName>com.anylogic.libraries.fluid</PackageName>
+			<ClassName>BulkConveyor</ClassName>
+		</ActiveObjectClass>
+		<GenericParameterSubstitute>
+			<GenericParameterSubstituteReference>
+				<PackageName>com.anylogic.libraries.fluid</PackageName>
+				<ClassName>BulkConveyor</ClassName>
+				<ItemName>1414355720595</ItemName>
+			</GenericParameterSubstituteReference>
+		</GenericParameterSubstitute>
+		<Parameters>
+			<Parameter>
+				<Name><![CDATA[length]]></Name>
+				<Value Class="CodeUnitValue">
+					<Code><![CDATA[input2Belt.length()]]></Code>
+					<Unit Class="LengthUnits">METER</Unit>
+				</Value>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[speed]]></Name>
+				<Value Class="CodeUnitValue">
+					<Code><![CDATA[main.conveyorSpeed]]></Code>
+					<Unit Class="SpeedUnits">MPS</Unit>
+				</Value>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[maxInputRate]]></Name>
+				<Value Class="CodeUnitValue">
+					<Code><![CDATA[main.maxRate]]></Code>
+					<Unit Class="FlowRateUnits">CUBIC_METER_PER_SECOND</Unit>
+				</Value>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[stopped]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[customPriority]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[priorityOutCustom]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[showBatchesInFlowchart]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[bulkConveyorBelt]]></Name>
+				<Value Class="CodeValue">
+					<Code><![CDATA[input2Belt]]></Code>
+				</Value>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[onNewBatchIn]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[onNewBatchOut]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[lengthDefinedByPath]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[onRateChange]]></Name>
+			</Parameter>
+		</Parameters>
+		<ReplicationFlag>false</ReplicationFlag>
+		<Replication Class="CodeValue">
+			<Code><![CDATA[100]]></Code>
+		</Replication>
+		<CollectionType>ARRAY_LIST_BASED</CollectionType>
+		<InitialSpeedCode Class="CodeUnitValue">
+			<Code><![CDATA[10]]></Code>
+			<Unit Class="SpeedUnits">MPS</Unit>
+		</InitialSpeedCode>
+		<InitialLocationType>XYZ</InitialLocationType>
+		<XCode Class="CodeValue">
+			<Code><![CDATA[0]]></Code>
+		</XCode>
+		<YCode Class="CodeValue">
+			<Code><![CDATA[0]]></Code>
+		</YCode>
+		<ZCode Class="CodeValue">
+			<Code><![CDATA[0]]></Code>
+		</ZCode>
+		<ColumnCode Class="CodeValue">
+			<Code><![CDATA[0]]></Code>
+		</ColumnCode>
+		<RowCode Class="CodeValue">
+			<Code><![CDATA[0]]></Code>
+		</RowCode>
+		<LocationNameCode Class="CodeValue">
+			<Code><![CDATA[""]]></Code>
+		</LocationNameCode>
+		<InitializationType>SPECIFIED_NUMBER</InitializationType>
+		<InitializationDatabaseTableQuery>
+			<Id>1430113399833</Id>
+			<TableReference/>
+		</InitializationDatabaseTableQuery>
+		<InitializationDatabaseType>ONE_AGENT_PER_DATABASE_RECORD</InitializationDatabaseType>
+		<QuantityColumn/>
+	</EmbeddedObject>
+	<EmbeddedObject>
+		<Id>1439800635169</Id>
+		<Name><![CDATA[output1]]></Name>
+		<X>500</X>
+		<Y>180</Y>
+		<Label>
+			<X>0</X>
+			<Y>-10</Y>
+		</Label>
+		<PublicFlag>false</PublicFlag>
+		<PresentationFlag>true</PresentationFlag>
+		<ShowLabel>true</ShowLabel>
+		<ActiveObjectClass>
+			<PackageName>com.anylogic.libraries.fluid</PackageName>
+			<ClassName>BulkConveyor</ClassName>
+		</ActiveObjectClass>
+		<GenericParameterSubstitute>
+			<GenericParameterSubstituteReference>
+				<PackageName>com.anylogic.libraries.fluid</PackageName>
+				<ClassName>BulkConveyor</ClassName>
+				<ItemName>1414355720595</ItemName>
+			</GenericParameterSubstituteReference>
+		</GenericParameterSubstitute>
+		<Parameters>
+			<Parameter>
+				<Name><![CDATA[length]]></Name>
+				<Value Class="CodeUnitValue">
+					<Code><![CDATA[output1Belt.length()]]></Code>
+					<Unit Class="LengthUnits">METER</Unit>
+				</Value>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[speed]]></Name>
+				<Value Class="CodeUnitValue">
+					<Code><![CDATA[main.conveyorSpeed]]></Code>
+					<Unit Class="SpeedUnits">MPS</Unit>
+				</Value>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[maxInputRate]]></Name>
+				<Value Class="CodeUnitValue">
+					<Code><![CDATA[main.maxRate]]></Code>
+					<Unit Class="FlowRateUnits">CUBIC_METER_PER_SECOND</Unit>
+				</Value>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[stopped]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[customPriority]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[priorityOutCustom]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[showBatchesInFlowchart]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[bulkConveyorBelt]]></Name>
+				<Value Class="CodeValue">
+					<Code><![CDATA[output1Belt]]></Code>
+				</Value>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[onNewBatchIn]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[onNewBatchOut]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[lengthDefinedByPath]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[onRateChange]]></Name>
+			</Parameter>
+		</Parameters>
+		<ReplicationFlag>false</ReplicationFlag>
+		<Replication Class="CodeValue">
+			<Code><![CDATA[100]]></Code>
+		</Replication>
+		<CollectionType>ARRAY_LIST_BASED</CollectionType>
+		<InitialSpeedCode Class="CodeUnitValue">
+			<Code><![CDATA[10]]></Code>
+			<Unit Class="SpeedUnits">MPS</Unit>
+		</InitialSpeedCode>
+		<InitialLocationType>XYZ</InitialLocationType>
+		<XCode Class="CodeValue">
+			<Code><![CDATA[0]]></Code>
+		</XCode>
+		<YCode Class="CodeValue">
+			<Code><![CDATA[0]]></Code>
+		</YCode>
+		<ZCode Class="CodeValue">
+			<Code><![CDATA[0]]></Code>
+		</ZCode>
+		<ColumnCode Class="CodeValue">
+			<Code><![CDATA[0]]></Code>
+		</ColumnCode>
+		<RowCode Class="CodeValue">
+			<Code><![CDATA[0]]></Code>
+		</RowCode>
+		<LocationNameCode Class="CodeValue">
+			<Code><![CDATA[""]]></Code>
+		</LocationNameCode>
+		<InitializationType>SPECIFIED_NUMBER</InitializationType>
+		<InitializationDatabaseTableQuery>
+			<Id>1430113399832</Id>
+			<TableReference/>
+		</InitializationDatabaseTableQuery>
+		<InitializationDatabaseType>ONE_AGENT_PER_DATABASE_RECORD</InitializationDatabaseType>
+		<QuantityColumn/>
+	</EmbeddedObject>
+	<EmbeddedObject>
+		<Id>1439800635183</Id>
+		<Name><![CDATA[output2]]></Name>
+		<X>500</X>
+		<Y>330</Y>
+		<Label>
+			<X>-5</X>
+			<Y>-10</Y>
+		</Label>
+		<PublicFlag>false</PublicFlag>
+		<PresentationFlag>true</PresentationFlag>
+		<ShowLabel>true</ShowLabel>
+		<ActiveObjectClass>
+			<PackageName>com.anylogic.libraries.fluid</PackageName>
+			<ClassName>BulkConveyor</ClassName>
+		</ActiveObjectClass>
+		<GenericParameterSubstitute>
+			<GenericParameterSubstituteReference>
+				<PackageName>com.anylogic.libraries.fluid</PackageName>
+				<ClassName>BulkConveyor</ClassName>
+				<ItemName>1414355720595</ItemName>
+			</GenericParameterSubstituteReference>
+		</GenericParameterSubstitute>
+		<Parameters>
+			<Parameter>
+				<Name><![CDATA[length]]></Name>
+				<Value Class="CodeUnitValue">
+					<Code><![CDATA[output2Belt.length()]]></Code>
+					<Unit Class="LengthUnits">METER</Unit>
+				</Value>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[speed]]></Name>
+				<Value Class="CodeUnitValue">
+					<Code><![CDATA[main.conveyorSpeed]]></Code>
+					<Unit Class="SpeedUnits">MPS</Unit>
+				</Value>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[maxInputRate]]></Name>
+				<Value Class="CodeUnitValue">
+					<Code><![CDATA[main.maxRate]]></Code>
+					<Unit Class="FlowRateUnits">CUBIC_METER_PER_SECOND</Unit>
+				</Value>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[stopped]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[customPriority]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[priorityOutCustom]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[showBatchesInFlowchart]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[bulkConveyorBelt]]></Name>
+				<Value Class="CodeValue">
+					<Code><![CDATA[output2Belt]]></Code>
+				</Value>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[onNewBatchIn]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[onNewBatchOut]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[lengthDefinedByPath]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[onRateChange]]></Name>
+			</Parameter>
+		</Parameters>
+		<ReplicationFlag>false</ReplicationFlag>
+		<Replication Class="CodeValue">
+			<Code><![CDATA[100]]></Code>
+		</Replication>
+		<CollectionType>ARRAY_LIST_BASED</CollectionType>
+		<InitialSpeedCode Class="CodeUnitValue">
+			<Code><![CDATA[10]]></Code>
+			<Unit Class="SpeedUnits">MPS</Unit>
+		</InitialSpeedCode>
+		<InitialLocationType>XYZ</InitialLocationType>
+		<XCode Class="CodeValue">
+			<Code><![CDATA[0]]></Code>
+		</XCode>
+		<YCode Class="CodeValue">
+			<Code><![CDATA[0]]></Code>
+		</YCode>
+		<ZCode Class="CodeValue">
+			<Code><![CDATA[0]]></Code>
+		</ZCode>
+		<ColumnCode Class="CodeValue">
+			<Code><![CDATA[0]]></Code>
+		</ColumnCode>
+		<RowCode Class="CodeValue">
+			<Code><![CDATA[0]]></Code>
+		</RowCode>
+		<LocationNameCode Class="CodeValue">
+			<Code><![CDATA[""]]></Code>
+		</LocationNameCode>
+		<InitializationType>SPECIFIED_NUMBER</InitializationType>
+		<InitializationDatabaseTableQuery>
+			<Id>1430113399831</Id>
+			<TableReference/>
+		</InitializationDatabaseTableQuery>
+		<InitializationDatabaseType>ONE_AGENT_PER_DATABASE_RECORD</InitializationDatabaseType>
+		<QuantityColumn/>
+	</EmbeddedObject>
+	<EmbeddedObject>
+		<Id>1439800635227</Id>
+		<Name><![CDATA[fluidSelectInput2]]></Name>
+		<X>425</X>
+		<Y>340</Y>
+		<Label>
+			<X>-40</X>
+			<Y>-15</Y>
+		</Label>
+		<PublicFlag>false</PublicFlag>
+		<PresentationFlag>true</PresentationFlag>
+		<ShowLabel>false</ShowLabel>
+		<ActiveObjectClass>
+			<PackageName>com.anylogic.libraries.fluid</PackageName>
+			<ClassName>FluidSelectInput</ClassName>
+		</ActiveObjectClass>
+		<GenericParameterSubstitute>
+			<GenericParameterSubstituteReference>
+				<PackageName>com.anylogic.libraries.fluid</PackageName>
+				<ClassName>FluidSelectInput</ClassName>
+				<ItemName>1412618001605</ItemName>
+			</GenericParameterSubstituteReference>
+		</GenericParameterSubstitute>
+		<Parameters>
+			<Parameter>
+				<Name><![CDATA[selectInput1]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[limitRateOut]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[maxRateOut]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[showBatchesInFlowchart]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[onNewBatchIn1]]></Name>
+				<Value Class="CodeValue">
+					<Code><![CDATA[self.select(1);]]></Code>
+				</Value>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[onNewBatchIn2]]></Name>
+				<Value Class="CodeValue">
+					<Code><![CDATA[self.select(2);]]></Code>
+				</Value>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[onRateChange]]></Name>
+			</Parameter>
+		</Parameters>
+		<ReplicationFlag>false</ReplicationFlag>
+		<Replication Class="CodeValue">
+			<Code><![CDATA[100]]></Code>
+		</Replication>
+		<CollectionType>ARRAY_LIST_BASED</CollectionType>
+		<InitialSpeedCode Class="CodeUnitValue">
+			<Code><![CDATA[10]]></Code>
+			<Unit Class="SpeedUnits">MPS</Unit>
+		</InitialSpeedCode>
+		<InitialLocationType>XYZ</InitialLocationType>
+		<XCode Class="CodeValue">
+			<Code><![CDATA[0]]></Code>
+		</XCode>
+		<YCode Class="CodeValue">
+			<Code><![CDATA[0]]></Code>
+		</YCode>
+		<ZCode Class="CodeValue">
+			<Code><![CDATA[0]]></Code>
+		</ZCode>
+		<ColumnCode Class="CodeValue">
+			<Code><![CDATA[0]]></Code>
+		</ColumnCode>
+		<RowCode Class="CodeValue">
+			<Code><![CDATA[0]]></Code>
+		</RowCode>
+		<LocationNameCode Class="CodeValue">
+			<Code><![CDATA[""]]></Code>
+		</LocationNameCode>
+		<InitializationType>SPECIFIED_NUMBER</InitializationType>
+		<InitializationDatabaseTableQuery>
+			<Id>1430113399830</Id>
+			<TableReference/>
+		</InitializationDatabaseTableQuery>
+		<InitializationDatabaseType>ONE_AGENT_PER_DATABASE_RECORD</InitializationDatabaseType>
+		<QuantityColumn/>
+	</EmbeddedObject>
+	<EmbeddedObject>
+		<Id>1439800635240</Id>
+		<Name><![CDATA[fluidSelectInput1]]></Name>
+		<X>425</X>
+		<Y>190</Y>
+		<Label>
+			<X>-40</X>
+			<Y>-15</Y>
+		</Label>
+		<PublicFlag>false</PublicFlag>
+		<PresentationFlag>true</PresentationFlag>
+		<ShowLabel>false</ShowLabel>
+		<ActiveObjectClass>
+			<PackageName>com.anylogic.libraries.fluid</PackageName>
+			<ClassName>FluidSelectInput</ClassName>
+		</ActiveObjectClass>
+		<GenericParameterSubstitute>
+			<GenericParameterSubstituteReference>
+				<PackageName>com.anylogic.libraries.fluid</PackageName>
+				<ClassName>FluidSelectInput</ClassName>
+				<ItemName>1412618001605</ItemName>
+			</GenericParameterSubstituteReference>
+		</GenericParameterSubstitute>
+		<Parameters>
+			<Parameter>
+				<Name><![CDATA[selectInput1]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[limitRateOut]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[maxRateOut]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[showBatchesInFlowchart]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[onNewBatchIn1]]></Name>
+				<Value Class="CodeValue">
+					<Code><![CDATA[self.select(1);]]></Code>
+				</Value>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[onNewBatchIn2]]></Name>
+				<Value Class="CodeValue">
+					<Code><![CDATA[self.select(2);]]></Code>
+				</Value>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[onRateChange]]></Name>
+			</Parameter>
+		</Parameters>
+		<ReplicationFlag>false</ReplicationFlag>
+		<Replication Class="CodeValue">
+			<Code><![CDATA[100]]></Code>
+		</Replication>
+		<CollectionType>ARRAY_LIST_BASED</CollectionType>
+		<InitialSpeedCode Class="CodeUnitValue">
+			<Code><![CDATA[10]]></Code>
+			<Unit Class="SpeedUnits">MPS</Unit>
+		</InitialSpeedCode>
+		<InitialLocationType>XYZ</InitialLocationType>
+		<XCode Class="CodeValue">
+			<Code><![CDATA[0]]></Code>
+		</XCode>
+		<YCode Class="CodeValue">
+			<Code><![CDATA[0]]></Code>
+		</YCode>
+		<ZCode Class="CodeValue">
+			<Code><![CDATA[0]]></Code>
+		</ZCode>
+		<ColumnCode Class="CodeValue">
+			<Code><![CDATA[0]]></Code>
+		</ColumnCode>
+		<RowCode Class="CodeValue">
+			<Code><![CDATA[0]]></Code>
+		</RowCode>
+		<LocationNameCode Class="CodeValue">
+			<Code><![CDATA[""]]></Code>
+		</LocationNameCode>
+		<InitializationType>SPECIFIED_NUMBER</InitializationType>
+		<InitializationDatabaseTableQuery>
+			<Id>1430113399829</Id>
+			<TableReference/>
+		</InitializationDatabaseTableQuery>
+		<InitializationDatabaseType>ONE_AGENT_PER_DATABASE_RECORD</InitializationDatabaseType>
+		<QuantityColumn/>
+	</EmbeddedObject>
+	<EmbeddedObject>
+		<Id>1439800652245</Id>
+		<Name><![CDATA[conveyor11]]></Name>
+		<X>250</X>
+		<Y>180</Y>
+		<Label>
+			<X>-5</X>
+			<Y>-5</Y>
+		</Label>
+		<PublicFlag>false</PublicFlag>
+		<PresentationFlag>true</PresentationFlag>
+		<ShowLabel>false</ShowLabel>
+		<ActiveObjectClass>
+			<PackageName>com.anylogic.libraries.fluid</PackageName>
+			<ClassName>BulkConveyor</ClassName>
+		</ActiveObjectClass>
+		<GenericParameterSubstitute>
+			<GenericParameterSubstituteReference>
+				<PackageName>com.anylogic.libraries.fluid</PackageName>
+				<ClassName>BulkConveyor</ClassName>
+				<ItemName>1414355720595</ItemName>
+			</GenericParameterSubstituteReference>
+		</GenericParameterSubstitute>
+		<Parameters>
+			<Parameter>
+				<Name><![CDATA[length]]></Name>
+				<Value Class="CodeUnitValue">
+					<Code><![CDATA[input1Intermediate1Belt.length()]]></Code>
+					<Unit Class="LengthUnits">METER</Unit>
+				</Value>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[speed]]></Name>
+				<Value Class="CodeUnitValue">
+					<Code><![CDATA[main.conveyorSpeed]]></Code>
+					<Unit Class="SpeedUnits">MPS</Unit>
+				</Value>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[maxInputRate]]></Name>
+				<Value Class="CodeUnitValue">
+					<Code><![CDATA[main.maxRate]]></Code>
+					<Unit Class="FlowRateUnits">CUBIC_METER_PER_SECOND</Unit>
+				</Value>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[stopped]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[customPriority]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[priorityOutCustom]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[showBatchesInFlowchart]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[bulkConveyorBelt]]></Name>
+				<Value Class="CodeValue">
+					<Code><![CDATA[input1Intermediate1Belt]]></Code>
+				</Value>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[onNewBatchIn]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[onNewBatchOut]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[lengthDefinedByPath]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[onRateChange]]></Name>
+			</Parameter>
+		</Parameters>
+		<ReplicationFlag>false</ReplicationFlag>
+		<Replication Class="CodeValue">
+			<Code><![CDATA[100]]></Code>
+		</Replication>
+		<CollectionType>ARRAY_LIST_BASED</CollectionType>
+		<InitialSpeedCode Class="CodeUnitValue">
+			<Code><![CDATA[10]]></Code>
+			<Unit Class="SpeedUnits">MPS</Unit>
+		</InitialSpeedCode>
+		<InitialLocationType>XYZ</InitialLocationType>
+		<XCode Class="CodeValue">
+			<Code><![CDATA[0]]></Code>
+		</XCode>
+		<YCode Class="CodeValue">
+			<Code><![CDATA[0]]></Code>
+		</YCode>
+		<ZCode Class="CodeValue">
+			<Code><![CDATA[0]]></Code>
+		</ZCode>
+		<ColumnCode Class="CodeValue">
+			<Code><![CDATA[0]]></Code>
+		</ColumnCode>
+		<RowCode Class="CodeValue">
+			<Code><![CDATA[0]]></Code>
+		</RowCode>
+		<LocationNameCode Class="CodeValue">
+			<Code><![CDATA[""]]></Code>
+		</LocationNameCode>
+		<InitializationType>SPECIFIED_NUMBER</InitializationType>
+		<InitializationDatabaseTableQuery>
+			<Id>1430113399828</Id>
+			<TableReference/>
+		</InitializationDatabaseTableQuery>
+		<InitializationDatabaseType>ONE_AGENT_PER_DATABASE_RECORD</InitializationDatabaseType>
+		<QuantityColumn/>
+	</EmbeddedObject>
+	<EmbeddedObject>
+		<Id>1439800652265</Id>
+		<Name><![CDATA[conveyor12]]></Name>
+		<X>250</X>
+		<Y>230</Y>
+		<Label>
+			<X>-5</X>
+			<Y>45</Y>
+		</Label>
+		<PublicFlag>false</PublicFlag>
+		<PresentationFlag>true</PresentationFlag>
+		<ShowLabel>false</ShowLabel>
+		<ActiveObjectClass>
+			<PackageName>com.anylogic.libraries.fluid</PackageName>
+			<ClassName>BulkConveyor</ClassName>
+		</ActiveObjectClass>
+		<GenericParameterSubstitute>
+			<GenericParameterSubstituteReference>
+				<PackageName>com.anylogic.libraries.fluid</PackageName>
+				<ClassName>BulkConveyor</ClassName>
+				<ItemName>1414355720595</ItemName>
+			</GenericParameterSubstituteReference>
+		</GenericParameterSubstitute>
+		<Parameters>
+			<Parameter>
+				<Name><![CDATA[length]]></Name>
+				<Value Class="CodeUnitValue">
+					<Code><![CDATA[input1Intermediate2Belt.length()]]></Code>
+					<Unit Class="LengthUnits">METER</Unit>
+				</Value>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[speed]]></Name>
+				<Value Class="CodeUnitValue">
+					<Code><![CDATA[main.conveyorSpeed]]></Code>
+					<Unit Class="SpeedUnits">MPS</Unit>
+				</Value>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[maxInputRate]]></Name>
+				<Value Class="CodeUnitValue">
+					<Code><![CDATA[main.maxRate]]></Code>
+					<Unit Class="FlowRateUnits">CUBIC_METER_PER_SECOND</Unit>
+				</Value>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[stopped]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[customPriority]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[priorityOutCustom]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[showBatchesInFlowchart]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[bulkConveyorBelt]]></Name>
+				<Value Class="CodeValue">
+					<Code><![CDATA[input1Intermediate2Belt]]></Code>
+				</Value>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[onNewBatchIn]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[onNewBatchOut]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[lengthDefinedByPath]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[onRateChange]]></Name>
+			</Parameter>
+		</Parameters>
+		<ReplicationFlag>false</ReplicationFlag>
+		<Replication Class="CodeValue">
+			<Code><![CDATA[100]]></Code>
+		</Replication>
+		<CollectionType>ARRAY_LIST_BASED</CollectionType>
+		<InitialSpeedCode Class="CodeUnitValue">
+			<Code><![CDATA[10]]></Code>
+			<Unit Class="SpeedUnits">MPS</Unit>
+		</InitialSpeedCode>
+		<InitialLocationType>XYZ</InitialLocationType>
+		<XCode Class="CodeValue">
+			<Code><![CDATA[0]]></Code>
+		</XCode>
+		<YCode Class="CodeValue">
+			<Code><![CDATA[0]]></Code>
+		</YCode>
+		<ZCode Class="CodeValue">
+			<Code><![CDATA[0]]></Code>
+		</ZCode>
+		<ColumnCode Class="CodeValue">
+			<Code><![CDATA[0]]></Code>
+		</ColumnCode>
+		<RowCode Class="CodeValue">
+			<Code><![CDATA[0]]></Code>
+		</RowCode>
+		<LocationNameCode Class="CodeValue">
+			<Code><![CDATA[""]]></Code>
+		</LocationNameCode>
+		<InitializationType>SPECIFIED_NUMBER</InitializationType>
+		<InitializationDatabaseTableQuery>
+			<Id>1430113399827</Id>
+			<TableReference/>
+		</InitializationDatabaseTableQuery>
+		<InitializationDatabaseType>ONE_AGENT_PER_DATABASE_RECORD</InitializationDatabaseType>
+		<QuantityColumn/>
+	</EmbeddedObject>
+	<EmbeddedObject>
+		<Id>1439800652279</Id>
+		<Name><![CDATA[fluidSelectOutput1]]></Name>
+		<X>175</X>
+		<Y>190</Y>
+		<Label>
+			<X>-45</X>
+			<Y>-15</Y>
+		</Label>
+		<PublicFlag>false</PublicFlag>
+		<PresentationFlag>true</PresentationFlag>
+		<ShowLabel>false</ShowLabel>
+		<ActiveObjectClass>
+			<PackageName>com.anylogic.libraries.fluid</PackageName>
+			<ClassName>FluidSelectOutput</ClassName>
+		</ActiveObjectClass>
+		<GenericParameterSubstitute>
+			<GenericParameterSubstituteReference>
+				<PackageName>com.anylogic.libraries.fluid</PackageName>
+				<ClassName>FluidSelectOutput</ClassName>
+				<ItemName>1412618001603</ItemName>
+			</GenericParameterSubstituteReference>
+		</GenericParameterSubstitute>
+		<Parameters>
+			<Parameter>
+				<Name><![CDATA[selectOutput1]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[limitRateOut]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[maxRateOut]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[showBatchesInFlowchart]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[onNewBatchIn]]></Name>
+				<Value Class="CodeValue">
+					<Code><![CDATA[self.select(((BulkBatch)batch).routingTo());]]></Code>
+				</Value>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[selectOnCondition]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[condition]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[onRateChange]]></Name>
+			</Parameter>
+		</Parameters>
+		<ReplicationFlag>false</ReplicationFlag>
+		<Replication Class="CodeValue">
+			<Code><![CDATA[100]]></Code>
+		</Replication>
+		<CollectionType>ARRAY_LIST_BASED</CollectionType>
+		<InitialSpeedCode Class="CodeUnitValue">
+			<Code><![CDATA[10]]></Code>
+			<Unit Class="SpeedUnits">MPS</Unit>
+		</InitialSpeedCode>
+		<InitialLocationType>XYZ</InitialLocationType>
+		<XCode Class="CodeValue">
+			<Code><![CDATA[0]]></Code>
+		</XCode>
+		<YCode Class="CodeValue">
+			<Code><![CDATA[0]]></Code>
+		</YCode>
+		<ZCode Class="CodeValue">
+			<Code><![CDATA[0]]></Code>
+		</ZCode>
+		<ColumnCode Class="CodeValue">
+			<Code><![CDATA[0]]></Code>
+		</ColumnCode>
+		<RowCode Class="CodeValue">
+			<Code><![CDATA[0]]></Code>
+		</RowCode>
+		<LocationNameCode Class="CodeValue">
+			<Code><![CDATA[""]]></Code>
+		</LocationNameCode>
+		<InitializationType>SPECIFIED_NUMBER</InitializationType>
+		<InitializationDatabaseTableQuery>
+			<Id>1430113399826</Id>
+			<TableReference/>
+		</InitializationDatabaseTableQuery>
+		<InitializationDatabaseType>ONE_AGENT_PER_DATABASE_RECORD</InitializationDatabaseType>
+		<QuantityColumn/>
+	</EmbeddedObject>
+	<EmbeddedObject>
+		<Id>1439800777990</Id>
+		<Name><![CDATA[conveyor21]]></Name>
+		<X>250</X>
+		<Y>330</Y>
+		<Label>
+			<X>-5</X>
+			<Y>-5</Y>
+		</Label>
+		<PublicFlag>false</PublicFlag>
+		<PresentationFlag>true</PresentationFlag>
+		<ShowLabel>false</ShowLabel>
+		<ActiveObjectClass>
+			<PackageName>com.anylogic.libraries.fluid</PackageName>
+			<ClassName>BulkConveyor</ClassName>
+		</ActiveObjectClass>
+		<GenericParameterSubstitute>
+			<GenericParameterSubstituteReference>
+				<PackageName>com.anylogic.libraries.fluid</PackageName>
+				<ClassName>BulkConveyor</ClassName>
+				<ItemName>1414355720595</ItemName>
+			</GenericParameterSubstituteReference>
+		</GenericParameterSubstitute>
+		<Parameters>
+			<Parameter>
+				<Name><![CDATA[length]]></Name>
+				<Value Class="CodeUnitValue">
+					<Code><![CDATA[input2Intermediate1Belt.length()]]></Code>
+					<Unit Class="LengthUnits">METER</Unit>
+				</Value>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[speed]]></Name>
+				<Value Class="CodeUnitValue">
+					<Code><![CDATA[main.conveyorSpeed]]></Code>
+					<Unit Class="SpeedUnits">MPS</Unit>
+				</Value>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[maxInputRate]]></Name>
+				<Value Class="CodeUnitValue">
+					<Code><![CDATA[main.maxRate]]></Code>
+					<Unit Class="FlowRateUnits">CUBIC_METER_PER_SECOND</Unit>
+				</Value>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[stopped]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[customPriority]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[priorityOutCustom]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[showBatchesInFlowchart]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[bulkConveyorBelt]]></Name>
+				<Value Class="CodeValue">
+					<Code><![CDATA[input2Intermediate1Belt]]></Code>
+				</Value>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[onNewBatchIn]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[onNewBatchOut]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[lengthDefinedByPath]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[onRateChange]]></Name>
+			</Parameter>
+		</Parameters>
+		<ReplicationFlag>false</ReplicationFlag>
+		<Replication Class="CodeValue">
+			<Code><![CDATA[100]]></Code>
+		</Replication>
+		<CollectionType>ARRAY_LIST_BASED</CollectionType>
+		<InitialSpeedCode Class="CodeUnitValue">
+			<Code><![CDATA[10]]></Code>
+			<Unit Class="SpeedUnits">MPS</Unit>
+		</InitialSpeedCode>
+		<InitialLocationType>XYZ</InitialLocationType>
+		<XCode Class="CodeValue">
+			<Code><![CDATA[0]]></Code>
+		</XCode>
+		<YCode Class="CodeValue">
+			<Code><![CDATA[0]]></Code>
+		</YCode>
+		<ZCode Class="CodeValue">
+			<Code><![CDATA[0]]></Code>
+		</ZCode>
+		<ColumnCode Class="CodeValue">
+			<Code><![CDATA[0]]></Code>
+		</ColumnCode>
+		<RowCode Class="CodeValue">
+			<Code><![CDATA[0]]></Code>
+		</RowCode>
+		<LocationNameCode Class="CodeValue">
+			<Code><![CDATA[""]]></Code>
+		</LocationNameCode>
+		<InitializationType>SPECIFIED_NUMBER</InitializationType>
+		<InitializationDatabaseTableQuery>
+			<Id>1430113399825</Id>
+			<TableReference/>
+		</InitializationDatabaseTableQuery>
+		<InitializationDatabaseType>ONE_AGENT_PER_DATABASE_RECORD</InitializationDatabaseType>
+		<QuantityColumn/>
+	</EmbeddedObject>
+	<EmbeddedObject>
+		<Id>1439800777994</Id>
+		<Name><![CDATA[conveyor22]]></Name>
+		<X>250</X>
+		<Y>380</Y>
+		<Label>
+			<X>-5</X>
+			<Y>45</Y>
+		</Label>
+		<PublicFlag>false</PublicFlag>
+		<PresentationFlag>true</PresentationFlag>
+		<ShowLabel>false</ShowLabel>
+		<ActiveObjectClass>
+			<PackageName>com.anylogic.libraries.fluid</PackageName>
+			<ClassName>BulkConveyor</ClassName>
+		</ActiveObjectClass>
+		<GenericParameterSubstitute>
+			<GenericParameterSubstituteReference>
+				<PackageName>com.anylogic.libraries.fluid</PackageName>
+				<ClassName>BulkConveyor</ClassName>
+				<ItemName>1414355720595</ItemName>
+			</GenericParameterSubstituteReference>
+		</GenericParameterSubstitute>
+		<Parameters>
+			<Parameter>
+				<Name><![CDATA[length]]></Name>
+				<Value Class="CodeUnitValue">
+					<Code><![CDATA[input2Intermediate2Belt.length()]]></Code>
+					<Unit Class="LengthUnits">METER</Unit>
+				</Value>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[speed]]></Name>
+				<Value Class="CodeUnitValue">
+					<Code><![CDATA[main.conveyorSpeed]]></Code>
+					<Unit Class="SpeedUnits">MPS</Unit>
+				</Value>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[maxInputRate]]></Name>
+				<Value Class="CodeUnitValue">
+					<Code><![CDATA[main.maxRate]]></Code>
+					<Unit Class="FlowRateUnits">CUBIC_METER_PER_SECOND</Unit>
+				</Value>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[stopped]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[customPriority]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[priorityOutCustom]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[showBatchesInFlowchart]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[bulkConveyorBelt]]></Name>
+				<Value Class="CodeValue">
+					<Code><![CDATA[input2Intermediate2Belt]]></Code>
+				</Value>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[onNewBatchIn]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[onNewBatchOut]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[lengthDefinedByPath]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[onRateChange]]></Name>
+			</Parameter>
+		</Parameters>
+		<ReplicationFlag>false</ReplicationFlag>
+		<Replication Class="CodeValue">
+			<Code><![CDATA[100]]></Code>
+		</Replication>
+		<CollectionType>ARRAY_LIST_BASED</CollectionType>
+		<InitialSpeedCode Class="CodeUnitValue">
+			<Code><![CDATA[10]]></Code>
+			<Unit Class="SpeedUnits">MPS</Unit>
+		</InitialSpeedCode>
+		<InitialLocationType>XYZ</InitialLocationType>
+		<XCode Class="CodeValue">
+			<Code><![CDATA[0]]></Code>
+		</XCode>
+		<YCode Class="CodeValue">
+			<Code><![CDATA[0]]></Code>
+		</YCode>
+		<ZCode Class="CodeValue">
+			<Code><![CDATA[0]]></Code>
+		</ZCode>
+		<ColumnCode Class="CodeValue">
+			<Code><![CDATA[0]]></Code>
+		</ColumnCode>
+		<RowCode Class="CodeValue">
+			<Code><![CDATA[0]]></Code>
+		</RowCode>
+		<LocationNameCode Class="CodeValue">
+			<Code><![CDATA[""]]></Code>
+		</LocationNameCode>
+		<InitializationType>SPECIFIED_NUMBER</InitializationType>
+		<InitializationDatabaseTableQuery>
+			<Id>1430113399824</Id>
+			<TableReference/>
+		</InitializationDatabaseTableQuery>
+		<InitializationDatabaseType>ONE_AGENT_PER_DATABASE_RECORD</InitializationDatabaseType>
+		<QuantityColumn/>
+	</EmbeddedObject>
+	<EmbeddedObject>
+		<Id>1439800777998</Id>
+		<Name><![CDATA[fluidSelectOutput2]]></Name>
+		<X>175</X>
+		<Y>340</Y>
+		<Label>
+			<X>-45</X>
+			<Y>-15</Y>
+		</Label>
+		<PublicFlag>false</PublicFlag>
+		<PresentationFlag>true</PresentationFlag>
+		<ShowLabel>false</ShowLabel>
+		<ActiveObjectClass>
+			<PackageName>com.anylogic.libraries.fluid</PackageName>
+			<ClassName>FluidSelectOutput</ClassName>
+		</ActiveObjectClass>
+		<GenericParameterSubstitute>
+			<GenericParameterSubstituteReference>
+				<PackageName>com.anylogic.libraries.fluid</PackageName>
+				<ClassName>FluidSelectOutput</ClassName>
+				<ItemName>1412618001603</ItemName>
+			</GenericParameterSubstituteReference>
+		</GenericParameterSubstitute>
+		<Parameters>
+			<Parameter>
+				<Name><![CDATA[selectOutput1]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[limitRateOut]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[maxRateOut]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[showBatchesInFlowchart]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[onNewBatchIn]]></Name>
+				<Value Class="CodeValue">
+					<Code><![CDATA[self.select(((BulkBatch)batch).routingTo());]]></Code>
+				</Value>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[selectOnCondition]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[condition]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[onRateChange]]></Name>
+			</Parameter>
+		</Parameters>
+		<ReplicationFlag>false</ReplicationFlag>
+		<Replication Class="CodeValue">
+			<Code><![CDATA[100]]></Code>
+		</Replication>
+		<CollectionType>ARRAY_LIST_BASED</CollectionType>
+		<InitialSpeedCode Class="CodeUnitValue">
+			<Code><![CDATA[10]]></Code>
+			<Unit Class="SpeedUnits">MPS</Unit>
+		</InitialSpeedCode>
+		<InitialLocationType>XYZ</InitialLocationType>
+		<XCode Class="CodeValue">
+			<Code><![CDATA[0]]></Code>
+		</XCode>
+		<YCode Class="CodeValue">
+			<Code><![CDATA[0]]></Code>
+		</YCode>
+		<ZCode Class="CodeValue">
+			<Code><![CDATA[0]]></Code>
+		</ZCode>
+		<ColumnCode Class="CodeValue">
+			<Code><![CDATA[0]]></Code>
+		</ColumnCode>
+		<RowCode Class="CodeValue">
+			<Code><![CDATA[0]]></Code>
+		</RowCode>
+		<LocationNameCode Class="CodeValue">
+			<Code><![CDATA[""]]></Code>
+		</LocationNameCode>
+		<InitializationType>SPECIFIED_NUMBER</InitializationType>
+		<InitializationDatabaseTableQuery>
+			<Id>1430113399823</Id>
+			<TableReference/>
+		</InitializationDatabaseTableQuery>
+		<InitializationDatabaseType>ONE_AGENT_PER_DATABASE_RECORD</InitializationDatabaseType>
+		<QuantityColumn/>
+	</EmbeddedObject>
+</EmbeddedObjects>

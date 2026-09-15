@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Variables>
+	<Variable Class="PlainVariable">
+		<Id>1439889936940</Id>
+		<Name><![CDATA[pier]]></Name>
+		<X>100</X>
+		<Y>200</Y>
+		<Label>
+			<X>10</X>
+			<Y>0</Y>
+		</Label>
+		<PublicFlag>false</PublicFlag>
+		<PresentationFlag>true</PresentationFlag>
+		<ShowLabel>true</ShowLabel>
+		<Properties SaveInSnapshot="true"
+              Constant="false"
+              AccessType="public"
+              StaticVariable="false">
+			<Type><![CDATA[Pier]]></Type>
+			<InitialValue Class="CodeValue">
+				<Code><![CDATA[null]]></Code>
+			</InitialValue>
+		</Properties>
+	</Variable>
+	<Variable Class="PlainVariable">
+		<Id>1439892361782</Id>
+		<Name><![CDATA[currentBatch]]></Name>
+		<X>100</X>
+		<Y>225</Y>
+		<Label>
+			<X>10</X>
+			<Y>0</Y>
+		</Label>
+		<PublicFlag>false</PublicFlag>
+		<PresentationFlag>true</PresentationFlag>
+		<ShowLabel>true</ShowLabel>
+		<Properties SaveInSnapshot="true"
+              Constant="false"
+              AccessType="public"
+              StaticVariable="false">
+			<Type><![CDATA[BulkBatch]]></Type>
+		</Properties>
+	</Variable>
+	<Variable Class="Parameter">
+		<Id>1439889937009</Id>
+		<Name><![CDATA[request]]></Name>
+		<X>100</X>
+		<Y>150</Y>
+		<Label>
+			<X>10</X>
+			<Y>0</Y>
+		</Label>
+		<PublicFlag>false</PublicFlag>
+		<PresentationFlag>true</PresentationFlag>
+		<ShowLabel>true</ShowLabel>
+		<Properties SaveInSnapshot="true" ModificatorType="STATIC">
+			<Type><![CDATA[ShipRequest]]></Type>
+			<UnitType>NONE</UnitType>
+			<SdArray>false</SdArray>
+			<DefaultValue Class="CodeValue">
+				<Code><![CDATA[newRequest()]]></Code>
+			</DefaultValue>
+			<ParameterEditor>
+				<Id>1439889937007</Id>
+				<EditorContolType>TEXT_BOX</EditorContolType>
+				<MinSliderValue>0</MinSliderValue>
+				<MaxSliderValue>100</MaxSliderValue>
+				<DelimeterType>NO_DELIMETER</DelimeterType>
+			</ParameterEditor>
+		</Properties>
+	</Variable>
+	<Variable Class="CollectionVariable">
+		<Id>1439889936928</Id>
+		<Name><![CDATA[bilges]]></Name>
+		<X>100</X>
+		<Y>450</Y>
+		<Label>
+			<X>10</X>
+			<Y>0</Y>
+		</Label>
+		<PublicFlag>false</PublicFlag>
+		<PresentationFlag>true</PresentationFlag>
+		<ShowLabel>true</ShowLabel>
+		<Properties SaveInSnapshot="true" AccessType="public" StaticVariable="false">
+			<CollectionClass>ArrayList</CollectionClass>
+			<ElementClass>Tank</ElementClass>
+			<ValueElementClass>String</ValueElementClass>
+			<CollectionInitializer Class="CodeValue">
+				<Code><![CDATA[{bilge1, bilge2, bilge3, bilge4, bilge5}]]></Code>
+			</CollectionInitializer>
+		</Properties>
+	</Variable>
+	<Variable Class="CollectionVariable">
+		<Id>1439889936930</Id>
+		<Name><![CDATA[bilgeEnters]]></Name>
+		<X>100</X>
+		<Y>475</Y>
+		<Label>
+			<X>10</X>
+			<Y>0</Y>
+		</Label>
+		<PublicFlag>false</PublicFlag>
+		<PresentationFlag>true</PresentationFlag>
+		<ShowLabel>true</ShowLabel>
+		<Properties SaveInSnapshot="true" AccessType="public" StaticVariable="false">
+			<CollectionClass>ArrayList</CollectionClass>
+			<ElementClass>FluidEnter</ElementClass>
+			<ValueElementClass>String</ValueElementClass>
+			<CollectionInitializer Class="CodeValue">
+				<Code><![CDATA[{bilgeEnter1, bilgeEnter2, bilgeEnter3, bilgeEnter4, bilgeEnter5}]]></Code>
+			</CollectionInitializer>
+		</Properties>
+	</Variable>
+</Variables>
