@@ -153,31 +153,20 @@ public void initializeNetwork() {
         edge.v_Path.setSource(startNode.v_PointNode);
         edge.v_Path.setTarget(endNode.v_PointNode);
 
-        if (edge.vertices != null && !edge.vertices.isEmpty()) {
-            a_Edge.VertexPoint firstVertex = edge.vertices.get(0);
-            edge.v_Path.addSegment(new MarkupSegmentLine(
-                startNode.x, startNode.y, startNode.z,
-                firstVertex.x, firstVertex.y, firstVertex.z
-            ));
-
-            for (int i = 0; i < edge.vertices.size() - 1; i++) {
-                a_Edge.VertexPoint v1 = edge.vertices.get(i);
-                a_Edge.VertexPoint v2 = edge.vertices.get(i + 1);
-                edge.v_Path.addSegment(new MarkupSegmentLine(
-                    v1.x, v1.y, v1.z, v2.x, v2.y, v2.z
-                ));
+        // Build the full ordered point list for this edge: start -> vertices -> end.
+        List<double[]> pathPoints = new ArrayList<>();
+        pathPoints.add(new double[]{startNode.x, startNode.y, startNode.z});
+        if (edge.vertices != null) {
+            for (a_Edge.VertexPoint v : edge.vertices) {
+                pathPoints.add(new double[]{v.x, v.y, v.z});
             }
+        }
+        pathPoints.add(new double[]{endNode.x, endNode.y, endNode.z});
 
-            a_Edge.VertexPoint lastVertex = edge.vertices.get(edge.vertices.size() - 1);
-            edge.v_Path.addSegment(new MarkupSegmentLine(
-                lastVertex.x, lastVertex.y, lastVertex.z,
-                endNode.x, endNode.y, endNode.z
-            ));
-        } else {
-            edge.v_Path.addSegment(new MarkupSegmentLine(
-                startNode.x, startNode.y, startNode.z,
-                endNode.x, endNode.y, endNode.z
-            ));
+        for (int i = 0; i < pathPoints.size() - 1; i++) {
+            double[] p1 = pathPoints.get(i);
+            double[] p2 = pathPoints.get(i + 1);
+            edge.v_Path.addSegment(new MarkupSegmentLine(p1[0], p1[1], p1[2], p2[0], p2[1], p2[2]));
         }
 
         edge.v_Path.setLineColor(dodgerBlue);
@@ -185,37 +174,51 @@ public void initializeNetwork() {
 
         this.v_Network.add(edge.v_Path);
 
-        // Direction arrow for one-way edges, drawn at the edge's midpoint
-        if (!edge.bidirectional) {
-            double midX = (startNode.x + endNode.x) / 2.0;
-            double midY = (startNode.y + endNode.y) / 2.0;
-            double midZ = (startNode.z + endNode.z) / 2.0;
+        // Direction arrows for one-way edges, repeated along the whole path
+        // (across all segments, including curved multi-vertex edges) at a
+        // fixed spacing, rather than a single arrow per edge.
+        // Gated by showDirectionArrows - set that field to false to turn
+        // all arrows off without removing this code.
+        if (!edge.bidirectional && v_showDirectionArrows) {
+            double arrowSpacing = 50; // distance between arrows, in network coordinate units - tune to taste
+            double arrowLen = 15;     // length of each arrow marker
 
-            double dirX = endNode.x - startNode.x;
-            double dirY = endNode.y - startNode.y;
-            double dirZ = endNode.z - startNode.z;
-            double len = Math.sqrt(dirX * dirX + dirY * dirY + dirZ * dirZ);
+            double distanceSinceLastArrow = arrowSpacing; // place one right away at the start
 
-            if (len > 0) {
-                double arrowLen = 20; // tune to your network's scale
-                double ux = dirX / len, uy = dirY / len, uz = dirZ / len;
+            for (int i = 0; i < pathPoints.size() - 1; i++) {
+                double[] p1 = pathPoints.get(i);
+                double[] p2 = pathPoints.get(i + 1);
 
-                double startX = midX - ux * arrowLen / 2;
-                double startY = midY - uy * arrowLen / 2;
-                double startZ = midZ - uz * arrowLen / 2;
+                double segDx = p2[0] - p1[0];
+                double segDy = p2[1] - p1[1];
+                double segDz = p2[2] - p1[2];
+                double segLen = Math.sqrt(segDx * segDx + segDy * segDy + segDz * segDz);
+                if (segLen == 0) continue;
 
-                ShapeArrowLine directionArrow = new ShapeArrowLine(
-                    this.SHAPE_DRAW_2D3D, true,
-                    startX, startY, startZ,
-                    Color.BLACK,
-                    ux * arrowLen, uy * arrowLen, uz * arrowLen,
-                    2, 0,
-                    LINE_STYLE_SOLID,
-                    ARROW_NONE, 0, 4, 3,
-                    ARROW_FILLED, 0, 4, 3
-                );
+                double ux = segDx / segLen, uy = segDy / segLen, uz = segDz / segLen;
 
-                this.v_Level.add(directionArrow);
+                double posAlongSeg = arrowSpacing - distanceSinceLastArrow;
+                while (posAlongSeg < segLen) {
+                    double ax = p1[0] + ux * posAlongSeg;
+                    double ay = p1[1] + uy * posAlongSeg;
+                    double az = p1[2] + uz * posAlongSeg;
+
+                    ShapeArrowLine directionArrow = new ShapeArrowLine(
+                        this.SHAPE_DRAW_2D3D, true,
+                        ax, ay, az,
+                        Color.BLACK,
+                        ux * arrowLen, uy * arrowLen, uz * arrowLen,
+                        2, 0,
+                        LINE_STYLE_SOLID,
+                        ARROW_NONE, 0, 4, 3,
+                        ARROW_FILLED, 0, 4, 3
+                    );
+                    this.v_Level.add(directionArrow);
+
+                    posAlongSeg += arrowSpacing;
+                }
+
+                distanceSinceLastArrow = segLen - (posAlongSeg - arrowSpacing);
             }
         }
     }

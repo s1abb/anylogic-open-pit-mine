@@ -1457,15 +1457,44 @@ public class NetworkBuilder implements Serializable {
                     edge.setStartNodeId(oldEnd);
                     edge.setEndNodeId(oldStart);
 
+                    // Keep NetworkEdge's own vertices field consistent too
                     List<Vector3> reversedVertices = new ArrayList<>(edge.getVertices());
                     Collections.reverse(reversedVertices);
                     edge.setVertices(reversedVertices);
+
+                    // The JSON output (generateJSON) reads from the builder's flat
+                    // `vertices` list, NOT from edge.getVertices() - so the actual
+                    // fix has to happen here, re-numbering edge_index in reverse
+                    // for this edge's entries in that flat list.
+                    reverseVertexIndicesForEdge(edgeId);
 
                     // traceln("Flipped edge {}: {} -> {}", edgeId, oldStart, oldEnd);
                 }
             }
         } catch (IOException e) {
             throw new RuntimeException("Error applying edge corrections", e);
+        }
+    }
+
+    /**
+     * Re-number edge_index (in the builder's flat NetworkVertex list) in reverse
+     * order for all vertices belonging to the given edge. Same physical vertices,
+     * just relabeled so index 0 ends up next to the new start node after a flip.
+     */
+    private void reverseVertexIndicesForEdge(String edgeId) {
+        List<NetworkVertex> edgeVertices = new ArrayList<>();
+        for (NetworkVertex v : vertices) {
+            if (v.getEdgeId().equals(edgeId)) {
+                edgeVertices.add(v);
+            }
+        }
+
+        int n = edgeVertices.size();
+        if (n == 0) return;
+
+        edgeVertices.sort((a, b) -> Integer.compare(a.getEdgeIndex(), b.getEdgeIndex()));
+        for (int i = 0; i < n; i++) {
+            edgeVertices.get(i).setEdgeIndex(n - 1 - i);
         }
     }
 }
