@@ -106,6 +106,9 @@
 			<Parameter>
 				<Name><![CDATA[type]]></Name>
 			</Parameter>
+			<Parameter>
+				<Name><![CDATA[flipDirection]]></Name>
+			</Parameter>
 		</Parameters>
 		<ReplicationFlag>true</ReplicationFlag>
 		<Replication Class="CodeValue">

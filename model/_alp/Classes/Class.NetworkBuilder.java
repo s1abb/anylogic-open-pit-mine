@@ -1328,7 +1328,7 @@ public class NetworkBuilder implements Serializable {
             }
             
             String edgeId = "edge_" + edgeCount;
-            NetworkEdge edge = new NetworkEdge(edgeId, startNodeId, endNodeId, true, "STANDARD");
+            NetworkEdge edge = new NetworkEdge(edgeId, startNodeId, endNodeId, false, "STANDARD");
             edges.add(edge);
             edgeMap.put(edgeId, edge);
             edgeKeyToId.put(edgeKey, edgeId);
@@ -1371,5 +1371,26 @@ public class NetworkBuilder implements Serializable {
         
         // traceln("Created network structure with {} nodes, {} edges, and {} vertices", 
         //         nodes.size(), edges.size(), vertices.size());
+    }
+    
+    public void saveEdgesCSV(String csvFilePath) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(csvFilePath))) {
+            writer.write("id,startNodeId,endNodeId,bidirectional,type,flipDirection");
+            writer.newLine();
+
+            for (NetworkEdge edge : edges) {
+                writer.write(String.join(",",
+                    edge.getId(),
+                    edge.getStartNodeId(),
+                    edge.getEndNodeId(),
+                    String.valueOf(edge.isBidirectional()),
+                    edge.getType(),
+                    "false"   // default value for the corrected-CSV workflow
+                ));
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            throw new RuntimeException("Error writing edges CSV", e);
+        }
     }
 }

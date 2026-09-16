@@ -32,6 +32,7 @@ NetworkBuilder builder = new NetworkBuilder();
 builder.setCoordinateTransform(CoordinateTransform.createDefaultTransform());
 builder.parseOBJFile("C:\\repos\\anylogic-network-builder\\network\\network.obj");
 builder.saveJSONToFile("./network.json");
+builder.saveEdgesCSV("./edges_list_default.csv");
 
 // Set JSON file path in network agent
 p_Network.jsonFilePath = "./network.json";
