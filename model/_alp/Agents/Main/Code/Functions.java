@@ -3,3 +3,14 @@ double onRunInitialised()
 source.inject(numDumpTrucks);
 /*ALCODEEND*/}
 
+ResourcePool[][] buildLoadingPointResourceSets( )
+{/*ALCODESTART::1789548528511*/
+List<ResourcePool[]> sets = new ArrayList<>();
+for (LoadingPoint lp : p_loadingPoints) {
+    if (lp.pool != null) {
+        sets.add(new ResourcePool[]{ lp.pool });
+    }
+}
+return sets.toArray(new ResourcePool[0][]);
+/*ALCODEEND*/}
+
