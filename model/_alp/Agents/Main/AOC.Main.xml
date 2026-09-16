@@ -31,6 +31,7 @@ import java.io.FileReader;]]></Import>
 NetworkBuilder builder = new NetworkBuilder();
 builder.setCoordinateTransform(CoordinateTransform.createDefaultTransform());
 builder.parseOBJFile("C:\\repos\\anylogic-network-builder\\network\\network.obj");
+builder.applyEdgeCorrections("C:\\repos\\anylogic-open-pit-mine\\model\\edges_list_corrected.csv");
 builder.saveJSONToFile("./network.json");
 builder.saveEdgesCSV("./edges_list_default.csv");
 

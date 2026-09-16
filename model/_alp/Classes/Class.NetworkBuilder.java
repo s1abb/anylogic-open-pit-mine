@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -16,6 +17,10 @@ import java.util.Set;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVParser;
+import org.apache.commons.csv.CSVRecord;
 
 /**
  * Implementation of INetworkBuilder that parses OBJ files and generates
@@ -1373,24 +1378,94 @@ public class NetworkBuilder implements Serializable {
         //         nodes.size(), edges.size(), vertices.size());
     }
     
+    /**
+     * Write out the current edge list as a CSV, alongside the JSON output.
+     * This is meant to be copied to an "edges_list_corrected.csv" and hand-edited:
+     * set flipDirection=true on any one-way edge whose default direction
+     * (startNodeId -> endNodeId, as derived from OBJ vertex ordering) is wrong.
+     * flipDirection is only meaningful when bidirectional=false.
+     */
     public void saveEdgesCSV(String csvFilePath) {
+        // traceln("Writing edges CSV to: {}", csvFilePath);
+
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(csvFilePath))) {
+            // Header must match a_Edge's parameter names exactly, since this file
+            // (once corrected) gets read back in via DataDriver.initialiseFromCSV,
+            // which matches columns to fields by exact name.
             writer.write("id,startNodeId,endNodeId,bidirectional,type,flipDirection");
             writer.newLine();
 
             for (NetworkEdge edge : edges) {
+                // flipDirection has no source value yet at this stage of the pipeline -
+                // NetworkBuilder runs before any a_Edge agents exist, so this is just
+                // a default placeholder for the corrected CSV, not real data.
                 writer.write(String.join(",",
                     edge.getId(),
                     edge.getStartNodeId(),
                     edge.getEndNodeId(),
                     String.valueOf(edge.isBidirectional()),
                     edge.getType(),
-                    "false"   // default value for the corrected-CSV workflow
+                    "false"
                 ));
                 writer.newLine();
             }
+
+            // traceln("Wrote {} edges to {}", edges.size(), csvFilePath);
+
         } catch (IOException e) {
+            // traceln("Error writing edges CSV: {}", e.getMessage(), e);
             throw new RuntimeException("Error writing edges CSV", e);
+        }
+    }
+    
+    /**
+     * Read edges_list_corrected.csv and apply any flipDirection=true corrections:
+     * swap startNodeId/endNodeId and reverse the vertex order for that edge.
+     * Must run after createNetworkStructure() (so edgeMap is populated) and
+     * before saveJSONToFile()/generateJSON() (so the correction lands in the output).
+     */
+    /**
+     * Read edges_list_corrected.csv and apply corrections:
+     * - bidirectional and type are synced directly from the CSV for every edge
+     * - flipDirection=true additionally swaps startNodeId/endNodeId and reverses
+     *   the vertex order for that edge (only meaningful when bidirectional=false)
+     * Must run after createNetworkStructure() (so edgeMap is populated) and
+     * before saveJSONToFile()/generateJSON() (so corrections land in the output).
+     */
+    public void applyEdgeCorrections(String csvFilePath) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(csvFilePath))) {
+            CSVParser parser = CSVParser.parse(reader, CSVFormat.DEFAULT.withFirstRecordAsHeader());
+
+            for (CSVRecord record : parser) {
+                String edgeId = record.get("id");
+
+                NetworkEdge edge = edgeMap.get(edgeId);
+                if (edge == null) {
+                    // traceln("Skipping correction: edge {} not found", edgeId);
+                    continue;
+                }
+
+                // Sync bidirectional and type directly from the corrected CSV
+                edge.setBidirectional(Boolean.parseBoolean(record.get("bidirectional")));
+                edge.setType(record.get("type"));
+
+                // flipDirection swaps endpoints and reverses vertex order
+                boolean flip = Boolean.parseBoolean(record.get("flipDirection"));
+                if (flip) {
+                    String oldStart = edge.getStartNodeId();
+                    String oldEnd = edge.getEndNodeId();
+                    edge.setStartNodeId(oldEnd);
+                    edge.setEndNodeId(oldStart);
+
+                    List<Vector3> reversedVertices = new ArrayList<>(edge.getVertices());
+                    Collections.reverse(reversedVertices);
+                    edge.setVertices(reversedVertices);
+
+                    // traceln("Flipped edge {}: {} -> {}", edgeId, oldStart, oldEnd);
+                }
+            }
+        } catch (IOException e) {
+            throw new RuntimeException("Error applying edge corrections", e);
         }
     }
 }
