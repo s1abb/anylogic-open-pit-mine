@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ActiveObjectClass>
-	<Id>1789454332680</Id>
-	<Name><![CDATA[LoadingPoint]]></Name>
+	<Id>1789524189413</Id>
+	<Name><![CDATA[DumpingPoint]]></Name>
 	<ExtendsReference>
 		<PackageName>model</PackageName>
 		<ClassName>NetworkPoint</ClassName>
@@ -19,8 +19,8 @@
 	</Parameters>
 	<Generic>false</Generic>
 	<GenericParameter>
-		<Id>1789454332685</Id>
-		<Name><![CDATA[1789454332685]]></Name>
+		<Id>1789524189418</Id>
+		<Name><![CDATA[1789524189418]]></Name>
 		<GenericParameterValue Class="CodeValue">
 			<Code><![CDATA[T extends Agent]]></Code>
 		</GenericParameterValue>
@@ -82,9 +82,9 @@
 	</EnvironmentProperties>
 	<DatasetsCreationProperties>
 		<AutoCreate>true</AutoCreate>
-		<Id>1789454332679</Id>
+		<Id>1789524189412</Id>
 		<OccurrenceAtTime>true</OccurrenceAtTime>
-		<OccurrenceDate>1789459200000</OccurrenceDate>
+		<OccurrenceDate>1789545600000</OccurrenceDate>
 		<OccurrenceTime Class="CodeUnitValue">
 			<Code><![CDATA[0]]></Code>
 			<Unit Class="TimeUnits">SECOND</Unit>
@@ -95,7 +95,7 @@
 		</RecurrenceCode>
 	</DatasetsCreationProperties>
 	<ScaleRuler>
-		<Id>1789454332683</Id>
+		<Id>1789524189416</Id>
 		<Name><![CDATA[scale]]></Name>
 		<X>0</X>
 		<Y>-150</Y>
@@ -111,11 +111,11 @@
 		<Scale>10</Scale>
 		<InheritedFromParentAgentType>true</InheritedFromParentAgentType>
 	</ScaleRuler>
-	<CurrentLevel>1789454332686</CurrentLevel>
-	<ConnectionsId>1789454332681</ConnectionsId>
+	<CurrentLevel>1789524189419</CurrentLevel>
+	<ConnectionsId>1789524189414</ConnectionsId>
 	<AgentLinks>
 		<AgentLink>
-			<Id>1789454332681</Id>
+			<Id>1789524189414</Id>
 			<Name><![CDATA[connections]]></Name>
 			<X>50</X>
 			<Y>-50</Y>
@@ -140,7 +140,7 @@
 	</AgentLinks>
 	<ContainerLinks>
 		<ContainerLink>
-			<Id>1789454656326</Id>
+			<Id>1789524231658</Id>
 			<Name><![CDATA[main]]></Name>
 			<X>50</X>
 			<Y>-100</Y>
@@ -159,7 +159,7 @@
 	</ContainerLinks>
 	<Presentation>
 		<Level>
-			<Id>1789454332686</Id>
+			<Id>1789524189419</Id>
 			<Name><![CDATA[level]]></Name>
 			<X>0</X>
 			<Y>0</Y>

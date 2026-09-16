@@ -48,7 +48,11 @@ presentation.add(p_Network.v_Level);
 try {
     DataDriver loadingPointsDriver = new DataDriver();
     loadingPointsDriver.initialiseFromCSV(
-        () -> this.add_p_loadingPoints(),
+        () -> {
+            LoadingPoint lp = this.add_p_loadingPoints();
+            lp.nodesRef = p_Network.p_Nodes;
+            return lp;
+        },
         "C:\\repos\\anylogic-open-pit-mine\\input\\loading_points.csv",
         true
     );
@@ -57,6 +61,42 @@ try {
 } catch (InputException e) {
     logger.error("Error loading loading points CSV: {}", e.getMessage(), e);
     traceln("Error loading loading points CSV: " + e.getMessage());
+}
+
+try {
+    DataDriver dumpingPointsDriver = new DataDriver();
+    dumpingPointsDriver.initialiseFromCSV(
+        () -> {
+            DumpingPoint dp = this.add_p_dumpingPoints();
+            dp.nodesRef = p_Network.p_Nodes;
+            return dp;
+        },
+        "C:\\repos\\anylogic-open-pit-mine\\input\\dumping_points.csv",
+        true
+    );
+    dumpingPointsDriver.callOnParametersSet();
+    dumpingPointsDriver.callOnRunStarted();
+} catch (InputException e) {
+    logger.error("Error loading dumping points CSV: {}", e.getMessage(), e);
+    traceln("Error loading dumping points CSV: " + e.getMessage());
+}
+
+try {
+    DataDriver homeNodesDriver = new DataDriver();
+    homeNodesDriver.initialiseFromCSV(
+        () -> {
+            HomeNode hp = this.add_p_homeNodes();
+            hp.nodesRef = p_Network.p_Nodes;
+            return hp;
+        },
+        "C:\\repos\\anylogic-open-pit-mine\\input\\home_points.csv",
+        true
+    );
+    homeNodesDriver.callOnParametersSet();
+    homeNodesDriver.callOnRunStarted();
+} catch (InputException e) {
+    logger.error("Error loading home points CSV: {}", e.getMessage(), e);
+    traceln("Error loading home points CSV: " + e.getMessage());
 }]]></StartupCode>
 	<Generic>false</Generic>
 	<GenericParameter>
