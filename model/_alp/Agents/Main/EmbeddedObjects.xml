@@ -447,7 +447,7 @@
 				<Name><![CDATA[onDiscard]]></Name>
 			</Parameter>
 		</Parameters>
-		<ReplicationFlag>false</ReplicationFlag>
+		<ReplicationFlag>true</ReplicationFlag>
 		<Replication Class="CodeValue">
 			<Code><![CDATA[100]]></Code>
 		</Replication>
@@ -462,7 +462,7 @@
 		<LocationNameCode Class="CodeValue">
 			<Code><![CDATA[""]]></Code>
 		</LocationNameCode>
-		<InitializationType>SPECIFIED_NUMBER</InitializationType>
+		<InitializationType>EMPTY</InitializationType>
 		<InitializationDatabaseTableQuery>
 			<Id>1789544410409</Id>
 			<TableReference/>

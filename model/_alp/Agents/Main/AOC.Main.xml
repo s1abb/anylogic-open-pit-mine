@@ -99,7 +99,8 @@ try {
     traceln("Error loading home points CSV: " + e.getMessage());
 }
 
-onRunInitialised();]]></StartupCode>
+onRunInitialised();
+logger.info("Trucks in population after inject: {}", p_dumpTrucks.size());]]></StartupCode>
 	<Generic>false</Generic>
 	<GenericParameter>
 		<Id>1769735506123</Id>

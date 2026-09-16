@@ -1,9 +1,11 @@
-double onRunInitialised()
+double onRunInitialised(int numDumpTrucks)
 {/*ALCODESTART::1789547667834*/
+traceln("onRunInitialised() called");
 source.inject(numDumpTrucks);
+traceln("Trucks in population after inject: " + p_dumpTrucks.size());
 /*ALCODEEND*/}
 
-ResourcePool[][] buildLoadingPointResourceSets( )
+ResourcePool[][] buildLoadingPointResourceSets()
 {/*ALCODESTART::1789548528511*/
 List<ResourcePool[]> sets = new ArrayList<>();
 for (LoadingPoint lp : p_loadingPoints) {
