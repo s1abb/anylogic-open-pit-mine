@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Presentation>
+	<Camera3D>
+		<Id>1467795617198</Id>
+		<Name><![CDATA[camera]]></Name>
+		<X>294.05</X>
+		<Y>557.81</Y>
+		<Z>300</Z>
+		<Label>
+			<X>0</X>
+			<Y>-10</Y>
+		</Label>
+		<ShowLabel>false</ShowLabel>
+		<RotationX>45.0</RotationX>
+		<RotationZ>-90.0</RotationZ>
+	</Camera3D>
+	<Control Type="Window3D">
+		<Id>1467795578470</Id>
+		<Name><![CDATA[window3d]]></Name>
+		<X>490</X>
+		<Y>10</Y>
+		<Width>500</Width>
+		<Height>300</Height>
+		<MakeDefaultViewArea>true</MakeDefaultViewArea>
+		<Label>
+			<X>0</X>
+			<Y>-10</Y>
+		</Label>
+		<ShowLabel>false</ShowLabel>
+		<FollowCamera>false</FollowCamera>
+		<NavigationType>full</NavigationType>
+		<FarClippingDistance>2000</FarClippingDistance>
+		<Camera>camera</Camera>
+	</Control>
+</Presentation>
