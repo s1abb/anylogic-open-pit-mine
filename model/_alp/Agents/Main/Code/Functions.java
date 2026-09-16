@@ -1,4 +1,4 @@
-double onRunInitialised(int numDumpTrucks)
+double onRunInitialised()
 {/*ALCODESTART::1789547667834*/
 traceln("onRunInitialised() called");
 source.inject(numDumpTrucks);
