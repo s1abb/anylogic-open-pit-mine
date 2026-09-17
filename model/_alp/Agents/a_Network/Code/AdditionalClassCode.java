@@ -75,8 +75,8 @@ private void buildEdgeVertexAssociations() {
 
 public void initializeNetwork() {
     logger.info("Initializing network visualization with {} nodes and {} edges", this.p_Nodes.size(), this.p_Edges.size());
-    this.v_Network = new Network(this, "myNetwork");
-    this.v_Level = new Level(this, "myNetworkLevel", this.SHAPE_DRAW_2D3D, 0);
+    this.v_Network = new Network(main, "myNetwork");
+	this.v_Level = new Level(main, "myNetworkLevel", this.SHAPE_DRAW_2D3D, 0);
 
     validateNodeReferences();
 

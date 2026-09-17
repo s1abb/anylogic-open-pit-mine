@@ -84,6 +84,12 @@
 			<Parameter>
 				<Name><![CDATA[capacity]]></Name>
 			</Parameter>
+			<Parameter>
+				<Name><![CDATA[id]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[nodeId]]></Name>
+			</Parameter>
 		</Parameters>
 		<ReplicationFlag>true</ReplicationFlag>
 		<Replication Class="CodeValue">
@@ -317,17 +323,26 @@
 			<Parameter>
 				<Name><![CDATA[locationType]]></Name>
 				<Value Class="CodeValue">
-					<Code><![CDATA[self.LOCATION_NODE]]></Code>
+					<Code><![CDATA[self.LOCATION_XYZ]]></Code>
 				</Value>
 			</Parameter>
 			<Parameter>
 				<Name><![CDATA[locationX]]></Name>
+				<Value Class="CodeValue">
+					<Code><![CDATA[findANodeById(this.p_homeNodes.get(0).nodeId).x]]></Code>
+				</Value>
 			</Parameter>
 			<Parameter>
 				<Name><![CDATA[locationY]]></Name>
+				<Value Class="CodeValue">
+					<Code><![CDATA[findANodeById(this.p_homeNodes.get(0).nodeId).y]]></Code>
+				</Value>
 			</Parameter>
 			<Parameter>
 				<Name><![CDATA[locationZ]]></Name>
+				<Value Class="CodeValue">
+					<Code><![CDATA[findANodeById(this.p_homeNodes.get(0).nodeId).z]]></Code>
+				</Value>
 			</Parameter>
 			<Parameter>
 				<Name><![CDATA[locationLatitude]]></Name>
@@ -424,9 +439,15 @@
 			</Parameter>
 			<Parameter>
 				<Name><![CDATA[addToCustomPopulation]]></Name>
+				<Value Class="CodeValue">
+					<Code><![CDATA[true]]></Code>
+				</Value>
 			</Parameter>
 			<Parameter>
 				<Name><![CDATA[population]]></Name>
+				<Value Class="CodeValue">
+					<Code><![CDATA[p_dumpTrucks]]></Code>
+				</Value>
 			</Parameter>
 			<Parameter>
 				<Name><![CDATA[pushProtocol]]></Name>
