@@ -26,3 +26,35 @@ return p_Network.p_Nodes.stream()
     .orElse(null);
 /*ALCODEEND*/}
 
+ResourcePool[][] buildDumpingPointResourceSets()
+{/*ALCODESTART::1789634291281*/
+List<ResourcePool[]> sets = new ArrayList<>();
+for (DumpingPoint dp : p_dumpingPoints) {
+    if (dp.pool != null) {
+        sets.add(new ResourcePool[]{ dp.pool });
+    }
+}
+return sets.toArray(new ResourcePool[0][]);
+/*ALCODEEND*/}
+
+double loadTaskMatrix(String csvFilePath)
+{/*ALCODESTART::1789634749929*/
+try (BufferedReader reader = new BufferedReader(new FileReader(csvFilePath))) {
+    CSVParser parser = CSVParser.parse(reader, CSVFormat.DEFAULT.withFirstRecordAsHeader());
+    for (CSVRecord record : parser) {
+        TaskEvent event = TaskEvent.valueOf(record.get("event"));
+        boolean shift = Boolean.parseBoolean(record.get("shiftActive"));
+        Task task = Task.valueOf(record.get("nextTask"));
+        taskMatrix[event.ordinal()][shift ? 1 : 0] = task;
+    }
+} catch (IOException e) {
+    logger.error("Error loading task matrix: {}", e.getMessage(), e);
+    traceln("Error loading task matrix: " + e.getMessage());
+}
+/*ALCODEEND*/}
+
+Task nextTask(TaskEvent event,boolean shift)
+{/*ALCODESTART::1789688464665*/
+return taskMatrix[event.ordinal()][shift ? 1 : 0];
+/*ALCODEEND*/}
+

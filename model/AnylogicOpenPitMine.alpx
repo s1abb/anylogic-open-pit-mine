@@ -9,6 +9,60 @@
 		<EngineVersion>6</EngineVersion>
 		<JavaPackageName><![CDATA[model]]></JavaPackageName>
 		<ModelTimeUnit>Second</ModelTimeUnit>
+		<OptionLists>
+			<OptionList>
+				<Id>1789633850732</Id>
+				<Name><![CDATA[Task]]></Name>
+				<Option>
+					<Id>1789633850733</Id>
+					<Name><![CDATA[TO_LOAD]]></Name>
+				</Option>
+				<Option>
+					<Id>1789633850734</Id>
+					<Name><![CDATA[LOAD]]></Name>
+				</Option>
+				<Option>
+					<Id>1789633850735</Id>
+					<Name><![CDATA[TO_DUMP]]></Name>
+				</Option>
+				<Option>
+					<Id>1789633850736</Id>
+					<Name><![CDATA[DUMP]]></Name>
+				</Option>
+				<Option>
+					<Id>1789633850737</Id>
+					<Name><![CDATA[TO_HOME]]></Name>
+				</Option>
+				<Option>
+					<Id>1789633850738</Id>
+					<Name><![CDATA[WAIT_AT_HOME]]></Name>
+				</Option>
+			</OptionList>
+			<OptionList>
+				<Id>1789633901271</Id>
+				<Name><![CDATA[TaskEvent]]></Name>
+				<Option>
+					<Id>1789633901272</Id>
+					<Name><![CDATA[LOADING_ARRIVAL]]></Name>
+				</Option>
+				<Option>
+					<Id>1789633901273</Id>
+					<Name><![CDATA[LOAD_COMPLETE]]></Name>
+				</Option>
+				<Option>
+					<Id>1789633901274</Id>
+					<Name><![CDATA[DUMPING_ARRIVAL]]></Name>
+				</Option>
+				<Option>
+					<Id>1789633901275</Id>
+					<Name><![CDATA[DUMP_COMPLETE]]></Name>
+				</Option>
+				<Option>
+					<Id>1789633901276</Id>
+					<Name><![CDATA[HOME_ARRIVAL]]></Name>
+				</Option>
+			</OptionList>
+		</OptionLists>
 		<Folders/>
 		<ActiveObjectClasses/>
 		<DifferentialEquationsMethod>EULER</DifferentialEquationsMethod>

@@ -42,6 +42,24 @@
 			<Parameter>
 				<ParameterName>numDumpTrucks</ParameterName>
 			</Parameter>
+			<Parameter>
+				<ParameterName>loadTimeMin</ParameterName>
+			</Parameter>
+			<Parameter>
+				<ParameterName>loadTimeMode</ParameterName>
+			</Parameter>
+			<Parameter>
+				<ParameterName>loadTimeMax</ParameterName>
+			</Parameter>
+			<Parameter>
+				<ParameterName>dumpTimeMin</ParameterName>
+			</Parameter>
+			<Parameter>
+				<ParameterName>dumpTimeMode</ParameterName>
+			</Parameter>
+			<Parameter>
+				<ParameterName>dumpTimeMax</ParameterName>
+			</Parameter>
 		</Parameters>
 		<PresentationProperties>
 			<EnableZoomAndPanning>true</EnableZoomAndPanning>

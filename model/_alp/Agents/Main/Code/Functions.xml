@@ -5,7 +5,7 @@
 		<ReturnType>double</ReturnType>
 		<Id>1789547667834</Id>
 		<Name><![CDATA[onRunInitialised]]></Name>
-		<X>-150</X>
+		<X>-250</X>
 		<Y>350</Y>
 		<Label>
 			<X>10</X>
@@ -21,7 +21,7 @@
 		<ReturnType>ResourcePool[][]</ReturnType>
 		<Id>1789548528511</Id>
 		<Name><![CDATA[buildLoadingPointResourceSets]]></Name>
-		<X>-150</X>
+		<X>-250</X>
 		<Y>400</Y>
 		<Label>
 			<X>10</X>
@@ -37,8 +37,8 @@
 		<ReturnType>a_Node</ReturnType>
 		<Id>1789608877713</Id>
 		<Name><![CDATA[findANodeById]]></Name>
-		<X>-150</X>
-		<Y>450</Y>
+		<X>-250</X>
+		<Y>500</Y>
 		<Label>
 			<X>10</X>
 			<Y>0</Y>
@@ -49,6 +49,66 @@
 		<Parameter>
 			<Name><![CDATA[nodeId]]></Name>
 			<Type><![CDATA[String]]></Type>
+		</Parameter>
+		<Body xmlns:al="http://anylogic.com"/>
+	</Function>
+	<Function AccessType="default" StaticFunction="false">
+		<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+		<ReturnType>ResourcePool[][]</ReturnType>
+		<Id>1789634291281</Id>
+		<Name><![CDATA[buildDumpingPointResourceSets]]></Name>
+		<X>-250</X>
+		<Y>450</Y>
+		<Label>
+			<X>10</X>
+			<Y>0</Y>
+		</Label>
+		<PublicFlag>false</PublicFlag>
+		<PresentationFlag>true</PresentationFlag>
+		<ShowLabel>true</ShowLabel>
+		<Body xmlns:al="http://anylogic.com"/>
+	</Function>
+	<Function AccessType="default" StaticFunction="false">
+		<ReturnModificator>VOID</ReturnModificator>
+		<ReturnType>double</ReturnType>
+		<Id>1789634749929</Id>
+		<Name><![CDATA[loadTaskMatrix]]></Name>
+		<X>-250</X>
+		<Y>550</Y>
+		<Label>
+			<X>10</X>
+			<Y>0</Y>
+		</Label>
+		<PublicFlag>false</PublicFlag>
+		<PresentationFlag>true</PresentationFlag>
+		<ShowLabel>true</ShowLabel>
+		<Parameter>
+			<Name><![CDATA[csvFilePath]]></Name>
+			<Type><![CDATA[String]]></Type>
+		</Parameter>
+		<Body xmlns:al="http://anylogic.com"/>
+	</Function>
+	<Function AccessType="default" StaticFunction="false">
+		<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+		<ReturnType>Task</ReturnType>
+		<Id>1789688464665</Id>
+		<Name><![CDATA[nextTask]]></Name>
+		<X>-250</X>
+		<Y>600</Y>
+		<Label>
+			<X>10</X>
+			<Y>0</Y>
+		</Label>
+		<PublicFlag>false</PublicFlag>
+		<PresentationFlag>true</PresentationFlag>
+		<ShowLabel>true</ShowLabel>
+		<Parameter>
+			<Name><![CDATA[event]]></Name>
+			<Type><![CDATA[TaskEvent]]></Type>
+		</Parameter>
+		<Parameter>
+			<Name><![CDATA[shift]]></Name>
+			<Type><![CDATA[boolean]]></Type>
 		</Parameter>
 		<Body xmlns:al="http://anylogic.com"/>
 	</Function>

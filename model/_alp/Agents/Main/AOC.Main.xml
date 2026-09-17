@@ -98,7 +98,7 @@ try {
     logger.error("Error loading home points CSV: {}", e.getMessage(), e);
     traceln("Error loading home points CSV: " + e.getMessage());
 }
-
+loadTaskMatrix("C:\\repos\\anylogic-open-pit-mine\\input\\task_matrix.csv");
 onRunInitialised();
 logger.info("Trucks in population after inject: {}", p_dumpTrucks.size());]]></StartupCode>
 	<Generic>false</Generic>
