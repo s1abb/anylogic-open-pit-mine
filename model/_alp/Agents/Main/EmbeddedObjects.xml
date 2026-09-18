@@ -525,7 +525,9 @@
 			<Parameter>
 				<Name><![CDATA[delayTime]]></Name>
 				<Value Class="CodeUnitValue">
-					<Code><![CDATA[triangular( 0.5, 1, 1.5 )]]></Code>
+					<Code><![CDATA[agent.currentTask == Task.LOAD ?
+    triangular(loadTimeMin, loadTimeMode, loadTimeMax) :
+    triangular(dumpTimeMin, dumpTimeMode, dumpTimeMax)]]></Code>
 					<Unit Class="TimeUnits">MINUTE</Unit>
 				</Value>
 			</Parameter>
@@ -558,6 +560,10 @@
 			</Parameter>
 			<Parameter>
 				<Name><![CDATA[onExit]]></Name>
+				<Value Class="CodeValue">
+					<Code><![CDATA[TaskEvent completionEvent = agent.currentTask == Task.LOAD ? TaskEvent.LOAD_COMPLETE : TaskEvent.DUMP_COMPLETE;
+agent.currentTask = nextTask(completionEvent, shiftActive);]]></Code>
+				</Value>
 			</Parameter>
 			<Parameter>
 				<Name><![CDATA[onRemove]]></Name>
@@ -619,9 +625,9 @@
 			<Parameter>
 				<Name><![CDATA[destinationNode]]></Name>
 				<Value Class="CodeValue">
-					<Code><![CDATA[p_Network.p_Nodes.stream()
-    .filter(n -> n.id.equals(agent.currentLoadingPoint.nodeId))
-    .findFirst().get().v_PointNode]]></Code>
+					<Code><![CDATA[agent.currentTask == Task.TO_LOAD ? findNodeById(agent.currentLoadingPoint.nodeId) :
+agent.currentTask == Task.TO_DUMP ? findNodeById(agent.currentDumpingPoint.nodeId) :
+findNodeById(p_homeNodes.get(0).nodeId)]]></Code>
 				</Value>
 			</Parameter>
 			<Parameter>
@@ -704,6 +710,13 @@
 			</Parameter>
 			<Parameter>
 				<Name><![CDATA[onExit]]></Name>
+				<Value Class="CodeValue">
+					<Code><![CDATA[TaskEvent arrivalEvent =
+    agent.currentTask == Task.TO_LOAD ? TaskEvent.LOADING_ARRIVAL :
+    agent.currentTask == Task.TO_DUMP ? TaskEvent.DUMPING_ARRIVAL :
+    TaskEvent.HOME_ARRIVAL;
+agent.currentTask = nextTask(arrivalEvent, shiftActive);]]></Code>
+				</Value>
 			</Parameter>
 			<Parameter>
 				<Name><![CDATA[onRemove]]></Name>
@@ -815,7 +828,9 @@
 			<Parameter>
 				<Name><![CDATA[resourceSets]]></Name>
 				<Value Class="CodeValue">
-					<Code><![CDATA[buildLoadingPointResourceSets()]]></Code>
+					<Code><![CDATA[if (agent.currentTask == Task.TO_LOAD) return buildLoadingPointResourceSets();
+if (agent.currentTask == Task.TO_DUMP) return buildDumpingPointResourceSets();
+return new ResourcePool[0][];]]></Code>
 				</Value>
 			</Parameter>
 			<Parameter>
@@ -944,14 +959,21 @@
 			<Parameter>
 				<Name><![CDATA[onExit]]></Name>
 				<Value Class="CodeValue">
-					<Code><![CDATA[LoadingPoint seizedPoint = null;
-for (LoadingPoint lp : p_loadingPoints) {
-    if (lp.pool != null && !agent.resourceUnitsOfPool(lp.pool).isEmpty()) {
-        seizedPoint = lp;
-        break;
+					<Code><![CDATA[if (agent.currentTask == Task.TO_LOAD) {
+    for (LoadingPoint lp : p_loadingPoints) {
+        if (lp.pool != null && !agent.resourceUnitsOfPool(lp.pool).isEmpty()) {
+            agent.currentLoadingPoint = lp;
+            break;
+        }
     }
-}
-agent.currentLoadingPoint = seizedPoint;]]></Code>
+} else if (agent.currentTask == Task.TO_DUMP) {
+    for (DumpingPoint dp : p_dumpingPoints) {
+        if (dp.pool != null && !agent.resourceUnitsOfPool(dp.pool).isEmpty()) {
+            agent.currentDumpingPoint = dp;
+            break;
+        }
+    }
+}]]></Code>
 				</Value>
 			</Parameter>
 			<Parameter>
@@ -1022,9 +1044,17 @@ agent.currentLoadingPoint = seizedPoint;]]></Code>
 		<Parameters>
 			<Parameter>
 				<Name><![CDATA[conditionIsProbabilistic]]></Name>
+				<Value Class="CodeValue">
+					<Code><![CDATA[false]]></Code>
+				</Value>
 			</Parameter>
 			<Parameter>
 				<Name><![CDATA[condition]]></Name>
+				<Value Class="CodeValue">
+					<Code><![CDATA[agent.currentTask == Task.TO_LOAD ||
+agent.currentTask == Task.TO_DUMP ||
+agent.currentTask == Task.TO_HOME]]></Code>
+				</Value>
 			</Parameter>
 			<Parameter>
 				<Name><![CDATA[probability]]></Name>
@@ -1094,9 +1124,15 @@ agent.currentLoadingPoint = seizedPoint;]]></Code>
 		<Parameters>
 			<Parameter>
 				<Name><![CDATA[conditionIsProbabilistic]]></Name>
+				<Value Class="CodeValue">
+					<Code><![CDATA[false]]></Code>
+				</Value>
 			</Parameter>
 			<Parameter>
 				<Name><![CDATA[condition]]></Name>
+				<Value Class="CodeValue">
+					<Code><![CDATA[agent.currentTask != Task.TO_HOME]]></Code>
+				</Value>
 			</Parameter>
 			<Parameter>
 				<Name><![CDATA[probability]]></Name>
@@ -1271,6 +1307,9 @@ agent.currentLoadingPoint = seizedPoint;]]></Code>
 			</Parameter>
 			<Parameter>
 				<Name><![CDATA[onEnter]]></Name>
+				<Value Class="CodeValue">
+					<Code><![CDATA[agent.currentTask == Task.WAIT_AT_HOME]]></Code>
+				</Value>
 			</Parameter>
 		</Parameters>
 		<ReplicationFlag>false</ReplicationFlag>

@@ -39,6 +39,7 @@ return sets.toArray(new ResourcePool[0][]);
 
 double loadTaskMatrix(String csvFilePath)
 {/*ALCODESTART::1789634749929*/
+taskMatrix = new Task[TaskEvent.values().length][2];
 try (BufferedReader reader = new BufferedReader(new FileReader(csvFilePath))) {
     CSVParser parser = CSVParser.parse(reader, CSVFormat.DEFAULT.withFirstRecordAsHeader());
     for (CSVRecord record : parser) {
