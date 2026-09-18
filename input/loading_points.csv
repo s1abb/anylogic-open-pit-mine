@@ -1,5 +1,5 @@
-id,nodeId
-LP1,node_36
-LP2,node_32
-LP3,node_33
-LP4,node_34
+id,nodeId,queueNodeId,amount,loadAmount
+LP1,node_36,node_21,10000,250
+LP2,node_32,node_7,10000,250
+LP3,node_33,node_22,10000,250
+LP4,node_34,node_19,10000,250

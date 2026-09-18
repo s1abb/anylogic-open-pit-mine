@@ -62,3 +62,14 @@ a_Node node = findANodeById(nodeId);
 return node != null ? node.v_PointNode : null;
 /*ALCODEEND*/}
 
+LoadingPoint selectLoadingPoint()
+{/*ALCODESTART::1789711385731*/
+LoadingPoint best = null;
+for (LoadingPoint lp : p_loadingPoints) {
+    if (lp.amount > 0 && (best == null || lp.amount > best.amount)) {
+        best = lp;
+    }
+}
+return best;
+/*ALCODEEND*/}
+

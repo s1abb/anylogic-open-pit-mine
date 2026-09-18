@@ -3,8 +3,8 @@
 	<Connector>
 		<Id>1789548191435</Id>
 		<Name><![CDATA[connector2]]></Name>
-		<X>660</X>
-		<Y>-210</Y>
+		<X>840</X>
+		<Y>-220</Y>
 		<Label>
 			<X>10</X>
 			<Y>0</Y>
@@ -25,7 +25,7 @@
 		<TargetEmbeddedObjectReference>
 			<PackageName>model</PackageName>
 			<ClassName>Main</ClassName>
-			<ItemName>seize</ItemName>
+			<ItemName>seizeLoading</ItemName>
 		</TargetEmbeddedObjectReference>
 		<TargetConnectableItemReference>
 			<PackageName>com.anylogic.libraries.processmodeling</PackageName>
@@ -38,7 +38,7 @@
 				<Y>0</Y>
 			</Point>
 			<Point>
-				<X>-60</X>
+				<X>-100</X>
 				<Y>0</Y>
 			</Point>
 		</Points>
@@ -47,7 +47,7 @@
 		<Id>1789632183392</Id>
 		<Name><![CDATA[connector1]]></Name>
 		<X>390</X>
-		<Y>-210</Y>
+		<Y>-220</Y>
 		<Label>
 			<X>10</X>
 			<Y>0</Y>
@@ -81,50 +81,7 @@
 				<Y>0</Y>
 			</Point>
 			<Point>
-				<X>-200</X>
-				<Y>0</Y>
-			</Point>
-		</Points>
-	</Connector>
-	<Connector>
-		<Id>1789633298998</Id>
-		<Name><![CDATA[connector]]></Name>
-		<X>560</X>
-		<Y>-210</Y>
-		<Label>
-			<X>10</X>
-			<Y>0</Y>
-		</Label>
-		<PublicFlag>false</PublicFlag>
-		<PresentationFlag>true</PresentationFlag>
-		<ShowLabel>false</ShowLabel>
-		<SourceEmbeddedObjectReference>
-			<PackageName>model</PackageName>
-			<ClassName>Main</ClassName>
-			<ItemName>seize</ItemName>
-		</SourceEmbeddedObjectReference>
-		<SourceConnectableItemReference>
-			<PackageName>com.anylogic.libraries.processmodeling</PackageName>
-			<ClassName>Seize</ClassName>
-			<ItemName>in</ItemName>
-		</SourceConnectableItemReference>
-		<TargetEmbeddedObjectReference>
-			<PackageName>model</PackageName>
-			<ClassName>Main</ClassName>
-			<ItemName>needsResource</ItemName>
-		</TargetEmbeddedObjectReference>
-		<TargetConnectableItemReference>
-			<PackageName>com.anylogic.libraries.processmodeling</PackageName>
-			<ClassName>SelectOutput</ClassName>
-			<ItemName>outT</ItemName>
-		</TargetConnectableItemReference>
-		<Points>
-			<Point>
-				<X>0</X>
-				<Y>0</Y>
-			</Point>
-			<Point>
-				<X>-50</X>
+				<X>-90</X>
 				<Y>0</Y>
 			</Point>
 		</Points>
@@ -133,7 +90,7 @@
 		<Id>1789633299000</Id>
 		<Name><![CDATA[connector6]]></Name>
 		<X>490</X>
-		<Y>-210</Y>
+		<Y>-220</Y>
 		<Label>
 			<X>10</X>
 			<Y>0</Y>
@@ -173,65 +130,10 @@
 		</Points>
 	</Connector>
 	<Connector>
-		<Id>1789633337223</Id>
-		<Name><![CDATA[connector5]]></Name>
-		<X>500</X>
-		<Y>-200</Y>
-		<Label>
-			<X>10</X>
-			<Y>0</Y>
-		</Label>
-		<PublicFlag>false</PublicFlag>
-		<PresentationFlag>true</PresentationFlag>
-		<ShowLabel>false</ShowLabel>
-		<SourceEmbeddedObjectReference>
-			<PackageName>model</PackageName>
-			<ClassName>Main</ClassName>
-			<ItemName>needsResource</ItemName>
-		</SourceEmbeddedObjectReference>
-		<SourceConnectableItemReference>
-			<PackageName>com.anylogic.libraries.processmodeling</PackageName>
-			<ClassName>SelectOutput</ClassName>
-			<ItemName>outF</ItemName>
-		</SourceConnectableItemReference>
-		<TargetEmbeddedObjectReference>
-			<PackageName>model</PackageName>
-			<ClassName>Main</ClassName>
-			<ItemName>moveTo</ItemName>
-		</TargetEmbeddedObjectReference>
-		<TargetConnectableItemReference>
-			<PackageName>com.anylogic.libraries.processmodeling</PackageName>
-			<ClassName>MoveTo</ClassName>
-			<ItemName>in</ItemName>
-		</TargetConnectableItemReference>
-		<Points>
-			<Point>
-				<X>0</X>
-				<Y>0</Y>
-			</Point>
-			<Point>
-				<X>0</X>
-				<Y>30</Y>
-			</Point>
-			<Point>
-				<X>130</X>
-				<Y>30</Y>
-			</Point>
-			<Point>
-				<X>130</X>
-				<Y>-10</Y>
-			</Point>
-			<Point>
-				<X>160</X>
-				<Y>-10</Y>
-			</Point>
-		</Points>
-	</Connector>
-	<Connector>
 		<Id>1789694187096</Id>
 		<Name><![CDATA[connector9]]></Name>
-		<X>840</X>
-		<Y>-210</Y>
+		<X>1020</X>
+		<Y>-220</Y>
 		<Label>
 			<X>10</X>
 			<Y>0</Y>
@@ -265,23 +167,23 @@
 				<Y>0</Y>
 			</Point>
 			<Point>
-				<X>20</X>
+				<X>30</X>
 				<Y>0</Y>
 			</Point>
 			<Point>
-				<X>20</X>
-				<Y>60</Y>
+				<X>30</X>
+				<Y>120</Y>
 			</Point>
 			<Point>
-				<X>-470</X>
-				<Y>60</Y>
+				<X>-650</X>
+				<Y>120</Y>
 			</Point>
 			<Point>
-				<X>-470</X>
+				<X>-650</X>
 				<Y>0</Y>
 			</Point>
 			<Point>
-				<X>-450</X>
+				<X>-630</X>
 				<Y>0</Y>
 			</Point>
 		</Points>
@@ -289,8 +191,8 @@
 	<Connector>
 		<Id>1789694402671</Id>
 		<Name><![CDATA[connector3]]></Name>
-		<X>0</X>
-		<Y>0</Y>
+		<X>490</X>
+		<Y>-50</Y>
 		<Label>
 			<X>10</X>
 			<Y>0</Y>
@@ -320,12 +222,12 @@
 		</TargetConnectableItemReference>
 		<Points>
 			<Point>
-				<X>500</X>
-				<Y>-120</Y>
+				<X>0</X>
+				<Y>0</Y>
 			</Point>
 			<Point>
-				<X>470</X>
-				<Y>-120</Y>
+				<X>-20</X>
+				<Y>0</Y>
 			</Point>
 		</Points>
 	</Connector>
@@ -333,7 +235,7 @@
 		<Id>1789694407630</Id>
 		<Name><![CDATA[connector4]]></Name>
 		<X>400</X>
-		<Y>-200</Y>
+		<Y>-210</Y>
 		<Label>
 			<X>10</X>
 			<Y>0</Y>
@@ -368,19 +270,19 @@
 			</Point>
 			<Point>
 				<X>0</X>
-				<Y>80</Y>
+				<Y>160</Y>
 			</Point>
 			<Point>
 				<X>30</X>
-				<Y>80</Y>
+				<Y>160</Y>
 			</Point>
 		</Points>
 	</Connector>
 	<Connector>
 		<Id>1789694421079</Id>
 		<Name><![CDATA[connector7]]></Name>
-		<X>540</X>
-		<Y>-120</Y>
+		<X>530</X>
+		<Y>-50</Y>
 		<Label>
 			<X>10</X>
 			<Y>0</Y>
@@ -414,32 +316,32 @@
 				<Y>0</Y>
 			</Point>
 			<Point>
-				<X>10</X>
+				<X>20</X>
 				<Y>0</Y>
 			</Point>
 			<Point>
-				<X>10</X>
+				<X>20</X>
 				<Y>40</Y>
 			</Point>
 			<Point>
-				<X>-170</X>
+				<X>-160</X>
 				<Y>40</Y>
 			</Point>
 			<Point>
-				<X>-170</X>
-				<Y>-90</Y>
+				<X>-160</X>
+				<Y>-170</Y>
 			</Point>
 			<Point>
-				<X>-150</X>
-				<Y>-90</Y>
+				<X>-140</X>
+				<Y>-170</Y>
 			</Point>
 		</Points>
 	</Connector>
 	<Connector>
 		<Id>1789694465333</Id>
 		<Name><![CDATA[connector8]]></Name>
-		<X>0</X>
-		<Y>0</Y>
+		<X>180</X>
+		<Y>-10</Y>
 		<Label>
 			<X>10</X>
 			<Y>0</Y>
@@ -481,8 +383,8 @@
 	<Connector>
 		<Id>1789694465335</Id>
 		<Name><![CDATA[connector10]]></Name>
-		<X>0</X>
-		<Y>0</Y>
+		<X>950</X>
+		<Y>-220</Y>
 		<Label>
 			<X>10</X>
 			<Y>0</Y>
@@ -512,12 +414,251 @@
 		</TargetConnectableItemReference>
 		<Points>
 			<Point>
-				<X>770</X>
-				<Y>-210</Y>
+				<X>0</X>
+				<Y>0</Y>
+			</Point>
+			<Point>
+				<X>50</X>
+				<Y>0</Y>
+			</Point>
+		</Points>
+	</Connector>
+	<Connector>
+		<Id>1789711665814</Id>
+		<Name><![CDATA[connector]]></Name>
+		<X>700</X>
+		<Y>-220</Y>
+		<Label>
+			<X>10</X>
+			<Y>0</Y>
+		</Label>
+		<PublicFlag>false</PublicFlag>
+		<PresentationFlag>true</PresentationFlag>
+		<ShowLabel>false</ShowLabel>
+		<SourceEmbeddedObjectReference>
+			<PackageName>model</PackageName>
+			<ClassName>Main</ClassName>
+			<ItemName>seizeLoading</ItemName>
+		</SourceEmbeddedObjectReference>
+		<SourceConnectableItemReference>
+			<PackageName>com.anylogic.libraries.processmodeling</PackageName>
+			<ClassName>Seize</ClassName>
+			<ItemName>in</ItemName>
+		</SourceConnectableItemReference>
+		<TargetEmbeddedObjectReference>
+			<PackageName>model</PackageName>
+			<ClassName>Main</ClassName>
+			<ItemName>isLoadTask</ItemName>
+		</TargetEmbeddedObjectReference>
+		<TargetConnectableItemReference>
+			<PackageName>com.anylogic.libraries.processmodeling</PackageName>
+			<ClassName>SelectOutput</ClassName>
+			<ItemName>outT</ItemName>
+		</TargetConnectableItemReference>
+		<Points>
+			<Point>
+				<X>0</X>
+				<Y>0</Y>
+			</Point>
+			<Point>
+				<X>-70</X>
+				<Y>0</Y>
+			</Point>
+		</Points>
+	</Connector>
+	<Connector>
+		<Id>1789711665816</Id>
+		<Name><![CDATA[connector11]]></Name>
+		<X>610</X>
+		<Y>-220</Y>
+		<Label>
+			<X>10</X>
+			<Y>0</Y>
+		</Label>
+		<PublicFlag>false</PublicFlag>
+		<PresentationFlag>true</PresentationFlag>
+		<ShowLabel>false</ShowLabel>
+		<SourceEmbeddedObjectReference>
+			<PackageName>model</PackageName>
+			<ClassName>Main</ClassName>
+			<ItemName>isLoadTask</ItemName>
+		</SourceEmbeddedObjectReference>
+		<SourceConnectableItemReference>
+			<PackageName>com.anylogic.libraries.processmodeling</PackageName>
+			<ClassName>SelectOutput</ClassName>
+			<ItemName>in</ItemName>
+		</SourceConnectableItemReference>
+		<TargetEmbeddedObjectReference>
+			<PackageName>model</PackageName>
+			<ClassName>Main</ClassName>
+			<ItemName>needsResource</ItemName>
+		</TargetEmbeddedObjectReference>
+		<TargetConnectableItemReference>
+			<PackageName>com.anylogic.libraries.processmodeling</PackageName>
+			<ClassName>SelectOutput</ClassName>
+			<ItemName>outT</ItemName>
+		</TargetConnectableItemReference>
+		<Points>
+			<Point>
+				<X>0</X>
+				<Y>0</Y>
+			</Point>
+			<Point>
+				<X>-100</X>
+				<Y>0</Y>
+			</Point>
+		</Points>
+	</Connector>
+	<Connector>
+		<Id>1789711784557</Id>
+		<Name><![CDATA[connector12]]></Name>
+		<X>0</X>
+		<Y>0</Y>
+		<Label>
+			<X>10</X>
+			<Y>0</Y>
+		</Label>
+		<PublicFlag>false</PublicFlag>
+		<PresentationFlag>true</PresentationFlag>
+		<ShowLabel>false</ShowLabel>
+		<SourceEmbeddedObjectReference>
+			<PackageName>model</PackageName>
+			<ClassName>Main</ClassName>
+			<ItemName>seizeDumping</ItemName>
+		</SourceEmbeddedObjectReference>
+		<SourceConnectableItemReference>
+			<PackageName>com.anylogic.libraries.processmodeling</PackageName>
+			<ClassName>Seize</ClassName>
+			<ItemName>out</ItemName>
+		</SourceConnectableItemReference>
+		<TargetEmbeddedObjectReference>
+			<PackageName>model</PackageName>
+			<ClassName>Main</ClassName>
+			<ItemName>moveTo</ItemName>
+		</TargetEmbeddedObjectReference>
+		<TargetConnectableItemReference>
+			<PackageName>com.anylogic.libraries.processmodeling</PackageName>
+			<ClassName>MoveTo</ClassName>
+			<ItemName>in</ItemName>
+		</TargetConnectableItemReference>
+		<Points>
+			<Point>
+				<X>740</X>
+				<Y>-150</Y>
 			</Point>
 			<Point>
 				<X>820</X>
-				<Y>-210</Y>
+				<Y>-150</Y>
+			</Point>
+			<Point>
+				<X>820</X>
+				<Y>-220</Y>
+			</Point>
+			<Point>
+				<X>840</X>
+				<Y>-220</Y>
+			</Point>
+		</Points>
+	</Connector>
+	<Connector>
+		<Id>1789711817721</Id>
+		<Name><![CDATA[connector5]]></Name>
+		<X>620</X>
+		<Y>-210</Y>
+		<Label>
+			<X>10</X>
+			<Y>0</Y>
+		</Label>
+		<PublicFlag>false</PublicFlag>
+		<PresentationFlag>true</PresentationFlag>
+		<ShowLabel>false</ShowLabel>
+		<SourceEmbeddedObjectReference>
+			<PackageName>model</PackageName>
+			<ClassName>Main</ClassName>
+			<ItemName>isLoadTask</ItemName>
+		</SourceEmbeddedObjectReference>
+		<SourceConnectableItemReference>
+			<PackageName>com.anylogic.libraries.processmodeling</PackageName>
+			<ClassName>SelectOutput</ClassName>
+			<ItemName>outF</ItemName>
+		</SourceConnectableItemReference>
+		<TargetEmbeddedObjectReference>
+			<PackageName>model</PackageName>
+			<ClassName>Main</ClassName>
+			<ItemName>seizeDumping</ItemName>
+		</TargetEmbeddedObjectReference>
+		<TargetConnectableItemReference>
+			<PackageName>com.anylogic.libraries.processmodeling</PackageName>
+			<ClassName>Seize</ClassName>
+			<ItemName>in</ItemName>
+		</TargetConnectableItemReference>
+		<Points>
+			<Point>
+				<X>0</X>
+				<Y>0</Y>
+			</Point>
+			<Point>
+				<X>0</X>
+				<Y>60</Y>
+			</Point>
+			<Point>
+				<X>80</X>
+				<Y>60</Y>
+			</Point>
+		</Points>
+	</Connector>
+	<Connector>
+		<Id>1789711830844</Id>
+		<Name><![CDATA[connector13]]></Name>
+		<X>500</X>
+		<Y>-210</Y>
+		<Label>
+			<X>10</X>
+			<Y>0</Y>
+		</Label>
+		<PublicFlag>false</PublicFlag>
+		<PresentationFlag>true</PresentationFlag>
+		<ShowLabel>false</ShowLabel>
+		<SourceEmbeddedObjectReference>
+			<PackageName>model</PackageName>
+			<ClassName>Main</ClassName>
+			<ItemName>needsResource</ItemName>
+		</SourceEmbeddedObjectReference>
+		<SourceConnectableItemReference>
+			<PackageName>com.anylogic.libraries.processmodeling</PackageName>
+			<ClassName>SelectOutput</ClassName>
+			<ItemName>outF</ItemName>
+		</SourceConnectableItemReference>
+		<TargetEmbeddedObjectReference>
+			<PackageName>model</PackageName>
+			<ClassName>Main</ClassName>
+			<ItemName>moveTo</ItemName>
+		</TargetEmbeddedObjectReference>
+		<TargetConnectableItemReference>
+			<PackageName>com.anylogic.libraries.processmodeling</PackageName>
+			<ClassName>MoveTo</ClassName>
+			<ItemName>in</ItemName>
+		</TargetConnectableItemReference>
+		<Points>
+			<Point>
+				<X>0</X>
+				<Y>0</Y>
+			</Point>
+			<Point>
+				<X>0</X>
+				<Y>90</Y>
+			</Point>
+			<Point>
+				<X>320</X>
+				<Y>90</Y>
+			</Point>
+			<Point>
+				<X>320</X>
+				<Y>-10</Y>
+			</Point>
+			<Point>
+				<X>340</X>
+				<Y>-10</Y>
 			</Point>
 		</Points>
 	</Connector>
