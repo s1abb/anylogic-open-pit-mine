@@ -562,7 +562,8 @@
 				<Name><![CDATA[onAtExit]]></Name>
 				<Value Class="CodeValue">
 					<Code><![CDATA[TaskEvent completionEvent = agent.currentTask == Task.LOAD ? TaskEvent.LOAD_COMPLETE : TaskEvent.DUMP_COMPLETE;
-agent.currentTask = nextTask(completionEvent, shiftActive);]]></Code>
+agent.currentTask = nextTask(completionEvent, shiftActive);
+logger.info("Truck finished {}, task now: {}", agent.currentTask == Task.LOAD ? "loading" : "dumping", agent.currentTask);]]></Code>
 				</Value>
 			</Parameter>
 			<Parameter>
@@ -719,7 +720,8 @@ findNodeById(p_homeNodes.get(0).nodeId)]]></Code>
     agent.currentTask == Task.TO_DUMP ? TaskEvent.DUMPING_ARRIVAL :
     TaskEvent.HOME_ARRIVAL;
 Task result = nextTask(arrivalEvent, shiftActive);
-agent.currentTask = result;]]></Code>
+agent.currentTask = result;
+logger.info("Truck arrived, task now: {}", agent.currentTask);]]></Code>
 				</Value>
 			</Parameter>
 			<Parameter>
@@ -977,6 +979,12 @@ new ResourcePool[0][]]]></Code>
             break;
         }
     }
+}
+
+if (agent.currentTask == Task.TO_LOAD && agent.currentLoadingPoint != null) {
+    logger.info("Truck seized loading point: {}", agent.currentLoadingPoint.id);
+} else if (agent.currentTask == Task.TO_DUMP && agent.currentDumpingPoint != null) {
+    logger.info("Truck seized dumping point: {}", agent.currentDumpingPoint.id);
 }]]></Code>
 				</Value>
 			</Parameter>
@@ -1320,6 +1328,11 @@ agent.currentTask == Task.TO_HOME]]></Code>
 			</Parameter>
 			<Parameter>
 				<Name><![CDATA[onEnter]]></Name>
+				<Value Class="CodeValue">
+					<Code><![CDATA[if (agent.currentTask == Task.WAIT_AT_HOME) {
+    logger.info("Truck parked at home for shift break");
+}]]></Code>
+				</Value>
 			</Parameter>
 		</Parameters>
 		<ReplicationFlag>false</ReplicationFlag>
