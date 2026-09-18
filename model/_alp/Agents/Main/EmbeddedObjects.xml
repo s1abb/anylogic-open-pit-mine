@@ -1295,21 +1295,24 @@ agent.currentTask == Task.TO_HOME]]></Code>
 		<Parameters>
 			<Parameter>
 				<Name><![CDATA[mode]]></Name>
+				<Value Class="CodeValue">
+					<Code><![CDATA[self.CONDITIONAL]]></Code>
+				</Value>
 			</Parameter>
 			<Parameter>
 				<Name><![CDATA[nEntitiesForSelfBlock]]></Name>
 			</Parameter>
 			<Parameter>
 				<Name><![CDATA[condition]]></Name>
+				<Value Class="CodeValue">
+					<Code><![CDATA[agent.currentTask == Task.WAIT_AT_HOME]]></Code>
+				</Value>
 			</Parameter>
 			<Parameter>
 				<Name><![CDATA[initiallyBlocked]]></Name>
 			</Parameter>
 			<Parameter>
 				<Name><![CDATA[onEnter]]></Name>
-				<Value Class="CodeValue">
-					<Code><![CDATA[agent.currentTask == Task.WAIT_AT_HOME]]></Code>
-				</Value>
 			</Parameter>
 		</Parameters>
 		<ReplicationFlag>false</ReplicationFlag>
