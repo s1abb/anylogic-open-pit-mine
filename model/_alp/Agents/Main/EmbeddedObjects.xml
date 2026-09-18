@@ -568,6 +568,9 @@
 				<Name><![CDATA[onAtExit]]></Name>
 				<Value Class="CodeValue">
 					<Code><![CDATA[Task justCompleted = agent.currentTask;
+if (agent.currentTask == Task.LOAD && agent.currentLoadingPoint != null) {
+    agent.currentLoadingPoint.amount -= agent.currentLoadingPoint.loadAmount;
+}
 TaskEvent completionEvent = agent.currentTask == Task.LOAD ? TaskEvent.LOAD_COMPLETE : TaskEvent.DUMP_COMPLETE;
 agent.currentTask = nextTask(completionEvent, shiftActive);
 logger.info("Truck finished {}, task now: {}", justCompleted == Task.LOAD ? "loading" : "dumping", agent.currentTask);]]></Code>
@@ -852,9 +855,10 @@ logger.info("Truck arrived, task now: {}", agent.currentTask);]]></Code>
 			<Parameter>
 				<Name><![CDATA[resourceSets]]></Name>
 				<Value Class="CodeValue">
-					<Code><![CDATA[agent.currentTask == Task.TO_LOAD ? buildLoadingPointResourceSets() :
-agent.currentTask == Task.TO_DUMP ? buildDumpingPointResourceSets() :
-new ResourcePool[0][]]]></Code>
+					<Code><![CDATA[if (agent.currentLoadingPoint != null && agent.currentLoadingPoint.pool != null) {
+    return new ResourcePool[][]{ { agent.currentLoadingPoint.pool } };
+}
+return new ResourcePool[0][];]]></Code>
 				</Value>
 			</Parameter>
 			<Parameter>
@@ -902,7 +906,7 @@ new ResourcePool[0][]]]></Code>
 			<Parameter>
 				<Name><![CDATA[entityLocationQueue]]></Name>
 				<Value Class="CodeValue">
-					<Code><![CDATA[findNodeById("node_24")]]></Code>
+					<Code><![CDATA[agent.currentLoadingPoint != null ? findNodeById(agent.currentLoadingPoint.queueNodeId) : null]]></Code>
 				</Value>
 			</Parameter>
 			<Parameter>
@@ -973,6 +977,9 @@ new ResourcePool[0][]]]></Code>
 			</Parameter>
 			<Parameter>
 				<Name><![CDATA[onEnter]]></Name>
+				<Value Class="CodeValue">
+					<Code><![CDATA[agent.currentLoadingPoint = selectLoadingPoint();]]></Code>
+				</Value>
 			</Parameter>
 			<Parameter>
 				<Name><![CDATA[onExitTimeout]]></Name>
@@ -989,20 +996,8 @@ new ResourcePool[0][]]]></Code>
 			<Parameter>
 				<Name><![CDATA[onExit]]></Name>
 				<Value Class="CodeValue">
-					<Code><![CDATA[if (agent.currentTask == Task.TO_LOAD) {
-    for (LoadingPoint lp : p_loadingPoints) {
-        if (lp.pool != null && !agent.resourceUnitsOfPool(lp.pool).isEmpty()) {
-            agent.currentLoadingPoint = lp;
-            break;
-        }
-    }
-} else if (agent.currentTask == Task.TO_DUMP) {
-    for (DumpingPoint dp : p_dumpingPoints) {
-        if (dp.pool != null && !agent.resourceUnitsOfPool(dp.pool).isEmpty()) {
-            agent.currentDumpingPoint = dp;
-            break;
-        }
-    }
+					<Code><![CDATA[if (agent.currentLoadingPoint != null) {
+    logger.info("Truck seized loading point: {}", agent.currentLoadingPoint.id);
 }
 
 if (agent.currentTask == Task.TO_LOAD && agent.currentLoadingPoint != null) {
@@ -1574,6 +1569,9 @@ agent.currentTask == Task.TO_HOME]]></Code>
 			</Parameter>
 			<Parameter>
 				<Name><![CDATA[resourceSets]]></Name>
+				<Value Class="CodeValue">
+					<Code><![CDATA[buildDumpingPointResourceSets()]]></Code>
+				</Value>
 			</Parameter>
 			<Parameter>
 				<Name><![CDATA[resourcePool]]></Name>
@@ -1619,6 +1617,9 @@ agent.currentTask == Task.TO_HOME]]></Code>
 			</Parameter>
 			<Parameter>
 				<Name><![CDATA[entityLocationQueue]]></Name>
+				<Value Class="CodeValue">
+					<Code><![CDATA[findNodeById("node_24")]]></Code>
+				</Value>
 			</Parameter>
 			<Parameter>
 				<Name><![CDATA[priority]]></Name>
@@ -1700,6 +1701,15 @@ agent.currentTask == Task.TO_HOME]]></Code>
 			</Parameter>
 			<Parameter>
 				<Name><![CDATA[onExit]]></Name>
+				<Value Class="CodeValue">
+					<Code><![CDATA[for (DumpingPoint dp : p_dumpingPoints) {
+    if (dp.pool != null && !agent.resourceUnitsOfPool(dp.pool).isEmpty()) {
+        agent.currentDumpingPoint = dp;
+        logger.info("Truck seized dumping point: {}", dp.id);
+        break;
+    }
+}]]></Code>
+				</Value>
 			</Parameter>
 			<Parameter>
 				<Name><![CDATA[onRemove]]></Name>
