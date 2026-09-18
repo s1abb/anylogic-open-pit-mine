@@ -59,3 +59,9 @@ Task nextTask(TaskEvent event,boolean shift)
 return taskMatrix[event.ordinal()][shift ? 1 : 0];
 /*ALCODEEND*/}
 
+Node findNodeById(String nodeId)
+{/*ALCODESTART::1789689972207*/
+a_Node node = findANodeById(nodeId);
+return node != null ? node.v_PointNode : null;
+/*ALCODEEND*/}
+

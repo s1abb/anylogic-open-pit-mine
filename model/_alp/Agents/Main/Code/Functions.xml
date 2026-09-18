@@ -38,7 +38,7 @@
 		<Id>1789608877713</Id>
 		<Name><![CDATA[findANodeById]]></Name>
 		<X>-250</X>
-		<Y>500</Y>
+		<Y>550</Y>
 		<Label>
 			<X>10</X>
 			<Y>0</Y>
@@ -74,7 +74,7 @@
 		<Id>1789634749929</Id>
 		<Name><![CDATA[loadTaskMatrix]]></Name>
 		<X>-250</X>
-		<Y>550</Y>
+		<Y>600</Y>
 		<Label>
 			<X>10</X>
 			<Y>0</Y>
@@ -94,7 +94,7 @@
 		<Id>1789688464665</Id>
 		<Name><![CDATA[nextTask]]></Name>
 		<X>-250</X>
-		<Y>600</Y>
+		<Y>650</Y>
 		<Label>
 			<X>10</X>
 			<Y>0</Y>
@@ -109,6 +109,26 @@
 		<Parameter>
 			<Name><![CDATA[shift]]></Name>
 			<Type><![CDATA[boolean]]></Type>
+		</Parameter>
+		<Body xmlns:al="http://anylogic.com"/>
+	</Function>
+	<Function AccessType="default" StaticFunction="false">
+		<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+		<ReturnType>Node</ReturnType>
+		<Id>1789689972207</Id>
+		<Name><![CDATA[findNodeById]]></Name>
+		<X>-250</X>
+		<Y>500</Y>
+		<Label>
+			<X>10</X>
+			<Y>0</Y>
+		</Label>
+		<PublicFlag>false</PublicFlag>
+		<PresentationFlag>true</PresentationFlag>
+		<ShowLabel>true</ShowLabel>
+		<Parameter>
+			<Name><![CDATA[nodeId]]></Name>
+			<Type><![CDATA[String]]></Type>
 		</Parameter>
 		<Body xmlns:al="http://anylogic.com"/>
 	</Function>
