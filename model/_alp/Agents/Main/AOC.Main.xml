@@ -34,8 +34,8 @@ import java.io.FileReader;]]></Import>
 	<StartupCode><![CDATA[// Create NetworkBuilder and parse OBJ file
 NetworkBuilder builder = new NetworkBuilder();
 builder.setCoordinateTransform(CoordinateTransform.createDefaultTransform());
-builder.parseOBJFile("C:\\repos\\anylogic-network-builder\\network\\network.obj");
-builder.applyEdgeCorrections("C:\\repos\\anylogic-open-pit-mine\\model\\edges_list_corrected.csv");
+builder.parseOBJFile("../network/network.obj");
+builder.applyEdgeCorrections("./edges_list_corrected.csv");
 builder.saveJSONToFile("./network.json");
 builder.saveEdgesCSV("./edges_list_default.csv");
 
@@ -57,14 +57,13 @@ try {
             lp.nodesRef = p_Network.p_Nodes;
             return lp;
         },
-        "C:\\repos\\anylogic-open-pit-mine\\input\\loading_points.csv",
+        "../input/loading_points.csv",
         true
     );
     loadingPointsDriver.callOnParametersSet();
     loadingPointsDriver.callOnRunStarted();
 } catch (InputException e) {
     logger.error("Error loading loading points CSV: {}", e.getMessage(), e);
-    traceln("Error loading loading points CSV: " + e.getMessage());
 }
 
 try {
@@ -75,7 +74,7 @@ try {
             dp.nodesRef = p_Network.p_Nodes;
             return dp;
         },
-        "C:\\repos\\anylogic-open-pit-mine\\input\\dumping_points.csv",
+        "../input/dumping_points.csv",
         true
     );
     dumpingPointsDriver.callOnParametersSet();
@@ -93,7 +92,7 @@ try {
             hp.nodesRef = p_Network.p_Nodes;
             return hp;
         },
-        "C:\\repos\\anylogic-open-pit-mine\\input\\home_points.csv",
+        "../input/home_points.csv",
         true
     );
     homeNodesDriver.callOnParametersSet();
@@ -102,7 +101,7 @@ try {
     logger.error("Error loading home points CSV: {}", e.getMessage(), e);
     traceln("Error loading home points CSV: " + e.getMessage());
 }
-loadTaskMatrix("C:\\repos\\anylogic-open-pit-mine\\input\\task_matrix.csv");
+loadTaskMatrix("../input/task_matrix.csv");
 onRunInitialised();
 logger.info("Trucks in population after inject: {}", p_dumpTrucks.size());]]></StartupCode>
 	<Generic>false</Generic>

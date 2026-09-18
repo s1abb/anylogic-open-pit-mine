@@ -12,7 +12,6 @@ public void loadDataFromJson() {
         logger.info("Data loading completed successfully");
     } catch (Exception e) {
         logger.error("Error loading data from JSON: {}", e.getMessage(), e);
-        traceln("Error loading data from JSON: " + e.getMessage());
         e.printStackTrace();
     }
 }

@@ -498,7 +498,7 @@
 	<EmbeddedObject>
 		<Id>1789546037101</Id>
 		<Name><![CDATA[delay]]></Name>
-		<X>320</X>
+		<X>430</X>
 		<Y>-140</Y>
 		<Label>
 			<X>0</X>
@@ -517,6 +517,9 @@
 				<ClassName>Delay</ClassName>
 				<ItemName>1412336242930</ItemName>
 			</GenericParameterSubstituteReference>
+			<GenericParameterSubstituteValue Class="CodeValue">
+				<Code><![CDATA[DumpTruck]]></Code>
+			</GenericParameterSubstituteValue>
 		</GenericParameterSubstitute>
 		<Parameters>
 			<Parameter>
@@ -557,13 +560,13 @@
 			</Parameter>
 			<Parameter>
 				<Name><![CDATA[onAtExit]]></Name>
-			</Parameter>
-			<Parameter>
-				<Name><![CDATA[onExit]]></Name>
 				<Value Class="CodeValue">
 					<Code><![CDATA[TaskEvent completionEvent = agent.currentTask == Task.LOAD ? TaskEvent.LOAD_COMPLETE : TaskEvent.DUMP_COMPLETE;
 agent.currentTask = nextTask(completionEvent, shiftActive);]]></Code>
 				</Value>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[onExit]]></Name>
 			</Parameter>
 			<Parameter>
 				<Name><![CDATA[onRemove]]></Name>
@@ -715,7 +718,8 @@ findNodeById(p_homeNodes.get(0).nodeId)]]></Code>
     agent.currentTask == Task.TO_LOAD ? TaskEvent.LOADING_ARRIVAL :
     agent.currentTask == Task.TO_DUMP ? TaskEvent.DUMPING_ARRIVAL :
     TaskEvent.HOME_ARRIVAL;
-agent.currentTask = nextTask(arrivalEvent, shiftActive);]]></Code>
+Task result = nextTask(arrivalEvent, shiftActive);
+agent.currentTask = result;]]></Code>
 				</Value>
 			</Parameter>
 			<Parameter>
@@ -1179,7 +1183,7 @@ agent.currentTask == Task.TO_HOME]]></Code>
 	<EmbeddedObject>
 		<Id>1789633448450</Id>
 		<Name><![CDATA[release]]></Name>
-		<X>240</X>
+		<X>500</X>
 		<Y>-140</Y>
 		<Label>
 			<X>-10</X>
@@ -1198,6 +1202,9 @@ agent.currentTask == Task.TO_HOME]]></Code>
 				<ClassName>Release</ClassName>
 				<ItemName>1412336243154</ItemName>
 			</GenericParameterSubstituteReference>
+			<GenericParameterSubstituteValue Class="CodeValue">
+				<Code><![CDATA[DumpTruck]]></Code>
+			</GenericParameterSubstituteValue>
 		</GenericParameterSubstitute>
 		<Parameters>
 			<Parameter>
@@ -1272,7 +1279,7 @@ agent.currentTask == Task.TO_HOME]]></Code>
 	<EmbeddedObject>
 		<Id>1789633576366</Id>
 		<Name><![CDATA[hold]]></Name>
-		<X>740</X>
+		<X>820</X>
 		<Y>-220</Y>
 		<Label>
 			<X>-10</X>
@@ -1333,6 +1340,94 @@ agent.currentTask == Task.TO_HOME]]></Code>
 		<InitializationType>SPECIFIED_NUMBER</InitializationType>
 		<InitializationDatabaseTableQuery>
 			<Id>1789633576364</Id>
+			<TableReference/>
+		</InitializationDatabaseTableQuery>
+		<InitializationDatabaseType>ONE_AGENT_PER_DATABASE_RECORD</InitializationDatabaseType>
+		<QuantityColumn/>
+	</EmbeddedObject>
+	<EmbeddedObject>
+		<Id>1789694463694</Id>
+		<Name><![CDATA[syncDelay]]></Name>
+		<X>730</X>
+		<Y>-230</Y>
+		<Label>
+			<X>-5</X>
+			<Y>-15</Y>
+		</Label>
+		<PublicFlag>false</PublicFlag>
+		<PresentationFlag>true</PresentationFlag>
+		<ShowLabel>true</ShowLabel>
+		<ActiveObjectClass>
+			<PackageName>com.anylogic.libraries.processmodeling</PackageName>
+			<ClassName>Delay</ClassName>
+		</ActiveObjectClass>
+		<GenericParameterSubstitute>
+			<GenericParameterSubstituteReference>
+				<PackageName>com.anylogic.libraries.processmodeling</PackageName>
+				<ClassName>Delay</ClassName>
+				<ItemName>1412336242930</ItemName>
+			</GenericParameterSubstituteReference>
+		</GenericParameterSubstitute>
+		<Parameters>
+			<Parameter>
+				<Name><![CDATA[type]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[delayTime]]></Name>
+				<Value Class="CodeUnitValue">
+					<Code><![CDATA[0]]></Code>
+					<Unit Class="TimeUnits">SECOND</Unit>
+				</Value>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[capacity]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[maximumCapacity]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[entityLocation]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[pushProtocol]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[restoreEntityLocationOnExit]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[forceStatisticsCollection]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[onEnter]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[onAtExit]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[onExit]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[onRemove]]></Name>
+			</Parameter>
+		</Parameters>
+		<ReplicationFlag>false</ReplicationFlag>
+		<Replication Class="CodeValue">
+			<Code><![CDATA[100]]></Code>
+		</Replication>
+		<CollectionType>ARRAY_LIST_BASED</CollectionType>
+		<InitialLocationType>XYZ</InitialLocationType>
+		<ColumnCode Class="CodeValue">
+			<Code><![CDATA[0]]></Code>
+		</ColumnCode>
+		<RowCode Class="CodeValue">
+			<Code><![CDATA[0]]></Code>
+		</RowCode>
+		<LocationNameCode Class="CodeValue">
+			<Code><![CDATA[""]]></Code>
+		</LocationNameCode>
+		<InitializationType>SPECIFIED_NUMBER</InitializationType>
+		<InitializationDatabaseTableQuery>
+			<Id>1789694463692</Id>
 			<TableReference/>
 		</InitializationDatabaseTableQuery>
 		<InitializationDatabaseType>ONE_AGENT_PER_DATABASE_RECORD</InitializationDatabaseType>
