@@ -85,6 +85,9 @@
 			<Type><![CDATA[double]]></Type>
 			<UnitType>NONE</UnitType>
 			<SdArray>false</SdArray>
+			<DefaultValue Class="CodeValue">
+				<Code><![CDATA[1]]></Code>
+			</DefaultValue>
 			<ParameterEditor>
 				<Id>1789634092483</Id>
 				<EditorContolType>TEXT_BOX</EditorContolType>
@@ -110,6 +113,9 @@
 			<Type><![CDATA[double]]></Type>
 			<UnitType>NONE</UnitType>
 			<SdArray>false</SdArray>
+			<DefaultValue Class="CodeValue">
+				<Code><![CDATA[2]]></Code>
+			</DefaultValue>
 			<ParameterEditor>
 				<Id>1789634094854</Id>
 				<EditorContolType>TEXT_BOX</EditorContolType>
@@ -135,6 +141,9 @@
 			<Type><![CDATA[double]]></Type>
 			<UnitType>NONE</UnitType>
 			<SdArray>false</SdArray>
+			<DefaultValue Class="CodeValue">
+				<Code><![CDATA[5]]></Code>
+			</DefaultValue>
 			<ParameterEditor>
 				<Id>1789634107717</Id>
 				<EditorContolType>TEXT_BOX</EditorContolType>
@@ -160,6 +169,9 @@
 			<Type><![CDATA[double]]></Type>
 			<UnitType>NONE</UnitType>
 			<SdArray>false</SdArray>
+			<DefaultValue Class="CodeValue">
+				<Code><![CDATA[1]]></Code>
+			</DefaultValue>
 			<ParameterEditor>
 				<Id>1789634162016</Id>
 				<EditorContolType>TEXT_BOX</EditorContolType>
@@ -185,6 +197,9 @@
 			<Type><![CDATA[double]]></Type>
 			<UnitType>NONE</UnitType>
 			<SdArray>false</SdArray>
+			<DefaultValue Class="CodeValue">
+				<Code><![CDATA[2]]></Code>
+			</DefaultValue>
 			<ParameterEditor>
 				<Id>1789634164126</Id>
 				<EditorContolType>TEXT_BOX</EditorContolType>
@@ -210,6 +225,9 @@
 			<Type><![CDATA[double]]></Type>
 			<UnitType>NONE</UnitType>
 			<SdArray>false</SdArray>
+			<DefaultValue Class="CodeValue">
+				<Code><![CDATA[5]]></Code>
+			</DefaultValue>
 			<ParameterEditor>
 				<Id>1789634166327</Id>
 				<EditorContolType>TEXT_BOX</EditorContolType>

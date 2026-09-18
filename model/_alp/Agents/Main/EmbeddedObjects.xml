@@ -525,9 +525,9 @@
 			<Parameter>
 				<Name><![CDATA[delayTime]]></Name>
 				<Value Class="CodeUnitValue">
-					<Code><![CDATA[agent.currentTask == Task.LOAD ?
+					<Code><![CDATA[(agent.currentTask == Task.LOAD ?
     triangular(loadTimeMin, loadTimeMode, loadTimeMax) :
-    triangular(dumpTimeMin, dumpTimeMode, dumpTimeMax)]]></Code>
+    triangular(dumpTimeMin, dumpTimeMode, dumpTimeMax))]]></Code>
 					<Unit Class="TimeUnits">MINUTE</Unit>
 				</Value>
 			</Parameter>
@@ -828,9 +828,9 @@ agent.currentTask = nextTask(arrivalEvent, shiftActive);]]></Code>
 			<Parameter>
 				<Name><![CDATA[resourceSets]]></Name>
 				<Value Class="CodeValue">
-					<Code><![CDATA[if (agent.currentTask == Task.TO_LOAD) return buildLoadingPointResourceSets();
-if (agent.currentTask == Task.TO_DUMP) return buildDumpingPointResourceSets();
-return new ResourcePool[0][];]]></Code>
+					<Code><![CDATA[agent.currentTask == Task.TO_LOAD ? buildLoadingPointResourceSets() :
+agent.currentTask == Task.TO_DUMP ? buildDumpingPointResourceSets() :
+new ResourcePool[0][]]]></Code>
 				</Value>
 			</Parameter>
 			<Parameter>
