@@ -561,9 +561,10 @@
 			<Parameter>
 				<Name><![CDATA[onAtExit]]></Name>
 				<Value Class="CodeValue">
-					<Code><![CDATA[TaskEvent completionEvent = agent.currentTask == Task.LOAD ? TaskEvent.LOAD_COMPLETE : TaskEvent.DUMP_COMPLETE;
+					<Code><![CDATA[Task justCompleted = agent.currentTask;
+TaskEvent completionEvent = agent.currentTask == Task.LOAD ? TaskEvent.LOAD_COMPLETE : TaskEvent.DUMP_COMPLETE;
 agent.currentTask = nextTask(completionEvent, shiftActive);
-logger.info("Truck finished {}, task now: {}", agent.currentTask == Task.LOAD ? "loading" : "dumping", agent.currentTask);]]></Code>
+logger.info("Truck finished {}, task now: {}", justCompleted == Task.LOAD ? "loading" : "dumping", agent.currentTask);]]></Code>
 				</Value>
 			</Parameter>
 			<Parameter>
@@ -702,9 +703,16 @@ findNodeById(p_homeNodes.get(0).nodeId)]]></Code>
 			</Parameter>
 			<Parameter>
 				<Name><![CDATA[setSpeed]]></Name>
+				<Value Class="CodeValue">
+					<Code><![CDATA[true]]></Code>
+				</Value>
 			</Parameter>
 			<Parameter>
 				<Name><![CDATA[speed]]></Name>
+				<Value Class="CodeUnitValue">
+					<Code><![CDATA[40]]></Code>
+					<Unit Class="SpeedUnits">KPH</Unit>
+				</Value>
 			</Parameter>
 			<Parameter>
 				<Name><![CDATA[restoreSpeedOnArrival]]></Name>
@@ -786,6 +794,10 @@ logger.info("Truck arrived, task now: {}", agent.currentTask);]]></Code>
 		</Replication>
 		<CollectionType>ARRAY_LIST_BASED</CollectionType>
 		<InEnvironment>true</InEnvironment>
+		<InitialSpeedCode Class="CodeUnitValue">
+			<Code><![CDATA[40]]></Code>
+			<Unit Class="SpeedUnits">KPH</Unit>
+		</InitialSpeedCode>
 		<InitialLocationType>XYZ</InitialLocationType>
 		<ColumnCode Class="CodeValue">
 			<Code><![CDATA[0]]></Code>
@@ -1394,6 +1406,9 @@ agent.currentTask == Task.TO_HOME]]></Code>
 			</Parameter>
 			<Parameter>
 				<Name><![CDATA[capacity]]></Name>
+				<Value Class="CodeValue">
+					<Code><![CDATA[3]]></Code>
+				</Value>
 			</Parameter>
 			<Parameter>
 				<Name><![CDATA[maximumCapacity]]></Name>

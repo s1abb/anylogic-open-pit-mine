@@ -201,6 +201,7 @@ logger.info("Trucks in population after inject: {}", p_dumpTrucks.size());]]></S
 	<CurrentLevel>1769735506124</CurrentLevel>
 	<ConnectionsId>1769735506119</ConnectionsId>
 	<Variables xmlns:al="http://anylogic.com"/>
+	<Events xmlns:al="http://anylogic.com"/>
 	<Functions xmlns:al="http://anylogic.com"/>
 	<AgentLinks>
 		<AgentLink>

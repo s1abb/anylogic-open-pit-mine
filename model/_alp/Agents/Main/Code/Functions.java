@@ -1,10 +1,7 @@
 double onRunInitialised()
 {/*ALCODESTART::1789547667834*/
-traceln("onRunInitialised() called");
 source.inject(numDumpTrucks);
-traceln("Trucks in population after inject: " + p_dumpTrucks.size());
 DumpTruck t = p_dumpTrucks.get(0);
-traceln("First truck at: " + t.getX() + ", " + t.getY() + ", " + t.getZ());
 /*ALCODEEND*/}
 
 ResourcePool[][] buildLoadingPointResourceSets()
