@@ -96,6 +96,9 @@
 			<Parameter>
 				<Name><![CDATA[queueNodeId]]></Name>
 			</Parameter>
+			<Parameter>
+				<Name><![CDATA[amount]]></Name>
+			</Parameter>
 		</Parameters>
 		<ReplicationFlag>true</ReplicationFlag>
 		<Replication Class="CodeValue">
@@ -570,6 +573,7 @@
 					<Code><![CDATA[Task justCompleted = agent.currentTask;
 if (agent.currentTask == Task.LOAD && agent.currentLoadingPoint != null) {
     agent.currentLoadingPoint.amount -= agent.currentLoadingPoint.loadAmount;
+    agent.currentLoadingPoint.assignedTrucks--;
 }
 TaskEvent completionEvent = agent.currentTask == Task.LOAD ? TaskEvent.LOAD_COMPLETE : TaskEvent.DUMP_COMPLETE;
 agent.currentTask = nextTask(completionEvent, shiftActive);
@@ -609,7 +613,7 @@ logger.info("Truck finished {}, task now: {}", justCompleted == Task.LOAD ? "loa
 	<EmbeddedObject>
 		<Id>1789547323924</Id>
 		<Name><![CDATA[moveTo]]></Name>
-		<X>840</X>
+		<X>970</X>
 		<Y>-240</Y>
 		<Label>
 			<X>-10</X>
@@ -728,6 +732,10 @@ findNodeById(p_homeNodes.get(0).nodeId)]]></Code>
 			</Parameter>
 			<Parameter>
 				<Name><![CDATA[onEnter]]></Name>
+				<Value Class="CodeValue">
+					<Code><![CDATA[logger.info("moveTo ENTER: truck={} at=({},{},{}) task={} time={}",
+    agent.getIndex(), agent.getX(), agent.getY(), agent.getZ(), agent.currentTask, time());]]></Code>
+				</Value>
 			</Parameter>
 			<Parameter>
 				<Name><![CDATA[onExit]]></Name>
@@ -738,7 +746,9 @@ findNodeById(p_homeNodes.get(0).nodeId)]]></Code>
     TaskEvent.HOME_ARRIVAL;
 Task result = nextTask(arrivalEvent, shiftActive);
 agent.currentTask = result;
-logger.info("Truck arrived, task now: {}", agent.currentTask);]]></Code>
+logger.info("Truck arrived, task now: {}", agent.currentTask);
+logger.info("moveTo EXIT: truck={} at=({},{},{}) time={}",
+    agent.getIndex(), agent.getX(), agent.getY(), agent.getZ(), time());]]></Code>
 				</Value>
 			</Parameter>
 			<Parameter>
@@ -828,7 +838,7 @@ logger.info("Truck arrived, task now: {}", agent.currentTask);]]></Code>
 	<EmbeddedObject>
 		<Id>1789548190141</Id>
 		<Name><![CDATA[seizeLoading]]></Name>
-		<X>700</X>
+		<X>850</X>
 		<Y>-240</Y>
 		<Label>
 			<X>0</X>
@@ -855,10 +865,9 @@ logger.info("Truck arrived, task now: {}", agent.currentTask);]]></Code>
 			<Parameter>
 				<Name><![CDATA[resourceSets]]></Name>
 				<Value Class="CodeValue">
-					<Code><![CDATA[if (agent.currentLoadingPoint != null && agent.currentLoadingPoint.pool != null) {
-    return new ResourcePool[][]{ { agent.currentLoadingPoint.pool } };
-}
-return new ResourcePool[0][];]]></Code>
+					<Code><![CDATA[agent.currentLoadingPoint != null && agent.currentLoadingPoint.pool != null
+    ? new ResourcePool[][]{ { agent.currentLoadingPoint.pool } }
+    : new ResourcePool[0][]]]></Code>
 				</Value>
 			</Parameter>
 			<Parameter>
@@ -905,9 +914,6 @@ return new ResourcePool[0][];]]></Code>
 			</Parameter>
 			<Parameter>
 				<Name><![CDATA[entityLocationQueue]]></Name>
-				<Value Class="CodeValue">
-					<Code><![CDATA[agent.currentLoadingPoint != null ? findNodeById(agent.currentLoadingPoint.queueNodeId) : null]]></Code>
-				</Value>
 			</Parameter>
 			<Parameter>
 				<Name><![CDATA[priority]]></Name>
@@ -935,9 +941,6 @@ return new ResourcePool[0][];]]></Code>
 			</Parameter>
 			<Parameter>
 				<Name><![CDATA[resourceSelectionMode]]></Name>
-				<Value Class="CodeValue">
-					<Code><![CDATA[self.RESOURCE_SELECTION_NEAREST]]></Code>
-				</Value>
 			</Parameter>
 			<Parameter>
 				<Name><![CDATA[resourceRating]]></Name>
@@ -977,9 +980,6 @@ return new ResourcePool[0][];]]></Code>
 			</Parameter>
 			<Parameter>
 				<Name><![CDATA[onEnter]]></Name>
-				<Value Class="CodeValue">
-					<Code><![CDATA[agent.currentLoadingPoint = selectLoadingPoint();]]></Code>
-				</Value>
 			</Parameter>
 			<Parameter>
 				<Name><![CDATA[onExitTimeout]]></Name>
@@ -998,12 +998,6 @@ return new ResourcePool[0][];]]></Code>
 				<Value Class="CodeValue">
 					<Code><![CDATA[if (agent.currentLoadingPoint != null) {
     logger.info("Truck seized loading point: {}", agent.currentLoadingPoint.id);
-}
-
-if (agent.currentTask == Task.TO_LOAD && agent.currentLoadingPoint != null) {
-    logger.info("Truck seized loading point: {}", agent.currentLoadingPoint.id);
-} else if (agent.currentTask == Task.TO_DUMP && agent.currentDumpingPoint != null) {
-    logger.info("Truck seized dumping point: {}", agent.currentDumpingPoint.id);
 }]]></Code>
 				</Value>
 			</Parameter>
@@ -1306,7 +1300,7 @@ agent.currentTask == Task.TO_HOME]]></Code>
 	<EmbeddedObject>
 		<Id>1789633576366</Id>
 		<Name><![CDATA[hold]]></Name>
-		<X>1000</X>
+		<X>1130</X>
 		<Y>-230</Y>
 		<Label>
 			<X>-10</X>
@@ -1380,7 +1374,7 @@ agent.currentTask == Task.TO_HOME]]></Code>
 	<EmbeddedObject>
 		<Id>1789694463694</Id>
 		<Name><![CDATA[syncDelay]]></Name>
-		<X>910</X>
+		<X>1040</X>
 		<Y>-240</Y>
 		<Label>
 			<X>-5</X>
@@ -1471,7 +1465,7 @@ agent.currentTask == Task.TO_HOME]]></Code>
 	<EmbeddedObject>
 		<Id>1789711664273</Id>
 		<Name><![CDATA[isLoadTask]]></Name>
-		<X>600</X>
+		<X>590</X>
 		<Y>-230</Y>
 		<Label>
 			<X>-35</X>
@@ -1494,9 +1488,15 @@ agent.currentTask == Task.TO_HOME]]></Code>
 		<Parameters>
 			<Parameter>
 				<Name><![CDATA[conditionIsProbabilistic]]></Name>
+				<Value Class="CodeValue">
+					<Code><![CDATA[false]]></Code>
+				</Value>
 			</Parameter>
 			<Parameter>
 				<Name><![CDATA[condition]]></Name>
+				<Value Class="CodeValue">
+					<Code><![CDATA[agent.currentTask == Task.TO_LOAD]]></Code>
+				</Value>
 			</Parameter>
 			<Parameter>
 				<Name><![CDATA[probability]]></Name>
@@ -1543,7 +1543,7 @@ agent.currentTask == Task.TO_HOME]]></Code>
 	<EmbeddedObject>
 		<Id>1789711780573</Id>
 		<Name><![CDATA[seizeDumping]]></Name>
-		<X>700</X>
+		<X>850</X>
 		<Y>-170</Y>
 		<Label>
 			<X>-5</X>
@@ -1647,6 +1647,9 @@ agent.currentTask == Task.TO_HOME]]></Code>
 			</Parameter>
 			<Parameter>
 				<Name><![CDATA[resourceSelectionMode]]></Name>
+				<Value Class="CodeValue">
+					<Code><![CDATA[self.RESOURCE_SELECTION_NEAREST]]></Code>
+				</Value>
 			</Parameter>
 			<Parameter>
 				<Name><![CDATA[resourceRating]]></Name>
@@ -1748,6 +1751,173 @@ agent.currentTask == Task.TO_HOME]]></Code>
 		<InitializationType>SPECIFIED_NUMBER</InitializationType>
 		<InitializationDatabaseTableQuery>
 			<Id>1789711780571</Id>
+			<TableReference/>
+		</InitializationDatabaseTableQuery>
+		<InitializationDatabaseType>ONE_AGENT_PER_DATABASE_RECORD</InitializationDatabaseType>
+		<QuantityColumn/>
+	</EmbeddedObject>
+	<EmbeddedObject>
+		<Id>1789715368473</Id>
+		<Name><![CDATA[moveToLoadingQueue]]></Name>
+		<X>670</X>
+		<Y>-240</Y>
+		<Label>
+			<X>-15</X>
+			<Y>-15</Y>
+		</Label>
+		<PublicFlag>false</PublicFlag>
+		<PresentationFlag>true</PresentationFlag>
+		<ShowLabel>true</ShowLabel>
+		<ActiveObjectClass>
+			<PackageName>com.anylogic.libraries.processmodeling</PackageName>
+			<ClassName>MoveTo</ClassName>
+		</ActiveObjectClass>
+		<GenericParameterSubstitute>
+			<GenericParameterSubstituteReference>
+				<PackageName>com.anylogic.libraries.processmodeling</PackageName>
+				<ClassName>MoveTo</ClassName>
+				<ItemName>1412336243157</ItemName>
+			</GenericParameterSubstituteReference>
+		</GenericParameterSubstitute>
+		<Parameters>
+			<Parameter>
+				<Name><![CDATA[mode]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[destinationType]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[destinationNode]]></Name>
+				<Value Class="CodeValue">
+					<Code><![CDATA[agent.currentLoadingPoint != null
+    ? findNodeById(agent.currentLoadingPoint.queueNodeId)
+    : findNodeById(p_homeNodes.get(0).nodeId)]]></Code>
+				</Value>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[destinationAttractor]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[destinationResource]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[destinationAgent]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[destinationX]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[destinationY]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[destinationZ]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[destinationLatitude]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[destinationLongitude]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[destinationGeoPlaceName]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[destinationInNetwork]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[destinationNetwork]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[destinationLevel]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[useOffsets]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[offsetX]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[offsetY]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[offsetZ]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[straightMovement]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[destinationUseRotation]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[destinationRotation]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[destinationVerticalRotation]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[movementType]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[tripTime]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[setSpeed]]></Name>
+				<Value Class="CodeValue">
+					<Code><![CDATA[true]]></Code>
+				</Value>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[speed]]></Name>
+				<Value Class="CodeUnitValue">
+					<Code><![CDATA[5]]></Code>
+					<Unit Class="SpeedUnits">KPH</Unit>
+				</Value>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[restoreSpeedOnArrival]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[onEnter]]></Name>
+				<Value Class="CodeValue">
+					<Code><![CDATA[agent.currentLoadingPoint = selectLoadingPoint();
+logger.info("moveToLoadingQueue ENTER: truck={} at=({},{},{}) target={} time={}",
+    agent.getIndex(), agent.getX(), agent.getY(), agent.getZ(),
+    agent.currentLoadingPoint != null ? agent.currentLoadingPoint.id : "null",
+    time());]]></Code>
+				</Value>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[onExit]]></Name>
+				<Value Class="CodeValue">
+					<Code><![CDATA[if (agent.currentLoadingPoint == null) {
+    agent.currentTask = Task.TO_HOME;
+}
+logger.info("moveToLoadingQueue EXIT: truck={} at=({},{},{}) time={}",
+    agent.getIndex(), agent.getX(), agent.getY(), agent.getZ(), time());]]></Code>
+				</Value>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[onRemove]]></Name>
+			</Parameter>
+		</Parameters>
+		<ReplicationFlag>false</ReplicationFlag>
+		<Replication Class="CodeValue">
+			<Code><![CDATA[100]]></Code>
+		</Replication>
+		<CollectionType>ARRAY_LIST_BASED</CollectionType>
+		<InitialLocationType>XYZ</InitialLocationType>
+		<ColumnCode Class="CodeValue">
+			<Code><![CDATA[0]]></Code>
+		</ColumnCode>
+		<RowCode Class="CodeValue">
+			<Code><![CDATA[0]]></Code>
+		</RowCode>
+		<LocationNameCode Class="CodeValue">
+			<Code><![CDATA[""]]></Code>
+		</LocationNameCode>
+		<InitializationType>SPECIFIED_NUMBER</InitializationType>
+		<InitializationDatabaseTableQuery>
+			<Id>1789715368471</Id>
 			<TableReference/>
 		</InitializationDatabaseTableQuery>
 		<InitializationDatabaseType>ONE_AGENT_PER_DATABASE_RECORD</InitializationDatabaseType>

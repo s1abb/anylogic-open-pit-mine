@@ -64,12 +64,27 @@ return node != null ? node.v_PointNode : null;
 
 LoadingPoint selectLoadingPoint()
 {/*ALCODESTART::1789711385731*/
-LoadingPoint best = null;
+double bestScore = -1;
+List<LoadingPoint> candidates = new ArrayList<>();
 for (LoadingPoint lp : p_loadingPoints) {
-    if (lp.amount > 0 && (best == null || lp.amount > best.amount)) {
-        best = lp;
+    if (lp.amount <= 0) continue;
+    double score = lp.amount / (lp.assignedTrucks + 1);
+    if (score > bestScore + 1e-9) {
+        bestScore = score;
+        candidates.clear();
+        candidates.add(lp);
+    } else if (Math.abs(score - bestScore) < 1e-9) {
+        candidates.add(lp);
     }
 }
-return best;
+if (candidates.isEmpty()) {
+    logger.info("selectLoadingPoint: no candidates left, all depleted");
+    return null;
+}
+LoadingPoint chosen = candidates.get(uniform_discr(0, candidates.size() - 1));
+chosen.assignedTrucks++;
+logger.info("selectLoadingPoint: chose {} (amount={}, assignedTrucks={}, score={})",
+    chosen.id, chosen.amount, chosen.assignedTrucks, bestScore);
+return chosen;
 /*ALCODEEND*/}
 
