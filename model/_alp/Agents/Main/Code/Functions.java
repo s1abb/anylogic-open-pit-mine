@@ -88,3 +88,15 @@ logger.info("selectLoadingPoint: chose {} (amount={}, assignedTrucks={}, score={
 return chosen;
 /*ALCODEEND*/}
 
+double tryAssignLoadingPoint(LoadingPoint lp)
+{/*ALCODESTART::1789893517507*/
+if (lp.occupied) return;
+for (DumpTruck waiting : queueLoading) {
+    if (waiting.currentLoadingPoint == lp) {
+        lp.occupied = true;
+        queueLoading.release(waiting);
+        return;
+    }
+}
+/*ALCODEEND*/}
+
