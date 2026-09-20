@@ -2,7 +2,7 @@
 <Variables>
 	<Variable Class="PlainVariable">
 		<Id>1789892470450</Id>
-		<Name><![CDATA[variable]]></Name>
+		<Name><![CDATA[assignedTrucks]]></Name>
 		<X>-150</X>
 		<Y>450</Y>
 		<Label>
