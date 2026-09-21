@@ -1675,11 +1675,6 @@ logger.info("moveToLoadingQueue EXIT: truck={} at=({},{},{}) time={}",
 			</Parameter>
 			<Parameter>
 				<Name><![CDATA[destinationNode]]></Name>
-				<Value Class="CodeValue">
-					<Code><![CDATA[agent.currentLoadingPoint != null
-    ? findNodeById(agent.currentLoadingPoint.nodeId)
-    : findNodeById(p_homeNodes.get(0).nodeId)]]></Code>
-				</Value>
 			</Parameter>
 			<Parameter>
 				<Name><![CDATA[destinationAttractor]]></Name>
@@ -1768,10 +1763,6 @@ logger.info("moveToLoadingQueue EXIT: truck={} at=({},{},{}) time={}",
 			</Parameter>
 			<Parameter>
 				<Name><![CDATA[onExit]]></Name>
-				<Value Class="CodeValue">
-					<Code><![CDATA[agent.currentTask = nextTask(TaskEvent.LOADING_ARRIVAL, shiftActive);
-logger.info("Truck arrived, task now: {}", agent.currentTask);]]></Code>
-				</Value>
 			</Parameter>
 			<Parameter>
 				<Name><![CDATA[onRemove]]></Name>
@@ -2292,9 +2283,6 @@ logger.info("Truck arrived, task now: {}", agent.currentTask);]]></Code>
 			</Parameter>
 			<Parameter>
 				<Name><![CDATA[destinationNode]]></Name>
-				<Value Class="CodeValue">
-					<Code><![CDATA[agent.currentDumpingPoint != null ? findNodeById(agent.currentDumpingPoint.nodeId) : findNodeById(p_homeNodes.get(0).nodeId)]]></Code>
-				</Value>
 			</Parameter>
 			<Parameter>
 				<Name><![CDATA[destinationAttractor]]></Name>
@@ -2383,10 +2371,6 @@ logger.info("Truck arrived, task now: {}", agent.currentTask);]]></Code>
 			</Parameter>
 			<Parameter>
 				<Name><![CDATA[onExit]]></Name>
-				<Value Class="CodeValue">
-					<Code><![CDATA[agent.currentTask = nextTask(TaskEvent.DUMPING_ARRIVAL, shiftActive);
-logger.info("Truck arrived, task now: {}", agent.currentTask);]]></Code>
-				</Value>
 			</Parameter>
 			<Parameter>
 				<Name><![CDATA[onRemove]]></Name>
