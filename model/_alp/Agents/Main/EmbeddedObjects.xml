@@ -1770,6 +1770,11 @@ logger.info("moveToLoadingQueue EXIT: truck={} at=({},{},{}) time={}",
 				<Name><![CDATA[onExit]]></Name>
 				<Value Class="CodeValue">
 					<Code><![CDATA[agent.currentTask = nextTask(TaskEvent.LOADING_ARRIVAL, shiftActive);
+if (agent.currentTask == Task.TO_HOME && agent.currentLoadingPoint != null) {
+    agent.currentLoadingPoint.assignedTrucks--;
+    agent.currentLoadingPoint.occupied = false;
+    tryAssignLoadingPoint(agent.currentLoadingPoint);
+}
 logger.info("Truck arrived, task now: {}", agent.currentTask);]]></Code>
 				</Value>
 			</Parameter>
@@ -2519,9 +2524,16 @@ logger.info("Truck arrived, task now: {}", agent.currentTask);]]></Code>
 			</Parameter>
 			<Parameter>
 				<Name><![CDATA[setSpeed]]></Name>
+				<Value Class="CodeValue">
+					<Code><![CDATA[true]]></Code>
+				</Value>
 			</Parameter>
 			<Parameter>
 				<Name><![CDATA[speed]]></Name>
+				<Value Class="CodeUnitValue">
+					<Code><![CDATA[5]]></Code>
+					<Unit Class="SpeedUnits">KPH</Unit>
+				</Value>
 			</Parameter>
 			<Parameter>
 				<Name><![CDATA[restoreSpeedOnArrival]]></Name>
@@ -2558,6 +2570,99 @@ logger.info("Truck arrived, task now: {}", agent.currentTask);]]></Code>
 		<InitializationType>SPECIFIED_NUMBER</InitializationType>
 		<InitializationDatabaseTableQuery>
 			<Id>1789952278390</Id>
+			<TableReference/>
+		</InitializationDatabaseTableQuery>
+		<InitializationDatabaseType>ONE_AGENT_PER_DATABASE_RECORD</InitializationDatabaseType>
+		<QuantityColumn/>
+	</EmbeddedObject>
+	<EmbeddedObject>
+		<Id>1789954718723</Id>
+		<Name><![CDATA[releaseOnHome]]></Name>
+		<X>940</X>
+		<Y>-140</Y>
+		<Label>
+			<X>-10</X>
+			<Y>-15</Y>
+		</Label>
+		<PublicFlag>false</PublicFlag>
+		<PresentationFlag>true</PresentationFlag>
+		<ShowLabel>true</ShowLabel>
+		<ActiveObjectClass>
+			<PackageName>com.anylogic.libraries.processmodeling</PackageName>
+			<ClassName>Release</ClassName>
+		</ActiveObjectClass>
+		<GenericParameterSubstitute>
+			<GenericParameterSubstituteReference>
+				<PackageName>com.anylogic.libraries.processmodeling</PackageName>
+				<ClassName>Release</ClassName>
+				<ItemName>1412336243154</ItemName>
+			</GenericParameterSubstituteReference>
+		</GenericParameterSubstitute>
+		<Parameters>
+			<Parameter>
+				<Name><![CDATA[releaseMode]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[resourcePool]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[quantity]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[resources]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[seizeBlocks]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[movingGoHome]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[wrapUpTaskPolicyType]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[wrapUpTaskPriority]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[wrapUpTaskMayPreemptOtherTasks]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[wrapUpTaskPreemptionPolicy]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[wrapUpUsageState]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[onEnter]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[onReleaseUnit]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[onExit]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[onWrapUpTerminated]]></Name>
+			</Parameter>
+		</Parameters>
+		<ReplicationFlag>false</ReplicationFlag>
+		<Replication Class="CodeValue">
+			<Code><![CDATA[100]]></Code>
+		</Replication>
+		<CollectionType>ARRAY_LIST_BASED</CollectionType>
+		<InitialLocationType>XYZ</InitialLocationType>
+		<ColumnCode Class="CodeValue">
+			<Code><![CDATA[0]]></Code>
+		</ColumnCode>
+		<RowCode Class="CodeValue">
+			<Code><![CDATA[0]]></Code>
+		</RowCode>
+		<LocationNameCode Class="CodeValue">
+			<Code><![CDATA[""]]></Code>
+		</LocationNameCode>
+		<InitializationType>SPECIFIED_NUMBER</InitializationType>
+		<InitializationDatabaseTableQuery>
+			<Id>1789954718721</Id>
 			<TableReference/>
 		</InitializationDatabaseTableQuery>
 		<InitializationDatabaseType>ONE_AGENT_PER_DATABASE_RECORD</InitializationDatabaseType>
