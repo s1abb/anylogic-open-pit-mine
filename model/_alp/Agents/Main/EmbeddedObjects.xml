@@ -1464,11 +1464,6 @@ logger.info("moveToLoadingQueue EXIT: truck={} at=({},{},{}) time={}",
 			</Parameter>
 			<Parameter>
 				<Name><![CDATA[resourceSets]]></Name>
-				<Value Class="CodeValue">
-					<Code><![CDATA[agent.currentLoadingPoint != null && agent.currentLoadingPoint.pool != null
-    ? new ResourcePool[][]{ { agent.currentLoadingPoint.pool } }
-    : new ResourcePool[0][]]]></Code>
-				</Value>
 			</Parameter>
 			<Parameter>
 				<Name><![CDATA[resourcePool]]></Name>
@@ -1595,11 +1590,6 @@ logger.info("moveToLoadingQueue EXIT: truck={} at=({},{},{}) time={}",
 			</Parameter>
 			<Parameter>
 				<Name><![CDATA[onExit]]></Name>
-				<Value Class="CodeValue">
-					<Code><![CDATA[if (agent.currentLoadingPoint != null) {
-    logger.info("Truck seized loading point: {}", agent.currentLoadingPoint.id);
-}]]></Code>
-				</Value>
 			</Parameter>
 			<Parameter>
 				<Name><![CDATA[onRemove]]></Name>
@@ -2070,9 +2060,6 @@ logger.info("moveToLoadingQueue EXIT: truck={} at=({},{},{}) time={}",
 			</Parameter>
 			<Parameter>
 				<Name><![CDATA[resourceSets]]></Name>
-				<Value Class="CodeValue">
-					<Code><![CDATA[buildDumpingPointResourceSets()]]></Code>
-				</Value>
 			</Parameter>
 			<Parameter>
 				<Name><![CDATA[resourcePool]]></Name>
@@ -2199,15 +2186,6 @@ logger.info("moveToLoadingQueue EXIT: truck={} at=({},{},{}) time={}",
 			</Parameter>
 			<Parameter>
 				<Name><![CDATA[onExit]]></Name>
-				<Value Class="CodeValue">
-					<Code><![CDATA[for (DumpingPoint dp : p_dumpingPoints) {
-    if (dp.pool != null && !agent.resourceUnitsOfPool(dp.pool).isEmpty()) {
-        agent.currentDumpingPoint = dp;
-        logger.info("Truck seized dumping point: {}", dp.id);
-        break;
-    }
-}]]></Code>
-				</Value>
 			</Parameter>
 			<Parameter>
 				<Name><![CDATA[onRemove]]></Name>
