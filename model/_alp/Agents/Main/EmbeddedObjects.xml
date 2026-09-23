@@ -473,6 +473,15 @@
 			</Parameter>
 			<Parameter>
 				<Name><![CDATA[onAtExit]]></Name>
+				<Value Class="CodeValue">
+					<Code><![CDATA[agent.truckType = "CAT_793F";
+double[] tt = truckTypeData.get(agent.truckType);
+if (tt != null) {
+    agent.emptyWeightKg = tt[0];
+    agent.payloadKg = tt[1];
+    agent.rollingResistance = tt[2];
+}]]></Code>
+				</Value>
 			</Parameter>
 			<Parameter>
 				<Name><![CDATA[onExit]]></Name>
@@ -640,6 +649,18 @@ logger.info("Truck finished {}, task now: {}", justCompleted == Task.LOAD ? "loa
 		<Parameters>
 			<Parameter>
 				<Name><![CDATA[capacity]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[truckType]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[emptyWeightKg]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[payloadKg]]></Name>
+			</Parameter>
+			<Parameter>
+				<Name><![CDATA[rollingResistance]]></Name>
 			</Parameter>
 		</Parameters>
 		<ReplicationFlag>true</ReplicationFlag>

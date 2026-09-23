@@ -102,6 +102,22 @@ try {
     traceln("Error loading home points CSV: " + e.getMessage());
 }
 loadTaskMatrix("../input/task_matrix.csv");
+
+try (BufferedReader reader = new BufferedReader(new FileReader("../input/truck_types.csv"))) {
+    CSVParser parser = CSVParser.parse(reader, CSVFormat.DEFAULT.withFirstRecordAsHeader());
+    for (CSVRecord record : parser) {
+        String type = record.get("truckType");
+        double[] values = {
+            Double.parseDouble(record.get("emptyWeightKg")),
+            Double.parseDouble(record.get("payloadKg")),
+            Double.parseDouble(record.get("rollingResistance"))
+        };
+        truckTypeData.put(type, values);
+    }
+} catch (IOException e) {
+    logger.error("Error loading truck types CSV: {}", e.getMessage(), e);
+}
+
 onRunInitialised();
 logger.info("Trucks in population after inject: {}", p_dumpTrucks.size());]]></StartupCode>
 	<Generic>false</Generic>
