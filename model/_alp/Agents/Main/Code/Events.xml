@@ -4,7 +4,7 @@
 		<Id>1789701542943</Id>
 		<Name><![CDATA[shiftBreakStart]]></Name>
 		<X>-400</X>
-		<Y>-40</Y>
+		<Y>150</Y>
 		<Label>
 			<X>10</X>
 			<Y>0</Y>
@@ -40,7 +40,7 @@
 		<Id>1789701736234</Id>
 		<Name><![CDATA[shiftBreakEnd]]></Name>
 		<X>-400</X>
-		<Y>0</Y>
+		<Y>200</Y>
 		<Label>
 			<X>10</X>
 			<Y>0</Y>

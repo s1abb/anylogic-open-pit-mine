@@ -4,7 +4,7 @@
 		<Id>1789634062559</Id>
 		<Name><![CDATA[shiftActive]]></Name>
 		<X>-400</X>
-		<Y>-500</Y>
+		<Y>-300</Y>
 		<Label>
 			<X>10</X>
 			<Y>0</Y>
@@ -26,7 +26,7 @@
 		<Id>1789689204087</Id>
 		<Name><![CDATA[taskMatrix]]></Name>
 		<X>-400</X>
-		<Y>-450</Y>
+		<Y>-250</Y>
 		<Label>
 			<X>10</X>
 			<Y>0</Y>
@@ -45,7 +45,7 @@
 		<Id>1789547710900</Id>
 		<Name><![CDATA[numDumpTrucks]]></Name>
 		<X>-400</X>
-		<Y>-400</Y>
+		<Y>-200</Y>
 		<Label>
 			<X>10</X>
 			<Y>0</Y>
@@ -73,7 +73,7 @@
 		<Id>1789634092485</Id>
 		<Name><![CDATA[loadTimeMin]]></Name>
 		<X>-400</X>
-		<Y>-350</Y>
+		<Y>-150</Y>
 		<Label>
 			<X>10</X>
 			<Y>0</Y>
@@ -101,7 +101,7 @@
 		<Id>1789634094856</Id>
 		<Name><![CDATA[loadTimeMode]]></Name>
 		<X>-400</X>
-		<Y>-300</Y>
+		<Y>-100</Y>
 		<Label>
 			<X>10</X>
 			<Y>0</Y>
@@ -129,7 +129,7 @@
 		<Id>1789634107719</Id>
 		<Name><![CDATA[loadTimeMax]]></Name>
 		<X>-400</X>
-		<Y>-250</Y>
+		<Y>-50</Y>
 		<Label>
 			<X>10</X>
 			<Y>0</Y>
@@ -157,7 +157,7 @@
 		<Id>1789634162018</Id>
 		<Name><![CDATA[dumpTimeMin]]></Name>
 		<X>-400</X>
-		<Y>-200</Y>
+		<Y>0</Y>
 		<Label>
 			<X>10</X>
 			<Y>0</Y>
@@ -185,7 +185,7 @@
 		<Id>1789634164128</Id>
 		<Name><![CDATA[dumpTimeMode]]></Name>
 		<X>-400</X>
-		<Y>-150</Y>
+		<Y>50</Y>
 		<Label>
 			<X>10</X>
 			<Y>0</Y>
@@ -213,7 +213,7 @@
 		<Id>1789634166329</Id>
 		<Name><![CDATA[dumpTimeMax]]></Name>
 		<X>-400</X>
-		<Y>-100</Y>
+		<Y>100</Y>
 		<Label>
 			<X>10</X>
 			<Y>0</Y>
