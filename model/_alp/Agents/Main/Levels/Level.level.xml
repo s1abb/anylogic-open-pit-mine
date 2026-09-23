@@ -110,4 +110,36 @@
 		<Latitude>0.0</Latitude>
 		<Longitude>0.0</Longitude>
 	</EmbeddedObjectPresentation>
+	<Control Type="Window3D">
+		<Id>1790126364694</Id>
+		<Name><![CDATA[window3d]]></Name>
+		<X>280</X>
+		<Y>-1080</Y>
+		<Width>1000</Width>
+		<Height>540</Height>
+		<MakeDefaultViewArea>true</MakeDefaultViewArea>
+		<Label>
+			<X>0</X>
+			<Y>-10</Y>
+		</Label>
+		<ShowLabel>false</ShowLabel>
+		<FollowCamera>false</FollowCamera>
+		<NavigationType>full</NavigationType>
+		<FarClippingDistance>5000</FarClippingDistance>
+		<Camera>camera</Camera>
+	</Control>
+	<Camera3D>
+		<Id>1790126533272</Id>
+		<Name><![CDATA[camera]]></Name>
+		<X>1394.08</X>
+		<Y>2423.14</Y>
+		<Z>1630.21</Z>
+		<Label>
+			<X>0</X>
+			<Y>-10</Y>
+		</Label>
+		<ShowLabel>false</ShowLabel>
+		<RotationX>45.0</RotationX>
+		<RotationZ>-90.0</RotationZ>
+	</Camera3D>
 </Presentation>

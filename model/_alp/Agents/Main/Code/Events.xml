@@ -3,8 +3,8 @@
 	<Event>
 		<Id>1789701542943</Id>
 		<Name><![CDATA[shiftBreakStart]]></Name>
-		<X>-250</X>
-		<Y>1260</Y>
+		<X>-400</X>
+		<Y>-140</Y>
 		<Label>
 			<X>10</X>
 			<Y>0</Y>
@@ -39,8 +39,8 @@
 	<Event>
 		<Id>1789701736234</Id>
 		<Name><![CDATA[shiftBreakEnd]]></Name>
-		<X>-250</X>
-		<Y>1300</Y>
+		<X>-400</X>
+		<Y>-100</Y>
 		<Label>
 			<X>10</X>
 			<Y>0</Y>

@@ -3,8 +3,8 @@
 	<EmbeddedObject>
 		<Id>1769746900446</Id>
 		<Name><![CDATA[p_Network]]></Name>
-		<X>-250</X>
-		<Y>100</Y>
+		<X>-400</X>
+		<Y>-1300</Y>
 		<Label>
 			<X>15</X>
 			<Y>0</Y>
@@ -56,8 +56,8 @@
 	<EmbeddedObject>
 		<Id>1789454654730</Id>
 		<Name><![CDATA[p_loadingPoints]]></Name>
-		<X>-250</X>
-		<Y>150</Y>
+		<X>-400</X>
+		<Y>-1250</Y>
 		<Label>
 			<X>15</X>
 			<Y>0</Y>
@@ -127,8 +127,8 @@
 	<EmbeddedObject>
 		<Id>1789524230932</Id>
 		<Name><![CDATA[p_dumpingPoints]]></Name>
-		<X>-250</X>
-		<Y>200</Y>
+		<X>-400</X>
+		<Y>-1200</Y>
 		<Label>
 			<X>15</X>
 			<Y>0</Y>
@@ -189,8 +189,8 @@
 	<EmbeddedObject>
 		<Id>1789525801375</Id>
 		<Name><![CDATA[p_homeNodes]]></Name>
-		<X>-250</X>
-		<Y>250</Y>
+		<X>-400</X>
+		<Y>-1150</Y>
 		<Label>
 			<X>15</X>
 			<Y>0</Y>
@@ -573,6 +573,7 @@
 					<Code><![CDATA[Task justCompleted = agent.currentTask;
 if (agent.currentTask == Task.LOAD && agent.currentLoadingPoint != null) {
     agent.currentLoadingPoint.amount -= agent.currentLoadingPoint.loadAmount;
+    traceln("Amount deducted for " + agent.currentLoadingPoint.id + ": now " + agent.currentLoadingPoint.amount);
     agent.currentLoadingPoint.assignedTrucks--;
     agent.currentLoadingPoint.occupied = false;
     tryAssignLoadingPoint(agent.currentLoadingPoint);
@@ -615,8 +616,8 @@ logger.info("Truck finished {}, task now: {}", justCompleted == Task.LOAD ? "loa
 	<EmbeddedObject>
 		<Id>1789547590923</Id>
 		<Name><![CDATA[p_dumpTrucks]]></Name>
-		<X>-250</X>
-		<Y>300</Y>
+		<X>-400</X>
+		<Y>-1100</Y>
 		<Label>
 			<X>15</X>
 			<Y>0</Y>
@@ -1279,7 +1280,7 @@ agent.currentTask == Task.TO_HOME]]></Code>
 			<Parameter>
 				<Name><![CDATA[speed]]></Name>
 				<Value Class="CodeUnitValue">
-					<Code><![CDATA[5]]></Code>
+					<Code><![CDATA[uniform(1,10)]]></Code>
 					<Unit Class="SpeedUnits">KPH</Unit>
 				</Value>
 			</Parameter>
@@ -1756,7 +1757,7 @@ logger.info("moveToLoadingQueue EXIT: truck={} at=({},{},{}) time={}",
 			<Parameter>
 				<Name><![CDATA[speed]]></Name>
 				<Value Class="CodeUnitValue">
-					<Code><![CDATA[5]]></Code>
+					<Code><![CDATA[uniform(1,10)]]></Code>
 					<Unit Class="SpeedUnits">KPH</Unit>
 				</Value>
 			</Parameter>
@@ -1916,7 +1917,7 @@ logger.info("Truck arrived, task now: {}", agent.currentTask);]]></Code>
 			<Parameter>
 				<Name><![CDATA[speed]]></Name>
 				<Value Class="CodeUnitValue">
-					<Code><![CDATA[5]]></Code>
+					<Code><![CDATA[uniform(1,10)]]></Code>
 					<Unit Class="SpeedUnits">KPH</Unit>
 				</Value>
 			</Parameter>
@@ -2376,7 +2377,7 @@ logger.info("Truck arrived, task now: {}", agent.currentTask);]]></Code>
 			<Parameter>
 				<Name><![CDATA[speed]]></Name>
 				<Value Class="CodeUnitValue">
-					<Code><![CDATA[5]]></Code>
+					<Code><![CDATA[uniform(1,10)]]></Code>
 					<Unit Class="SpeedUnits">KPH</Unit>
 				</Value>
 			</Parameter>
@@ -2531,7 +2532,7 @@ logger.info("Truck arrived, task now: {}", agent.currentTask);]]></Code>
 			<Parameter>
 				<Name><![CDATA[speed]]></Name>
 				<Value Class="CodeUnitValue">
-					<Code><![CDATA[5]]></Code>
+					<Code><![CDATA[uniform(1,10)]]></Code>
 					<Unit Class="SpeedUnits">KPH</Unit>
 				</Value>
 			</Parameter>

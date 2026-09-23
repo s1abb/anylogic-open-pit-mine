@@ -29,8 +29,8 @@
 	<Rectangle>
 		<Id>1790123601751</Id>
 		<Name><![CDATA[rectangle]]></Name>
-		<X>-23</X>
-		<Y>-118</Y>
+		<X>23</X>
+		<Y>-42</Y>
 		<Label>
 			<X>10</X>
 			<Y>10</Y>
@@ -42,14 +42,14 @@
 		<EmbeddedIcon>false</EmbeddedIcon>
 		<Z>0</Z>
 		<ZHeight>10</ZHeight>
-		<ScaleZCode>getFillFraction()</ScaleZCode>
+		<ScaleYCode>getFillFraction()</ScaleYCode>
 		<LineWidth>1</LineWidth>
 		<LineColor>-16777216</LineColor>
 		<LineMaterial>null</LineMaterial>
 		<LineStyle>SOLID</LineStyle>
 		<Width>46</Width>
 		<Height>76</Height>
-		<Rotation>0.0</Rotation>
+		<Rotation>180.0</Rotation>
 		<FillColor>-14774017</FillColor>
 		<FillMaterial>null</FillMaterial>
 	</Rectangle>

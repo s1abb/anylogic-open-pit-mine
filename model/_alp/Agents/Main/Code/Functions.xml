@@ -5,8 +5,8 @@
 		<ReturnType>double</ReturnType>
 		<Id>1789547667834</Id>
 		<Name><![CDATA[onRunInitialised]]></Name>
-		<X>-250</X>
-		<Y>350</Y>
+		<X>-400</X>
+		<Y>-1050</Y>
 		<Label>
 			<X>10</X>
 			<Y>0</Y>
@@ -21,8 +21,8 @@
 		<ReturnType>ResourcePool[][]</ReturnType>
 		<Id>1789548528511</Id>
 		<Name><![CDATA[buildLoadingPointResourceSets]]></Name>
-		<X>-250</X>
-		<Y>400</Y>
+		<X>-400</X>
+		<Y>-1000</Y>
 		<Label>
 			<X>10</X>
 			<Y>0</Y>
@@ -37,8 +37,8 @@
 		<ReturnType>a_Node</ReturnType>
 		<Id>1789608877713</Id>
 		<Name><![CDATA[findANodeById]]></Name>
-		<X>-250</X>
-		<Y>550</Y>
+		<X>-400</X>
+		<Y>-850</Y>
 		<Label>
 			<X>10</X>
 			<Y>0</Y>
@@ -57,8 +57,8 @@
 		<ReturnType>ResourcePool[][]</ReturnType>
 		<Id>1789634291281</Id>
 		<Name><![CDATA[buildDumpingPointResourceSets]]></Name>
-		<X>-250</X>
-		<Y>450</Y>
+		<X>-400</X>
+		<Y>-950</Y>
 		<Label>
 			<X>10</X>
 			<Y>0</Y>
@@ -73,8 +73,8 @@
 		<ReturnType>double</ReturnType>
 		<Id>1789634749929</Id>
 		<Name><![CDATA[loadTaskMatrix]]></Name>
-		<X>-250</X>
-		<Y>600</Y>
+		<X>-400</X>
+		<Y>-800</Y>
 		<Label>
 			<X>10</X>
 			<Y>0</Y>
@@ -93,8 +93,8 @@
 		<ReturnType>Task</ReturnType>
 		<Id>1789688464665</Id>
 		<Name><![CDATA[nextTask]]></Name>
-		<X>-250</X>
-		<Y>650</Y>
+		<X>-400</X>
+		<Y>-750</Y>
 		<Label>
 			<X>10</X>
 			<Y>0</Y>
@@ -117,8 +117,8 @@
 		<ReturnType>Node</ReturnType>
 		<Id>1789689972207</Id>
 		<Name><![CDATA[findNodeById]]></Name>
-		<X>-250</X>
-		<Y>500</Y>
+		<X>-400</X>
+		<Y>-900</Y>
 		<Label>
 			<X>10</X>
 			<Y>0</Y>
@@ -137,8 +137,8 @@
 		<ReturnType>LoadingPoint</ReturnType>
 		<Id>1789711385731</Id>
 		<Name><![CDATA[selectLoadingPoint]]></Name>
-		<X>-250</X>
-		<Y>700</Y>
+		<X>-400</X>
+		<Y>-700</Y>
 		<Label>
 			<X>10</X>
 			<Y>0</Y>
@@ -153,8 +153,8 @@
 		<ReturnType>double</ReturnType>
 		<Id>1789952755771</Id>
 		<Name><![CDATA[tryAssignLoadingPoint]]></Name>
-		<X>-250</X>
-		<Y>750</Y>
+		<X>-400</X>
+		<Y>-650</Y>
 		<Label>
 			<X>10</X>
 			<Y>0</Y>

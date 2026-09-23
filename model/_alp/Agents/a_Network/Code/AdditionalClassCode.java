@@ -80,6 +80,7 @@ public void initializeNetwork() {
     validateNodeReferences();
 
     Map<String, a_Node> nodeMap = new HashMap<>();
+    pathToEdge = new HashMap<>();
 
     // Shared label used to show details of whichever node was last clicked
     this.v_InfoText = new ShapeText();
@@ -148,6 +149,7 @@ public void initializeNetwork() {
         if (startNode == null || endNode == null) continue;
 
         edge.v_Path = new Path(edge);
+        pathToEdge.put(edge.v_Path, edge);
         edge.v_Path.setBidirectional(edge.bidirectional);
         edge.v_Path.setSource(startNode.v_PointNode);
         edge.v_Path.setTarget(endNode.v_PointNode);
