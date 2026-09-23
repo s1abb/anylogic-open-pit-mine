@@ -1524,9 +1524,6 @@ agent.dock.isOccupied = false;]]></Code>
 			</Parameter>
 			<Parameter>
 				<Name><![CDATA[onBeforeArrival]]></Name>
-				<Value Class="CodeValue">
-					<Code><![CDATA[unloadingTrucks.]]></Code>
-				</Value>
 			</Parameter>
 			<Parameter>
 				<Name><![CDATA[onAtExit]]></Name>

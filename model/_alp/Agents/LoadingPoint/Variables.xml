@@ -4,7 +4,7 @@
 		<Id>1789892470450</Id>
 		<Name><![CDATA[assignedTrucks]]></Name>
 		<X>-150</X>
-		<Y>450</Y>
+		<Y>500</Y>
 		<Label>
 			<X>10</X>
 			<Y>0</Y>
@@ -26,7 +26,7 @@
 		<Id>1789893372236</Id>
 		<Name><![CDATA[occupied]]></Name>
 		<X>-150</X>
-		<Y>500</Y>
+		<Y>550</Y>
 		<Label>
 			<X>10</X>
 			<Y>0</Y>
@@ -44,11 +44,30 @@
 			</InitialValue>
 		</Properties>
 	</Variable>
+	<Variable Class="PlainVariable">
+		<Id>1790123272342</Id>
+		<Name><![CDATA[initialAmount]]></Name>
+		<X>-150</X>
+		<Y>600</Y>
+		<Label>
+			<X>10</X>
+			<Y>0</Y>
+		</Label>
+		<PublicFlag>false</PublicFlag>
+		<PresentationFlag>true</PresentationFlag>
+		<ShowLabel>true</ShowLabel>
+		<Properties SaveInSnapshot="true"
+              Constant="false"
+              AccessType="public"
+              StaticVariable="false">
+			<Type><![CDATA[double]]></Type>
+		</Properties>
+	</Variable>
 	<Variable Class="Parameter">
 		<Id>1789711226400</Id>
 		<Name><![CDATA[loadAmount]]></Name>
 		<X>-150</X>
-		<Y>350</Y>
+		<Y>400</Y>
 		<Label>
 			<X>10</X>
 			<Y>0</Y>
@@ -73,7 +92,7 @@
 		<Id>1789711228237</Id>
 		<Name><![CDATA[queueNodeId]]></Name>
 		<X>-150</X>
-		<Y>400</Y>
+		<Y>450</Y>
 		<Label>
 			<X>10</X>
 			<Y>0</Y>
@@ -98,7 +117,7 @@
 		<Id>1789713312296</Id>
 		<Name><![CDATA[amount]]></Name>
 		<X>-150</X>
-		<Y>300</Y>
+		<Y>350</Y>
 		<Label>
 			<X>10</X>
 			<Y>0</Y>
