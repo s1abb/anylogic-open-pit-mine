@@ -100,3 +100,47 @@ for (DumpTruck waiting : loadingQueue) {
 }
 /*ALCODEEND*/}
 
+double distanceToSegment(double px,double py,double pz,a_Edge.VertexPoint v1,a_Edge.VertexPoint v2)
+{/*ALCODESTART::1790146141046*/
+double dx = v2.x - v1.x;
+double dy = v2.y - v1.y;
+double dz = v2.z - v1.z;
+double lengthSq = dx*dx + dy*dy + dz*dz;
+
+double t = lengthSq > 0 ? ((px - v1.x) * dx + (py - v1.y) * dy + (pz - v1.z) * dz) / lengthSq : 0;
+t = Math.max(0, Math.min(1, t)); // clamp to the segment's own endpoints
+
+double closestX = v1.x + t * dx;
+double closestY = v1.y + t * dy;
+double closestZ = v1.z + t * dz;
+
+double ddx = px - closestX, ddy = py - closestY, ddz = pz - closestZ;
+return Math.sqrt(ddx*ddx + ddy*ddy + ddz*ddz);
+/*ALCODEEND*/}
+
+a_Edge.VertexPoint[] findNearestSegment(a_Edge edge,double x,double y,double z)
+{/*ALCODESTART::1790146275341*/
+a_Node startNode = findANodeById(edge.startNodeId);
+a_Node endNode = findANodeById(edge.endNodeId);
+if (startNode == null || endNode == null) return null;
+
+List<a_Edge.VertexPoint> points = new ArrayList<>();
+points.add(new a_Edge.VertexPoint(startNode.x, startNode.y, startNode.z));
+if (edge.vertices != null) points.addAll(edge.vertices);
+points.add(new a_Edge.VertexPoint(endNode.x, endNode.y, endNode.z));
+
+double bestDist = Double.MAX_VALUE;
+a_Edge.VertexPoint[] best = null;
+
+for (int i = 0; i < points.size() - 1; i++) {
+    a_Edge.VertexPoint p1 = points.get(i);
+    a_Edge.VertexPoint p2 = points.get(i + 1);
+    double d = distanceToSegment(x, y, z, p1, p2);
+    if (d < bestDist) {
+        bestDist = d;
+        best = new a_Edge.VertexPoint[]{ p1, p2 };
+    }
+}
+return best;
+/*ALCODEEND*/}
+
