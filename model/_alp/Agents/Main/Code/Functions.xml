@@ -236,4 +236,72 @@
 		</Parameter>
 		<Body xmlns:al="http://anylogic.com"/>
 	</Function>
+	<Function AccessType="default" StaticFunction="false">
+		<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+		<ReturnType>double</ReturnType>
+		<Id>1790153278786</Id>
+		<Name><![CDATA[calculateGrade]]></Name>
+		<X>-400</X>
+		<Y>-500</Y>
+		<Label>
+			<X>10</X>
+			<Y>0</Y>
+		</Label>
+		<PublicFlag>false</PublicFlag>
+		<PresentationFlag>true</PresentationFlag>
+		<ShowLabel>true</ShowLabel>
+		<Parameter>
+			<Name><![CDATA[v1]]></Name>
+			<Type><![CDATA[a_Edge.VertexPoint]]></Type>
+		</Parameter>
+		<Parameter>
+			<Name><![CDATA[v2]]></Name>
+			<Type><![CDATA[a_Edge.VertexPoint]]></Type>
+		</Parameter>
+		<Body xmlns:al="http://anylogic.com"/>
+	</Function>
+	<Function AccessType="default" StaticFunction="false">
+		<ReturnModificator>RETURNS_VALUE</ReturnModificator>
+		<ReturnType>double</ReturnType>
+		<Id>1790153327114</Id>
+		<Name><![CDATA[computeTargetSpeedKmh]]></Name>
+		<X>-400</X>
+		<Y>-450</Y>
+		<Label>
+			<X>10</X>
+			<Y>0</Y>
+		</Label>
+		<PublicFlag>false</PublicFlag>
+		<PresentationFlag>true</PresentationFlag>
+		<ShowLabel>true</ShowLabel>
+		<Parameter>
+			<Name><![CDATA[truck]]></Name>
+			<Type><![CDATA[DumpTruck]]></Type>
+		</Parameter>
+		<Parameter>
+			<Name><![CDATA[grade]]></Name>
+			<Type><![CDATA[double]]></Type>
+		</Parameter>
+		<Body xmlns:al="http://anylogic.com"/>
+	</Function>
+	<Function AccessType="default" StaticFunction="false">
+		<ReturnModificator>VOID</ReturnModificator>
+		<ReturnType>double</ReturnType>
+		<Id>1790153390664</Id>
+		<Name><![CDATA[updateTruckSpeed]]></Name>
+		<X>-400</X>
+		<Y>-400</Y>
+		<Label>
+			<X>10</X>
+			<Y>0</Y>
+		</Label>
+		<PublicFlag>false</PublicFlag>
+		<PresentationFlag>true</PresentationFlag>
+		<ShowLabel>true</ShowLabel>
+		<Parameter>
+			<Name><![CDATA[truck]]></Name>
+			<Type><![CDATA[DumpTruck]]></Type>
+		</Parameter>
+		<Body xmlns:al="http://anylogic.com"/>
+	</Function>
 </Functions>

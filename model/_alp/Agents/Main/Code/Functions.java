@@ -144,3 +144,38 @@ for (int i = 0; i < points.size() - 1; i++) {
 return best;
 /*ALCODEEND*/}
 
+double calculateGrade(a_Edge.VertexPoint v1,a_Edge.VertexPoint v2)
+{/*ALCODESTART::1790153278786*/
+double horizontalDist = Math.sqrt(Math.pow(v2.x - v1.x, 2) + Math.pow(v2.y - v1.y, 2));
+if (horizontalDist == 0) return 0;
+return 100.0 * (v2.z - v1.z) / horizontalDist;
+/*ALCODEEND*/}
+
+double computeTargetSpeedKmh(DumpTruck truck,double grade)
+{/*ALCODESTART::1790153327114*/
+double clampedGrade = Math.max(-15, Math.min(20, grade));
+boolean loaded = (truck.currentTask == Task.TO_DUMP || truck.currentTask == Task.DUMP);
+return loaded
+    ? gradePctMaxSpeedKmhLoaded(clampedGrade)
+    : gradePctMaxSpeedKmhEmpty(clampedGrade);
+/*ALCODEEND*/}
+
+double updateTruckSpeed(DumpTruck truck)
+{/*ALCODESTART::1790153390664*/
+if (!truck.isMoving()) return; // nothing to update while stationary (loading, dumping, waiting)
+
+Path nearestPath = p_Network.v_Network.getNearestPath(truck, null);
+if (nearestPath == null) return;
+
+a_Edge edge = p_Network.pathToEdge.get(nearestPath);
+if (edge == null) return;
+
+a_Edge.VertexPoint[] segment = findNearestSegment(edge, truck.getX(), truck.getY(), truck.getZ());
+if (segment == null) return;
+
+double grade = calculateGrade(segment[0], segment[1]);
+double targetSpeedKmh = computeTargetSpeedKmh(truck, grade);
+
+truck.setSpeed(targetSpeedKmh, KPH);
+/*ALCODEEND*/}
+

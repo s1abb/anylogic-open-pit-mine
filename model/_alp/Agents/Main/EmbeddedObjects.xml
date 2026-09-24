@@ -1294,15 +1294,12 @@ agent.currentTask == Task.TO_HOME]]></Code>
 			</Parameter>
 			<Parameter>
 				<Name><![CDATA[setSpeed]]></Name>
-				<Value Class="CodeValue">
-					<Code><![CDATA[true]]></Code>
-				</Value>
 			</Parameter>
 			<Parameter>
 				<Name><![CDATA[speed]]></Name>
 				<Value Class="CodeUnitValue">
-					<Code><![CDATA[uniform(1,10)]]></Code>
-					<Unit Class="SpeedUnits">KPH</Unit>
+					<Code/>
+					<Unit Class="SpeedUnits">MPS</Unit>
 				</Value>
 			</Parameter>
 			<Parameter>
@@ -1311,7 +1308,8 @@ agent.currentTask == Task.TO_HOME]]></Code>
 			<Parameter>
 				<Name><![CDATA[onEnter]]></Name>
 				<Value Class="CodeValue">
-					<Code><![CDATA[agent.currentLoadingPoint = selectLoadingPoint();
+					<Code><![CDATA[updateTruckSpeed(agent);
+agent.currentLoadingPoint = selectLoadingPoint();
 logger.info("moveToLoadingQueue ENTER: truck={} at=({},{},{}) target={} time={}",
     agent.getIndex(), agent.getX(), agent.getY(), agent.getZ(),
     agent.currentLoadingPoint != null ? agent.currentLoadingPoint.id : "null",
@@ -1771,14 +1769,11 @@ logger.info("moveToLoadingQueue EXIT: truck={} at=({},{},{}) time={}",
 			</Parameter>
 			<Parameter>
 				<Name><![CDATA[setSpeed]]></Name>
-				<Value Class="CodeValue">
-					<Code><![CDATA[true]]></Code>
-				</Value>
 			</Parameter>
 			<Parameter>
 				<Name><![CDATA[speed]]></Name>
 				<Value Class="CodeUnitValue">
-					<Code><![CDATA[uniform(1,10)]]></Code>
+					<Code/>
 					<Unit Class="SpeedUnits">KPH</Unit>
 				</Value>
 			</Parameter>
@@ -1787,6 +1782,9 @@ logger.info("moveToLoadingQueue EXIT: truck={} at=({},{},{}) time={}",
 			</Parameter>
 			<Parameter>
 				<Name><![CDATA[onEnter]]></Name>
+				<Value Class="CodeValue">
+					<Code><![CDATA[updateTruckSpeed(agent);]]></Code>
+				</Value>
 			</Parameter>
 			<Parameter>
 				<Name><![CDATA[onExit]]></Name>
@@ -1931,14 +1929,11 @@ logger.info("Truck arrived, task now: {}", agent.currentTask);]]></Code>
 			</Parameter>
 			<Parameter>
 				<Name><![CDATA[setSpeed]]></Name>
-				<Value Class="CodeValue">
-					<Code><![CDATA[true]]></Code>
-				</Value>
 			</Parameter>
 			<Parameter>
 				<Name><![CDATA[speed]]></Name>
 				<Value Class="CodeUnitValue">
-					<Code><![CDATA[uniform(1,10)]]></Code>
+					<Code/>
 					<Unit Class="SpeedUnits">KPH</Unit>
 				</Value>
 			</Parameter>
@@ -1947,6 +1942,9 @@ logger.info("Truck arrived, task now: {}", agent.currentTask);]]></Code>
 			</Parameter>
 			<Parameter>
 				<Name><![CDATA[onEnter]]></Name>
+				<Value Class="CodeValue">
+					<Code><![CDATA[updateTruckSpeed(agent);]]></Code>
+				</Value>
 			</Parameter>
 			<Parameter>
 				<Name><![CDATA[onExit]]></Name>
@@ -2391,14 +2389,11 @@ logger.info("Truck arrived, task now: {}", agent.currentTask);]]></Code>
 			</Parameter>
 			<Parameter>
 				<Name><![CDATA[setSpeed]]></Name>
-				<Value Class="CodeValue">
-					<Code><![CDATA[true]]></Code>
-				</Value>
 			</Parameter>
 			<Parameter>
 				<Name><![CDATA[speed]]></Name>
 				<Value Class="CodeUnitValue">
-					<Code><![CDATA[uniform(1,10)]]></Code>
+					<Code/>
 					<Unit Class="SpeedUnits">KPH</Unit>
 				</Value>
 			</Parameter>
@@ -2407,6 +2402,9 @@ logger.info("Truck arrived, task now: {}", agent.currentTask);]]></Code>
 			</Parameter>
 			<Parameter>
 				<Name><![CDATA[onEnter]]></Name>
+				<Value Class="CodeValue">
+					<Code><![CDATA[updateTruckSpeed(agent);]]></Code>
+				</Value>
 			</Parameter>
 			<Parameter>
 				<Name><![CDATA[onExit]]></Name>
@@ -2546,14 +2544,11 @@ logger.info("Truck arrived, task now: {}", agent.currentTask);]]></Code>
 			</Parameter>
 			<Parameter>
 				<Name><![CDATA[setSpeed]]></Name>
-				<Value Class="CodeValue">
-					<Code><![CDATA[true]]></Code>
-				</Value>
 			</Parameter>
 			<Parameter>
 				<Name><![CDATA[speed]]></Name>
 				<Value Class="CodeUnitValue">
-					<Code><![CDATA[uniform(1,10)]]></Code>
+					<Code/>
 					<Unit Class="SpeedUnits">KPH</Unit>
 				</Value>
 			</Parameter>
@@ -2562,6 +2557,9 @@ logger.info("Truck arrived, task now: {}", agent.currentTask);]]></Code>
 			</Parameter>
 			<Parameter>
 				<Name><![CDATA[onEnter]]></Name>
+				<Value Class="CodeValue">
+					<Code><![CDATA[updateTruckSpeed(agent);]]></Code>
+				</Value>
 			</Parameter>
 			<Parameter>
 				<Name><![CDATA[onExit]]></Name>
